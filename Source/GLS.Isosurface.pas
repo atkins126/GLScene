@@ -1,9 +1,7 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.Isosurface;
-
 (*
   Polygonising a scalar field by construction of isosurfaces
   Algorithms
@@ -27,7 +25,6 @@ unit GLS.Isosurface;
   - Simple Data Structures to store Mesh. Vertices are calculated and stored twice
   or even more often.
 *)
-
 interface
 
 {$I GLScene.inc}
@@ -42,7 +39,7 @@ uses
   GLS.Mesh,
   GLS.VectorFileObjects,
   GLS.VectorTypes,
-  GLS.VectorRecTypes;
+  GLS.VectorTypesExt;
 
 const
   ALLOC_SIZE = 65536;
@@ -51,7 +48,6 @@ type
   TSingle3DArray = array of array of array of Single;
   TVertexArray = array of TVector3f;
   TIntegerArray = array of Integer;
-
   TGLMarchingCube = class(TObject)
   private
     FIsoValue: TxScalarValue;
@@ -156,10 +152,10 @@ type
       var AData: TSingle3DArray); overload;
     destructor Destroy(); override;
     procedure AssignData(Xdim, Ydim, Zdim: Integer; var AData: TSingle3DArray);
-    { Launch Marching Cubes }
+    // Launch Marching Cubes
     procedure MarchingCubes(Isovalue: Single; out Vertices: TVertexArray;
       out Triangles: TIntegerArray; isPolished: boolean);
-    { Launch Marching Tetrahedra }
+    // Launch Marching Tetrahedra
     procedure MarchingTetrahedra(Isovalue: Single; out Vertices: TVertexArray;
       out Triangles: TIntegerArray; isPolished: boolean);
   end;
@@ -1500,7 +1496,7 @@ var
   i: Integer;
   vx1, vx2, vx3: TGLVertexData;
 
-  function GetNrmColor(Nrm: TAffineVector): TVector;
+  function GetNrmColor(Nrm: TAffineVector): TGLVector;
   begin
     Result.V[0] := 0;
     if Nrm.V[0] > 0.0 then
@@ -1528,7 +1524,7 @@ var
     Result.V[3] := 0.3
   end;
 
-  function GetColor(H: TxScalarValue): TVector;
+  function GetColor(H: TxScalarValue): TGLVector;
   begin
     Result := VectorMake(0.890, 0.855, 0.788, Alpha)
     (*

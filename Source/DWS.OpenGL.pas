@@ -1,14 +1,11 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit DWS.OpenGL;
-
 (*
    DelphiWebScript symbol creation for OpenGL procedures and functions.
    This unit is still under development.
 *)
-
 interface
 
 {$I GLScene.inc}

@@ -12,7 +12,7 @@
 #pragma package(smart_init)
 #pragma link "GLS.LensFlare"
 #pragma link "GLS.VectorGeometry"
-#pragma link "GLSM.BASS"
+#pragma link "Sounds.BASS"
 #pragma link "GLS.Sound"
 #pragma link "GLS.SceneViewer"
 #pragma link "GLS.SkyDome"
@@ -221,9 +221,9 @@ void __fastcall TForm1::FormKeyPress(TObject * Sender, char &Key)
 	  Color.Red = 255; Color.Green = 255; Color.Blue = 100;
 	  SkyDome1->Stars->AddRandomStars(100, TGIFColorMap::RGB2Color(Color), True); // some yellowish ones
 
-	  GLSceneViewer1->Buffer->BackgroundColor = Graphics::clBlack;
+	  GLSceneViewer1->Buffer->BackgroundColor = clBlack;
 	  fe = GLSceneViewer1->Buffer->FogEnvironment;
-	  fe->FogColor->AsWinColor = Graphics::clBlack;
+	  fe->FogColor->AsWinColor = clBlack;
 	  fe->FogStart = -fe->FogStart;     // Fog is used to make things darker
 
 	  SPMoon->Visible = True;
@@ -267,7 +267,7 @@ void __fastcall TForm1::FormKeyPress(TObject * Sender, char &Key)
 
 void __fastcall TForm1::TISoundTimer(TObject * Sender)
 {
-  Gls::Vectorgeometry::TVector wolfPos;
+  TGLVector wolfPos;
   float c, s;
   TGLBSoundEmitter *be;
 

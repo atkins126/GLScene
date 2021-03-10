@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 unit GLS.ProcTextures;
@@ -119,7 +119,7 @@ end;
 procedure TGLProcTextureNoise.UpdateNoise;
 var
   X, Y, C: Integer;
-  Line: PPixel32Array;
+  Line: PGLPixel32Array;
   nf: Single;
   n: Byte;
 

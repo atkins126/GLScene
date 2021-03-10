@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 unit GLSL.ShapeShaders;
@@ -800,7 +800,7 @@ end;
 
 procedure TGLCelShader.DoApply(var rci: TGLRenderContextInfo; Sender: TObject);
 var
-  light: TVector;
+  light: TGLVector;
 begin
   if (csDesigning in ComponentState) then
     exit;

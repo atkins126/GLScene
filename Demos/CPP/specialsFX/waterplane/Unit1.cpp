@@ -8,13 +8,14 @@
 #include "Unit1.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
+#pragma link "GLSL.UserShader"
 #pragma resource "*.dfm"
 
 TForm1 *Form1;
 
 void TForm1::ClickWater(int x, int y)
 {
-  Gls::Vectorgeometry::TVector ip;
+  TGLVector ip;
   // create a ripple in the pond on a right-mousebutton click
   GLSceneViewer1->Buffer->
     ScreenVectorIntersectWithPlaneXZ(VectorMake
@@ -27,6 +28,12 @@ void TForm1::ClickWater(int x, int y)
 __fastcall TForm1::TForm1(TComponent * Owner):TForm(Owner)
 {
   SetGLSceneMediaDir();
+  GLWaterPlane1->Mask->LoadFromFile("basinMask.bmp");
+  GLHeightField1->Material->Texture->Image->LoadFromFile("clover.jpg");
+
+  TFileName PathCM = GetCurrentDir() + "\\Cubemaps";
+  SetCurrentDir(PathCM);
+
   // Load the cube map which is used both for environment and as reflection texture
   TGLTexture *t = GLMaterialLibrary1->Materials->Items[0]->Material->Texture;
   t->ImageClassName = __classid(TGLCubeMapImage)->ClassName();
@@ -41,8 +48,6 @@ __fastcall TForm1::TForm1(TComponent * Owner):TForm(Owner)
   img->Picture[CmtNY]->LoadFromFile("cm_bottom.jpg");
   img->Picture[CmtNZ]->LoadFromFile("cm_front.jpg");
 
-  GLWaterPlane1->Mask->LoadFromFile("basinMask.bmp");
-  GLHeightField1->Material->Texture->Image->LoadFromFile("clover.jpg");
 }
 
 //---------------------------------------------------------------------------
@@ -147,7 +152,7 @@ void __fastcall TForm1::GLHeightField1GetHeight(const float x,
 {
   z = 0.5 -
     (GLWaterPlane1->Mask->Bitmap->Canvas->
-     Pixels[Round(x + 64)][Round(y + 64)] & 0xFF) / 255;
+     Pixels[Int(x + 64)][Int(y + 64)] & 0xFF) / 255;
 }
 
 //---------------------------------------------------------------------------

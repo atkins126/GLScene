@@ -1,7 +1,6 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.ShadowHDS;
 
 (*
@@ -588,7 +587,7 @@ var
   sh, h: single;
   HD: TGLHeightData;
   Size: integer;
-  nmRow: PPixel32Array;
+  nmRow: PGLPixel32Array;
   ctr: integer;
   px, py: integer;
   lum: byte;

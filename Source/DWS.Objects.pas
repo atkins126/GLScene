@@ -1,14 +1,11 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit DWS.Objects;
-
 (*
-  Base classes and logic for DelphiWebScript enabled
-  objects in GLScene
+  Base classes and logic for DelphiWebScript enabled objects
+  in GLScene for vcl https://bitbucket.org/egrange/dwscript/src/master/
 *)
-
 interface
 
 uses

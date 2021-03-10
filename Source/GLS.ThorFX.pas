@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 unit GLS.ThorFX;
@@ -38,7 +38,7 @@ type
   PThorpoint = ^TThorpoint;
 
   TThorpoint = record
-    Position: TVector; // Position
+    Position: TGLVector; // Position
     Size: single; // particle size
   end;
 
@@ -293,7 +293,7 @@ end;
 procedure TGLThorFXManager.CalcThor;
 var
   N: integer;
-  vec, axs, nvec: TVector;
+  vec, axs, nvec: TGLVector;
   dist: single;
   a, b: single;
   len: single;
@@ -463,14 +463,14 @@ procedure TGLBThorFX.Render(var rci: TGLRenderContextInfo);
 var
   N: integer;
   i: integer;
-  // absPos :TVector;
-  InnerColor: TVector;
+  // absPos :TGLVector;
+  InnerColor: TGLVector;
   distList: TSingleList;
   objList: TList;
   fp: PThorpoint;
   mat: TMatrix;
 
-  vx, vy: TVector;
+  vx, vy: TGLVector;
   m: integer;
   Icol, Ocol, Ccol: TColorVector;
   Ppos, Ppos2: TAffineVector;

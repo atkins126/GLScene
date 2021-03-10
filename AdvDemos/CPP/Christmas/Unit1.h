@@ -28,7 +28,7 @@
 #include "GLS.SceneViewer.hpp"
 #include "GLS.WindowsFont.hpp"
 #include "GLS.ScreenSaver.hpp"
-#include "GLSM.BASS.hpp"
+#include "Sounds.BASS.hpp"
 #include "GLS.FileWAV.hpp"
 #include "Jpeg.hpp"
 #include "Import.Bass.hpp"
@@ -99,6 +99,7 @@ __published:	// IDE-managed Components
 	TPopupMenu *PopupMenu;
 	TMenuItem *miMerryCristmas;
 	TMenuItem *miHappyNewYear;
+	TGLFireFXManager *GLFireFXManager1;
 //	TScreenSaver *ScreenSaver;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall ViewerMouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,

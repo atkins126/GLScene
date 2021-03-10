@@ -1,7 +1,6 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit Physics.NGDRagdoll;
 
 (* The Ragdoll extension by using Newton Game Dynamics Engine (ODE) *)
@@ -14,7 +13,7 @@ uses
   GLS.VectorGeometry,
   GLS.VectorTypes,
   GLS.VectorFileObjects,
-  Import.NGD;
+  Imports.NGD;
 
 type
   TNewtonRagdoll = class
@@ -50,7 +49,7 @@ procedure Conform;
 destructor Destroy; override;
 procedure LoadFromFile(filename: string);
 procedure SaveToFile(filename: string);
-function TranslatePos(n: integer; add: boolean): TVector;
+function TranslatePos(n: integer; add: boolean): TGLVector;
 end;
 
 function GetBoneParent(actor: TGLActor; bone: integer): integer;
@@ -122,6 +121,8 @@ var
   p1, p2: TVector4f;
   d: single;
   Collision: PNewtonCollision;
+  CollisionBox, CollisionCylinder, CollisionSphere: PNewtonCollision;
+  Matrix: Tmatrix;
   CollisionOffsetMatrix: TMatrix; // For cone capsule and cylinder
 begin
   collisionOffsetMatrix := IdentityHmgMatrix;
@@ -139,9 +140,9 @@ begin
   SetLength(joints, actor.Skeleton.BoneCount - 1);
   for i := 0 to actor.Skeleton.BoneCount - 2 do
   begin
-    p1 := actor.Skeleton.BoneByID(i).GlobalMatrix.w;
+    p1 := actor.Skeleton.BoneByID(i).GlobalMatrix.W;
     if actor.Skeleton.BoneByID(i).BoneCount > 1 then
-      p2 := actor.Skeleton.BoneByID(i).Items[0].GlobalMatrix.w
+      p2 := actor.Skeleton.BoneByID(i).Items[0].GlobalMatrix.W
     else
       p2 := p1;
     p1 := VectorTransform(p1, actor.AbsoluteMatrix);

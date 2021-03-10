@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 unit GLS.ParticleFX;
@@ -763,7 +763,7 @@ procedure RndVector(const dispersion: TGLSourcePFXDispersionMode;
 
 var
   f2: Single;
-  p: TVector;
+  p: TGLVector;
 begin
   f2 := 2 * f;
   if Assigned(dispersionRange) then
@@ -1917,7 +1917,7 @@ var
   list: PGLParticleArray;
   doFriction, doPack: Boolean;
   frictionScale: Single;
-  //pos4: TVector;
+  //pos4: TGLVector;
 begin
   maxAge := MaxParticleAge;
   accelVector := Acceleration.AsAffineVector;
@@ -2852,7 +2852,7 @@ var
   s: Integer;
   x, y, d, h2: Integer;
   ih2, f, fy: Single;
-  scanLine1, scanLine2: PPixel32Array;
+  scanLine1, scanLine2: PGLPixel32Array;
 begin
   s := (1 shl TexMapSize);
   bmp32.Width := s;

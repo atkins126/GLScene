@@ -8,7 +8,7 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma link "GLS.BaseClasses"
-#pragma link "GLSL.CgShader"
+#pragma link "Cg.Shader"
 
 #pragma link "GLS.Material"
 #pragma link "GLS.Scene"
@@ -60,7 +60,7 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
 
 void __fastcall TForm1::CgShader1ApplyVP(TCgProgram *CgProgram, TObject *Sender)
 {
-  Gls::Vectorgeometry::TVector v;
+  TGLVector v;
   TCgParameter *Param;
   // rotate light vector for the "simple lighting" vertex program
   v = ZHmgVector;

@@ -1,7 +1,6 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.VectorTypes;
 
 (*
@@ -22,7 +21,113 @@ interface
 
 {$I GLScene.inc}
 
+uses
+  Winapi.Windows;
+
 type
+
+// ===========  OpenGL types  ============
+
+  TGLboolean = BYTEBOOL;
+  PGLboolean = ^TGLboolean;
+
+  TGLbitfield = UINT;
+  PGLbitfield = ^TGLbitfield;
+
+  TGLbyte = ShortInt;
+  PGLbyte = ^TGLbyte;
+
+  TGLshort = SmallInt;
+  PGLshort = ^TGLshort;
+
+  TGLint = Integer;
+  PGLint = System.PInteger;
+
+  TGLsizei = Integer;
+  PGLsizei = System.PInteger;
+
+  TGLint64 = Int64;
+  PGLint64 = System.PInt64;
+
+  TGLint64EXT = Int64;
+  PGLint64EXT = System.PInt64;
+
+  TGLuint64 = UInt64;
+  PGLuint64 = System.PUInt64;
+
+  TGLuint64EXT = UInt64;
+  PGLuint64EXT = System.PUInt64;
+
+  TGLubyte = Byte;
+  PGLubyte = System.PByte;
+
+  TGLushort = Word;
+  PGLushort = System.PWord;
+
+  TGLenum = Cardinal;
+  PGLenum = ^TGLenum;
+
+  TGLuint = Cardinal;
+  PGLuint = System.PCardinal;
+
+  TGLfloat = Single;
+
+  TGLdouble = Double;
+  PGLdouble = System.PDouble;
+
+  PGLclampf = System.PSingle;
+
+  TGLclampd = Double;
+  PGLclampd = System.PDouble;
+
+  PGLPCharArray = ^PAnsiChar;
+
+  PGLvoid = Pointer;
+  PGLPointer = ^PGLvoid;
+
+  TGLhandleARB = Cardinal;
+  PGLhandleARB = ^TGLhandleARB;
+
+  // the size of these depend on platform (32bit or 64bit)
+  TGLintptr = NativeInt;
+  PGLintptr = ^TGLintptr;
+
+  TGLsizeiptr = NativeInt;
+  PGLsizeiptr = ^TGLsizeiptr;
+
+  TGLsync = NativeInt;
+  PGLsync = ^TGLsync;
+
+  TGLchar = Byte;
+  PGLchar = MarshaledAString;
+
+  TGLhalf = WORD;
+  PGLhalf = ^TGLhalf;
+
+// ========= Windows types ==============
+
+  PWGLswap = ^TWGLswap;
+  _WGLSWAP = packed record
+    hdc: HDC;
+    uiFlags: UINT;
+  end;
+
+  TWGLswap = _WGLSWAP;
+  WGLSWAP = _WGLSWAP;
+  HPBUFFERARB = Integer;
+
+(* These OpenCL's types are compatible with cl_context and cl_event *)
+
+  T_cl_context = record end;
+  P_cl_context = ^T_cl_context;
+  T_cl_event = record end;
+  P_cl_event = ^T_cl_event;
+
+
+type
+
+// ===========  Vectors  ============
+
   //2
   TVector2d = record
     case Integer of
@@ -197,6 +302,11 @@ type
       1 : (X,Y,Z,W: Pointer);
   end;
 
+  PGLVector = ^TGLVector;
+  TGLVector = TVector4f;
+
+// ===========  Matrices  ============
+
  TMatrix2d = record
     case Integer of
       0 : (V: array[0..1] of TVector2d);
@@ -336,6 +446,9 @@ type
            _41, _42, _43, _44: single);
       1 : (M : TMatrix4f);
   end;
+
+  PGLMatrix = ^TMatrix4f;
+  TGLMatrix = TMatrix4f;
 
 //-----------------------------------------------  
 implementation

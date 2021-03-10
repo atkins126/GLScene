@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 unit GLS.MeshLines;
@@ -602,7 +602,7 @@ end;
 
 procedure TGLMeshLines.DrawCircle(Radius: Single);
 var
-  inner,outer,p1,p2: TVector;
+  inner,outer,p1,p2: TGLVector;
   i: Integer;
   a: Single;
   lUp: TAffineVector;

@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 unit GLS.Blur;
@@ -17,8 +17,7 @@ uses
   System.SysUtils,
   VCL.Graphics,
 
-  
-  GLS.OpenGLTokens,
+  GLS.VectorTypes,
   GLS.VectorGeometry,
   GLS.BaseClasses,
   GLS.Scene,
@@ -169,7 +168,6 @@ uses
   GLS.Coordinates,
   GLS.PersistentClasses,
   GLS.Strings,
-  GLS.VectorTypes,
   GLS.OpenGLAdapter;
 
 const
@@ -248,7 +246,7 @@ var
   refsiz: single;
   BMP: TGLImage;
   x, y: integer;
-  line: PPixel32Array;
+  line: PGLPixel32Array;
   by: Integer;
   bp: Integer;
   DoBlur: Boolean;
@@ -257,7 +255,7 @@ var
   var
     t: integer;
     x, y: integer;
-    lin, linu, lind, linuu, lindd: PPixel32Array;
+    lin, linu, lind, linuu, lindd: PGLPixel32Array;
     r, g, b: single;
 
     procedure ApplyBlurClampAndSetPixel;

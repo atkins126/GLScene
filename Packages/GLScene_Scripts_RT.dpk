@@ -36,7 +36,7 @@ requires
   DWS_RT;
 
 contains
-  Python.Script in '..\Source\Python.Script.pas',
+  Pythons.Script in '..\Source\Pythons.Script.pas',
   DWS.Classes in '..\Source\DWS.Classes.pas',
   DWS.HelperFunc in '..\Source\DWS.HelperFunc.pas',
   DWS.Objects in '..\Source\DWS.Objects.pas',

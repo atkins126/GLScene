@@ -1,7 +1,6 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.Behaviours;
 
 (* Standard TGLBehaviour subclasses *)
@@ -90,9 +89,9 @@ type
     procedure DoProgress(const progressTime: TGLProgressTimes); override;
     // Adds time-proportionned acceleration to the speed. 
     procedure ApplyTranslationAcceleration(const deltaTime: double;
-      const accel: TVector);
+      const accel: TGLVector);
     // Applies a timed force to the inertia. If Mass is null, nothing is done. 
-    procedure ApplyForce(const deltaTime: Double; const Force: TVector);
+    procedure ApplyForce(const deltaTime: Double; const Force: TGLVector);
     (*Applies a timed torque to the inertia (yuck!).
       This gets a "yuck!" because it is as false as the rest of the rotation  model. *)
     procedure ApplyTorque(const deltaTime: double;
@@ -102,7 +101,7 @@ type
     (* Bounce speed as if hitting a surface. 
        restitution is the coefficient of restituted energy (1=no energy loss, 0=no bounce). 
 	   The normal is NOT assumed to be normalized. *)
-    procedure SurfaceBounce(const surfaceNormal: TVector; restitution: single);
+    procedure SurfaceBounce(const surfaceNormal: TGLVector; restitution: single);
   published
     property Mass: single read FMass write FMass;
     property TranslationSpeed: TGLCoordinates read FTranslationSpeed write SetTranslationSpeed;
@@ -406,7 +405,7 @@ end;
 
 procedure TGLBInertia.DoProgress(const progressTime: TGLProgressTimes);
 var
-  trnVector: TVector;
+  trnVector: TGLVector;
   speed, newSpeed: double;
 
   procedure ApplyRotationDamping(var rotationSpeed: single);
@@ -466,13 +465,13 @@ begin
 end;
 
 procedure TGLBInertia.ApplyTranslationAcceleration(const deltaTime: double;
-  const accel: TVector);
+  const accel: TGLVector);
 begin
   FTranslationSpeed.AsVector := VectorCombine(FTranslationSpeed.AsVector,
     accel, 1, deltaTime);
 end;
 
-procedure TGLBInertia.ApplyForce(const deltaTime: double; const force: TVector);
+procedure TGLBInertia.ApplyForce(const deltaTime: double; const force: TGLVector);
 begin
   if Mass <> 0 then
     FTranslationSpeed.AsVector :=
@@ -498,7 +497,7 @@ begin
   FTranslationSpeed.Invert;
 end;
 
-procedure TGLBInertia.SurfaceBounce(const surfaceNormal: TVector; restitution: single);
+procedure TGLBInertia.SurfaceBounce(const surfaceNormal: TGLVector; restitution: single);
 var
   f: single;
 begin

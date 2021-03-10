@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 unit GLS.BumpmapHDS;
@@ -281,7 +281,7 @@ var
   X, Y: Integer;
   scaleVec: TAffineVector;
   vec: TAffineVector;
-  nmRow: PPixel32Array;
+  nmRow: PGLPixel32Array;
   px, py: Integer;
 begin
   HD := heightData;

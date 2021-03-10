@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 unit GLS.Sound;
@@ -20,6 +20,8 @@ uses
   GLS.VectorGeometry,
   GLS.Cadencer,
   GLS.BaseClasses,
+  GLS.FileMP3,
+  GLS.FileWAV,
   GLS.Utils;
 
 {$I GLScene.inc}
@@ -220,7 +222,7 @@ type
     FPause: Boolean;
     FMasterVolume: Single;
     FListener: TGLBaseSceneObject;
-    FLastListenerPosition: TVector;
+    FLastListenerPosition: TGLVector;
     FSources: TGLSoundSources;
     FMaxChannels: Integer;
     FOutputFrequency: Integer;
@@ -255,7 +257,7 @@ type
     procedure SetSoundEnvironment(const val: TGLSoundEnvironment);
     procedure Loaded; override;
     procedure DefineProperties(Filer: TFiler); override;
-    procedure ListenerCoordinates(var position, velocity, direction, up: TVector);
+    procedure ListenerCoordinates(var position, velocity, direction, up: TGLVector);
     function DoActivate: Boolean; virtual;
     // Invoked AFTER all sources have been stopped
     procedure DoDeActivate; virtual;
@@ -1319,9 +1321,9 @@ end;
 
 
 procedure TGLSoundManager.ListenerCoordinates(var position, velocity, direction,
-  up: TVector);
+  up: TGLVector);
 var
-  right: TVector;
+  right: TGLVector;
 begin
   if Listener <> nil then
   begin

@@ -1,7 +1,6 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.ProjectedTextures;
 
 (* Implements projected textures through an object. *)
@@ -144,7 +143,6 @@ end;
 // ------------------
 // ------------------ TGLTextureEmitterItem ------------------
 // ------------------
-
 
 constructor TGLTextureEmitterItem.Create(ACollection: TCollection);
 begin

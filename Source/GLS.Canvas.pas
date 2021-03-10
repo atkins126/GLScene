@@ -1,15 +1,12 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.Canvas;
-
 (*
    Implements a basic Canvas-like interface over for OpenGL.
    This class can be used for generic OpenGL applications and has no dependencies
    to the GLScene core units (only to base units).
 *)
-
 interface
 
 {$I GLScene.inc}
@@ -20,7 +17,7 @@ uses
   System.Classes,
   System.Math,
   Vcl.Graphics,
-  
+
   GLS.OpenGLTokens,
   GLS.VectorGeometry,
   GLS.Color,
@@ -30,7 +27,7 @@ uses
 
 type
 
-  TArcDirection = (adCounterClockWise, adClockWise);
+  TGLArcDirection = (adCounterClockWise, adClockWise);
 
   (* A simple Canvas-like interface for OpenGL.
      This class implements a small "shell" for 2D operations in OpenGL,
@@ -49,8 +46,8 @@ type
     FCurrentPos: TAffineVector;
     FPenColor: TColor;
     FPenWidth: Integer;
-    FCurrentPenColorVector: TVector;
-    FArcDirection: TArcDirection;
+    FCurrentPenColorVector: TGLVector;
+    FArcDirection: TGLArcDirection;
   protected
     procedure BackupOpenGLStates;
     procedure StartPrimitive(const primitiveType: Integer);
@@ -69,7 +66,7 @@ type
       UpdateCurrentPos: Boolean); overload;
   public
     constructor Create(bufferSizeX, bufferSizeY: Integer;
-      const baseTransform: TMatrix); overload;
+      const baseTransform: TGLMatrix); overload;
     constructor Create(bufferSizeX, bufferSizeY: Integer); overload;
     destructor Destroy; override;
     (* Stops the current internal primitive.
@@ -140,7 +137,7 @@ type
     procedure FillEllipse(const x, y: Single; const Radius: Single); overload;
     (* Draw a filled gradient ellipse.
     OpenGL will use the last PenColor and PenAlpha as the center color and do gradient 
-	to edge of ellipse using the edgeColor parameter. *)
+  	to edge of ellipse using the edgeColor parameter. *)
     procedure FillEllipseGradient(const x, y, xRadius, yRadius: Single;
       const edgeColor: TColorVector); overload;
     procedure FillEllipseGradient(const x, y: Integer;
@@ -164,7 +161,7 @@ type
     procedure ArcTo(const x1, y1, x2, y2: Single; AngleBegin, AngleEnd: Single); overload;
     procedure RoundRect(const x1, y1, x2, y2, xr, yr: Integer); overload;
     procedure RoundRect(const x1, y1, x2, y2, xr, yr: Single); overload;
-    property ArcDirection: TArcDirection read FArcDirection write FArcDirection;
+    property ArcDirection: TGLArcDirection read FArcDirection write FArcDirection;
   end;
 
 //-------------------------------------------------------------
@@ -181,9 +178,9 @@ const
 // ------------------
 
 constructor TGLCanvas.Create(bufferSizeX, bufferSizeY: Integer;
-  const baseTransform: TMatrix);
+  const baseTransform: TGLMatrix);
 var
-  PM: TMatrix;
+  PM: TGLMatrix;
 begin
   FBufferSizeX := bufferSizeX;
   FBufferSizeY := bufferSizeY;

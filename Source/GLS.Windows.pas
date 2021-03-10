@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 unit GLS.Windows;
@@ -1645,7 +1645,7 @@ end;
 procedure TGLBaseFontControl.WriteTextAt(var rci: TGLRenderContextInfo; const X,
   Y: TGLFloat; const Data: UnicodeString; const Color: TColorVector);
 var
-  Position: TVector;
+  Position: TGLVector;
 begin
   if Assigned(BitmapFont) then
   begin
@@ -1660,7 +1660,7 @@ end;
 procedure TGLBaseFontControl.WriteTextAt(var rci: TGLRenderContextInfo; const X1,
   Y1, X2, Y2: TGLFloat; const Data: UnicodeString; const Color: TColorVector);
 var
-  Position: TVector;
+  Position: TGLVector;
 begin
   if Assigned(BitmapFont) then
   begin
@@ -2772,7 +2772,7 @@ end;
 procedure TGLLabel.InternalRender(var rci: TGLRenderContextInfo; renderSelf,
   renderChildren: Boolean);
 var
-  TekstPos: TVector;
+  TekstPos: TGLVector;
   Tekst: UnicodeString;
   TextColor: TColorVector;
 begin

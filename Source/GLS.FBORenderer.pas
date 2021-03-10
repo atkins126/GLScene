@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 unit GLS.FBORenderer;
@@ -196,7 +196,7 @@ type
     FPostGenerateMipmap: Boolean;
     FMaxSize: Integer;
     FMaxAttachment: Integer;
-    FStoreCamera: array[0..2] of TVector;
+    FStoreCamera: array[0..2] of TGLVector;
     FOnSetTextureTargets: TSetTextureTargetsEvent;
     // implementing IGLMaterialLibrarySupported
     function GetMaterialLibrary: TGLAbstractMaterialLibrary;

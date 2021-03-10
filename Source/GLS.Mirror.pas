@@ -1,15 +1,12 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.Mirror;
-
 (*
-   Implements a basic, stencil-based mirror (as in Mark Kilgard's demo). 
+   Implements a basic, stencil-based mirror (as in Mark Kilgard's demo).
    It is strongly recommended to read and understand the explanations in the
-   materials/mirror demo before using this component. 
+   materials/mirror demo before using this component.
 *)
-
 interface
 
 {$I GLScene.inc}
@@ -82,7 +79,7 @@ type
       ARenderSelf, ARenderChildren: Boolean); override;
     procedure BuildList(var ARci: TGLRenderContextInfo); override;
     procedure Assign(Source: TPersistent); override;
-    function AxisAlignedDimensionsUnscaled: TVector; override;
+    function AxisAlignedDimensionsUnscaled: TGLVector; override;
   published
     // Selects the object to mirror. If nil, the whole scene is mirrored 
     property MirrorObject: TGLBaseSceneObject read FMirrorObject write
@@ -122,7 +119,6 @@ implementation
 // ------------------ TGLMirror ------------------
 // ------------------
 
- 
 constructor TGLMirror.Create(AOwner: Tcomponent);
 begin
   inherited Create(AOwner);
@@ -146,7 +142,7 @@ var
   refMat, curMat, ModelMat: TMatrix;
   clipPlane: TDoubleHmgPlane;
   bgColor: TColorVector;
-  cameraPosBackup, cameraDirectionBackup: TVector;
+  cameraPosBackup, cameraDirectionBackup: TGLVector;
   CurrentBuffer: TGLSceneBuffer;
 begin
   if FRendering then
@@ -415,7 +411,7 @@ begin
 end;
 
 
-function TGLMirror.AxisAlignedDimensionsUnscaled: TVector;
+function TGLMirror.AxisAlignedDimensionsUnscaled: TGLVector;
 begin
   Result := VectorMake(0.5 * Abs(FWidth),
     0.5 * Abs(FHeight), 0);

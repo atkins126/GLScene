@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 (* Include File for GLScene *)
@@ -80,12 +80,14 @@
   {$DEFINE SUPPORT_WGL}
 {$ENDIF}
 
-{$IFDEF LINUX}
-  {$UNDEF SUPPORT_WGL}
-  {$UNDEF USE_ASM}
-  {$DEFINE UNIX}
-  {$DEFINE SUPPORT_GLX}
-  {$DEFINE X11_SUPPORT}
+{$IFNDEF CROSSVCL}
+  {$IFDEF LINUX}
+    {$UNDEF SUPPORT_WGL}
+    {$UNDEF USE_ASM}
+    {$DEFINE UNIX}
+    {$DEFINE SUPPORT_GLX}
+    {$DEFINE X11_SUPPORT}
+  {$ENDIF}
 {$ENDIF}
 
 // .NET

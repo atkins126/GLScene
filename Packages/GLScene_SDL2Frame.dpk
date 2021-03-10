@@ -1,0 +1,42 @@
+package GLScene_SDL2Frame;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO OFF}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  vcl;
+
+contains
+  GLS.SDL2Frame in '..\Source\GLS.SDL2Frame.pas',
+  Imports.SDL2 in '..\Source\Imports.SDL2.pas',
+  Imports.SDL2Image in '..\Source\Imports.SDL2Image.pas',
+  Imports.SDL2Mixer in '..\Source\Imports.SDL2Mixer.pas',
+  Imports.SDL2Net in '..\Source\Imports.SDL2Net.pas',
+  Imports.SDL2Ttf in '..\Source\Imports.SDL2Ttf.pas';
+
+end.

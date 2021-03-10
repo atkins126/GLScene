@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 unit GLS.Feedback;
@@ -193,7 +193,7 @@ procedure TGLFeedback.BuildMeshFromBuffer(
 var
   value: Single;
   i, j, LCount, skip: Integer;
-  vertex, color, texcoord: TVector;
+  vertex, color, texcoord: TGLVector;
   tempVertices, tempNormals, tempTexCoords: TAffineVectorList;
   tempColors: TVectorList;
   tempIndices: TIntegerList;

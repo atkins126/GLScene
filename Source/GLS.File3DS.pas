@@ -1,7 +1,6 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.File3DS;
 
 (* 3DStudio 3DS vector file format implementation *)
@@ -31,8 +30,8 @@ uses
   GLS.RenderContextInfo,
   GLS.Material,
 
-  Format3DS,
-  Format3DSTypes;
+  Formats.m3DS,
+  Formats.m3DSTypes;
 
 type
 
@@ -41,7 +40,7 @@ type
   // A record that holds all the information that is used during 3ds animation.
   TGLFile3DSAnimationData = packed record
     ModelMatrix: TMatrix;
-    Color: TVector; // Omni Light.
+    Color: TGLVector; // Omni Light.
     TargetPos: TAffineVector; // Spot Light.
     SpotLightCutOff: Single;
     HotSpot: Single;
@@ -162,7 +161,6 @@ type
   public
     procedure AddKeys(const AItem: TGLFile3DSAnimationKeys);
     procedure ClearKeys;
-
     procedure Assign(Source: TPersistent); override;
     procedure WriteToFiler(Writer: TVirtualWriter); override;
     procedure ReadFromFiler(Reader: TVirtualReader); override;
@@ -184,19 +182,16 @@ type
   public
     procedure LoadAnimation(const AData: Pointer); virtual;
     procedure SetFrame(const AFrame: real); virtual;
-
     procedure MorphTo(morphTargetIndex: Integer); override;
     procedure Lerp(morphTargetIndex1, morphTargetIndex2: Integer; lerpFactor: Single); override;
     procedure GetExtents(out min, max: TAffineVector); override;
     function ExtractTriangles(texCoords: TAffineVectorList = nil; normals: TAffineVectorList = nil): TAffineVectorList;
       override;
-
     procedure WriteToFiler(Writer: TVirtualWriter); override;
     procedure ReadFromFiler(Reader: TVirtualReader); override;
     procedure Assign(Source: TPersistent); override;
     constructor Create; override;
     destructor Destroy; override;
-
     property AnimList: TGLFile3DSAnimationKeyList read FAnimList;
     property Parent: TGLFile3DSDummyObject read FParent write FParent;
     property RefrenceTransf: TGLFile3DSAnimationData read FRefTranf write FRefTranf;
@@ -340,7 +335,7 @@ end;
 
 function MakeRotationQuaternion(const axis: TAffineVector; angle: Single): TQuaternion;
 var
-  v: TVector;
+  v: TGLVector;
   halfAngle, invAxisLengthMult: Single;
 begin
   halfAngle := (angle) / 2;
@@ -358,7 +353,7 @@ end;
 function QuaternionToRotateMatrix(const Quaternion: TQuaternion): TMatrix;
 var
   wx, wy, wz, xx, yy, yz, xy, xz, zz, x2, y2, z2: Single;
-  quat: TVector;
+  quat: TGLVector;
   m: TMatrix;
 begin
   quat := VectorMake(Quaternion.ImagPart);
@@ -1511,7 +1506,7 @@ var
   function GetOrAllocateMaterial(materials: TMaterialList; const Name: string): string;
   var
     material: PMaterial3DS;
-    specColor: TVector;
+    specColor: TGLVector;
     matLib: TGLMaterialLibrary;
     libMat, SecondMaterial: TGLLibMaterial;
   begin
@@ -1714,7 +1709,7 @@ var
     I, Index: Integer;
     boolY: Boolean;
     m: TMatrix;
-    v4: TVector;
+    v4: TGLVector;
     factor: Single;
   begin
     with Objects do

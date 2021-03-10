@@ -1,7 +1,6 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.Color;
 
 (* All color types, constants and utilities should go here *)
@@ -30,7 +29,7 @@ type
   PRGBColor = ^TRGBColor;
   TRGBColor = TVector3b;
 
-  // Wraps an OpenGL color. 
+  // Wraps an OpenGL color.
   TGLColor = class(TGLUpdateAbleObject)
   private
     FColor: TColorVector;
@@ -45,8 +44,8 @@ type
     procedure DefineProperties(Filer: TFiler); override;
     procedure ReadData(Stream: TStream);
     procedure WriteData(Stream: TStream);
-    function GetHSVA: TVector;
-    procedure SetHSVA(const hsva: TVector);
+    function GetHSVA: TGLVector;
+    procedure SetHSVA(const hsva: TGLVector);
   public
     constructor Create(AOwner: TPersistent); override;
     constructor CreateInitialized(AOwner: TPersistent;
@@ -61,7 +60,7 @@ type
     property Color: TColorVector read FColor write SetColorVector;
     property DirectColor: TColorVector read FColor write SetDirectColorVector;
     property AsWinColor: TColor read GetAsWinColor write SetAsWinColor;
-    property hsva: TVector read GetHSVA write SetHSVA;
+    property hsva: TGLVector read GetHSVA write SetHSVA;
     property DefaultColor: TColorVector read FColor;
   published
     property Red: Single index 0 read GetColorComponent write SetColorComponent
@@ -78,7 +77,7 @@ type
 
   TColorEntry = record
     Name: String;
-    color: TColorVector;
+    Color: TColorVector;
   end;
 
   TGLColorManager = class(TList)
@@ -88,14 +87,14 @@ type
     procedure EnumColors(Proc: TGetStrProc); overload;
     procedure EnumColors(AValues: TStrings); overload;
     function FindColor(const aName: String): TColorVector;
-    { Convert a clrXxxx or a '<Red Green Blue Alpha> to a color vector }
+    // Convert a clrXxxx or a '<Red Green Blue Alpha> to a color vector
     function GetColor(const aName: String): TColorVector;
     function GetColorName(const aColor: TColorVector): String;
     procedure RegisterDefaultColors;
     procedure RemoveColor(const aName: String);
   end;
 
-// Builds a TColor from Red Green Blue components. 
+// Builds a TColor from Red Green Blue components.
 function RGB2Color(const r, g, b: Byte): TColor; inline;
 function ColorManager: TGLColorManager;
 procedure RegisterColor(const aName: String; const aColor: TColorVector);
@@ -104,7 +103,7 @@ function GetRValue(rgb: DWORD): Byte; {$NODEFINE GetRValue}
 function GetGValue(rgb: DWORD): Byte; {$NODEFINE GetGValue}
 function GetBValue(rgb: DWORD): Byte; {$NODEFINE GetBValue}
 procedure InitGLSceneColors;
-// Converts a delphi color into its RGB fragments and correct range. 
+// Converts a delphi color into its RGB fragments and correct range.
 function ConvertWinColor(aColor: TColor; Alpha: Single = 1): TColorVector;
 // Converts a color vector (containing float values)
 function ConvertColorVector(const aColor: TColorVector): TColor; overload;
@@ -132,12 +131,12 @@ const
   clHighlight = TColor(-13);
   clHighlightedText = TColor(-14);
 
-  // Mapped role offsets 
+  // Mapped role offsets
   cloNormal = 32;
   cloDisabled = 64;
   cloActive = 96;
 
-  // Normal, mapped, pseudo, rgb values 
+  // Normal, mapped, pseudo, rgb values
   clNormalForeground = TColor(clForeground - cloNormal);
   clNormalButton = TColor(clButton - cloNormal);
   clNormalLight = TColor(clLight - cloNormal);
@@ -153,7 +152,7 @@ const
   clNormalHighlight = TColor(clHighlight - cloNormal);
   clNormalHighlightedText = TColor(clHighlightedText - cloNormal);
 
-  // Disabled, mapped, pseudo, rgb values 
+  // Disabled, mapped, pseudo, rgb values
   clDisabledForeground = TColor(clForeground - cloDisabled);
   clDisabledButton = TColor(clButton - cloDisabled);
   clDisabledLight = TColor(clLight - cloDisabled);
@@ -169,7 +168,7 @@ const
   clDisabledHighlight = TColor(clHighlight - cloDisabled);
   clDisabledHighlightedText = TColor(clHighlightedText - cloDisabled);
 
-  // Active, mapped, pseudo, rgb values 
+  // Active, mapped, pseudo, rgb values
   clActiveForeground = TColor(clForeground - cloActive);
   clActiveButton = TColor(clButton - cloActive);
   clActiveLight = TColor(clLight - cloActive);
@@ -600,9 +599,9 @@ end;
 
 procedure TGLColor.RandomColor;
 begin
-  red := Random;
-  green := Random;
-  blue := Random;
+  Red := Random;
+  Green := Random;
+  Blue := Random;
 end;
 
 procedure TGLColor.SetColor(Red, Green, Blue: Single; Alpha: Single = 1);
@@ -614,7 +613,7 @@ begin
   NotifyChange(Self);
 end;
 
-function TGLColor.GetHSVA: TVector;
+function TGLColor.GetHSVA: TGLVector;
 var
   delta, min: Single;
 const
@@ -650,7 +649,7 @@ begin
   Result.W := Alpha;
 end;
 
-procedure TGLColor.SetHSVA(const hsva: TVector);
+procedure TGLColor.SetHSVA(const hsva: TGLVector);
 var
   f, hTemp, p, q, t: Single;
 const

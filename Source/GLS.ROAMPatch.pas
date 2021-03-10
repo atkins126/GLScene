@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 unit GLS.ROAMPatch;
@@ -180,7 +180,7 @@ procedure DrawContours(Vertices: TAffineVectorList; VertexIndices: TIntegerList;
 var
   i: Integer;
   Isolines: TAffineVectorList;
-  CurColor: TVector;
+  CurColor: TGLVector;
 
 begin
   if ContourInterval > 0 then

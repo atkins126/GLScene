@@ -1,10 +1,9 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit Physics.ODEUtils;
 
-(* Open Dynamic Engine Utils 
+(* Open Dynamic Engine Utils
 
    Here is the collection of random functions and procedures that useful when
    integrating ODE into GLScene. If you don't use GLS.Scene, this unit won't be
@@ -19,7 +18,7 @@ uses
   System.SysUtils,
   System.Classes,
 
-  Import.ODE,
+  Imports.ODE,
   GLS.OpenGLTokens,
   GLS.Context,
   GLS.VectorGeometry,
@@ -75,10 +74,10 @@ function CreateTriMeshFromBaseMesh(
   var Indices: PdIntegerArray): PdxGeom;
 
 function GLMatrixFromGeom(Geom: PdxGeom): TMatrix;
-function GLDirectionFromGeom(Geom: PdxGeom): TVector;
+function GLDirectionFromGeom(Geom: PdxGeom): TGLVector;
 function CreateODEPlaneFromGLPlane(Plane: TGLPlane; Space: PdxSpace): PdxGeom;
 procedure RenderGeomList(GeomList: TGeomList);
-function RandomColorVector: TVector;
+function RandomColorVector: TGLVector;
 
 {.$ EXTERNALSYM GL_ZERO}
 
@@ -345,7 +344,7 @@ begin
   end;
 end;
 
-function GLDirectionFromGeom(Geom: PdxGeom): TVector;
+function GLDirectionFromGeom(Geom: PdxGeom): TGLVector;
 var
   m: TMatrix;
 begin
@@ -376,7 +375,7 @@ end;
 
 procedure CopyPosFromGeomToGL(Geom: PdxGeom; GLBaseSceneObject: TGLBaseSceneObject);
 var
-  v: TVector;
+  v: TGLVector;
   m: TMatrix;
 
   R: PdMatrix3;
@@ -437,16 +436,16 @@ function CreateTriMeshFromBaseMesh(
   var Indices: PdIntegerArray): PdxGeom;
 var
   i, j, p: integer;
-  FaceExtractor: TFaceExtractor;
+  FaceExtractor: TGLFaceExtractor;
   VertexCount: integer;
   Vertex: TAffineVector;
   OffsetList: TIntegerList;
-  Face: TFace;
+  Face: TGLFace;
   iMO: integer;
   TriMeshData: PdxTriMeshData;
 begin
   OffsetList := nil;
-  FaceExtractor := TFaceExtractor.Create(GLBaseMesh);
+  FaceExtractor := TGLFaceExtractor.Create(GLBaseMesh);
 
   try
     OffsetList := TIntegerList.Create;
@@ -552,7 +551,7 @@ end;
 
 function CreateODEPlaneFromGLPlane(Plane: TGLPlane; Space: PdxSpace): PdxGeom;
 var
-  Pos, Direction: TVector;
+  Pos, Direction: TGLVector;
   d: single;
 begin
   Direction := Plane.AbsoluteDirection;
@@ -565,9 +564,10 @@ begin
   result := dCreatePlane(space, Direction.X, Direction.Y, Direction.Z, d);
 end;
 
-function RandomColorVector: TVector;
+function RandomColorVector: TGLVector;
 begin
   result := VectorMake(Random, Random, Random, 1);
 end;
 end.
+
 

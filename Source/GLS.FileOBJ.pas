@@ -1,16 +1,13 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.FileOBJ;
-
 (*
     Support-Code to load Wavefront OBJ Files into TGLFreeForm-Components
     in GLScene.
     Note that you must manually add this unit to one of your project's uses
     to enable support for OBJ & OBJF at run-time.
 *)
-
 interface
 
 {$I GLScene.inc}
@@ -91,7 +88,7 @@ type
     procedure Prepare;
     function MaterialStringProperty(const materialName, propertyName: string): string;
     function MaterialVectorProperty(const materialName, propertyName: string;
-      const defaultValue: TVector): TVector;
+      const defaultValue: TGLVector): TGLVector;
   end;
 
 var
@@ -1353,7 +1350,7 @@ begin
 end;
 
 function TGLMTLFile.MaterialVectorProperty(const materialName, propertyName: string;
-  const defaultValue: TVector): TVector;
+  const defaultValue: TGLVector): TGLVector;
 var
   i: Integer;
   sl: TStringList;

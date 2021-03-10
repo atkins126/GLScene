@@ -1,5 +1,5 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
 
 unit GLS.PerlinPFX;
@@ -103,7 +103,7 @@ type
     function Noise(const x, y: Single): Single; overload;
     function Noise(const x, y, z: Single): Single; overload;
     function Noise(const v: TAffineVector): Single; overload;
-    function Noise(const v: TVector): Single; overload;
+    function Noise(const v: TGLVector): Single; overload;
   end;
 
 
@@ -212,7 +212,7 @@ procedure TGLPerlinPFXManager.PrepareImage(bmp32: TGLBitmap32; var texFormat: In
     x, y, d: Integer;
     is2, f, fy, pf, nBase, nAmp, df, dfg: Single;
     invGamma: Single;
-    scanLine: PPixel32Array;
+    scanLine: PGLPixel32Array;
     gotIntensityCorrection: Boolean;
   begin
     s2 := s shr 1;
@@ -432,7 +432,7 @@ begin
   Result := Noise(AffineVectorMake(x, y, z));
 end;
 
-function TGLPerlin3DNoise.Noise(const v: TVector): Single;
+function TGLPerlin3DNoise.Noise(const v: TGLVector): Single;
 begin
   Result := Noise(PAffineVector(@v)^);
 end;

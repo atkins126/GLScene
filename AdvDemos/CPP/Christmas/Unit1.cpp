@@ -24,7 +24,7 @@
 #pragma link "GLS.SceneViewer"
 #pragma link "GLS.WindowsFont"
 #pragma link "GLS.ScreenSaver"
-#pragma link "GLSM.BASS"
+#pragma link "Sounds.BASS"
 #pragma link "GLS.File3DS"
 #pragma link "GLS.FileWAV"
 #pragma link "GLS.ScreenSaver"
@@ -87,8 +87,8 @@ void __fastcall TForm1::TimerTimer(TObject *Sender) {
 		BASS_ChannelPlay(bStream, false);
 	}
 	DecodeDate(Now(), y, m, d);
-	///   t = EncodeDate(y, 12, 25) - Now(); //Merry Christmas
-	///t = EncodeDate(y+1, 01, 01) - Now(); //Happy New Year!
+	 t = EncodeDate(y, 12, 25) - Now(); //Merry Christmas
+	// t = EncodeDate(y+1, 01, 01) - Now(); //Happy New Year!
 	if (miMerryCristmas->Checked) {
 		t = EncodeDate(y, 12, 25) - Now();
 		FTCongratulations->Text = "Merry Christmas!";

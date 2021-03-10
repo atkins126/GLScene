@@ -19,12 +19,12 @@ uses
   Vcl.Imaging.Jpeg,
 
   GLS.ArchiveManager,
-  GLS.FilePAK,
-  GLS.FileZLIB,
   GLS.SceneViewer,
- 
+
   GLS.BaseClasses,
+  GLS.VectorTypes,
   GLS.Scene,
+  GLS.VectorGeometry,
   GLS.SimpleNavigation,
   GLS.Material,
   GLS.VectorFileObjects,
@@ -34,17 +34,22 @@ uses
   GLS.State,
   GLS.CompositeImage,
   // FileFormats 3D
+  GLS.FileJPEG,
+  GLS.FilePAK,
+  GLS.FileZLIB,
+
   GLS.FileMS3D,
   GLS.File3DS,
   GLS.FileMD2,
   GLS.FileMD3,
-  GLFileLMTS,
+  GLS.FileLMTS,
   GLS.FileOBJ,
   GLS.FileSMD,
   GLS.FileTGA,
-  GLS,FilePNG,
-  GLS.FileDDS, GLS.SimpleNavigation, GLS.Material, GLS.Objects, GLS.Scene,
-  GLS.VectorFileObjects, GLS.BaseClasses, GLS.SceneViewer;
+  GLS.FilePNG,
+  GLS.FileDDS,
+
+  GLS.Utils;
 
 type
   TForm1 = class(TForm)
@@ -128,12 +133,27 @@ var
 implementation
 //-------------------------------------
 
-uses 
+uses
   FolderDialog, 
   FolderSelect;
 
 {$R *.dfm}
 {.$R icons.res}
+
+procedure TForm1.FormCreate(Sender: TObject);
+var
+  Bmp: TBitmap;
+begin
+  SetGLSceneMediaDir();
+  Bmp := TBitmap.Create;
+  Bmp.LoadFromResourceName(HInstance, 'ICONS');
+  ImageList1.AddMasked(Bmp, clWhite);
+  Bmp.Free;
+  ArchiveManager := TGLSArchiveManager.Create(Self);
+  Archive := ArchiveManager.Archives.Add;
+  vMenu := None1;
+end;
+
 
 procedure TForm1.AddNode(text: string; node: TTreeNode);
 var
@@ -262,19 +282,6 @@ begin
             ImageIndex := 2;
         end;
     end;
-end;
-
-procedure TForm1.FormCreate(Sender: TObject);
-var
-  Bmp: TBitmap;
-begin
-  Bmp := TBitmap.Create;
-  Bmp.LoadFromResourceName(HInstance, 'ICONS');
-  ImageList1.AddMasked(Bmp, clWhite);
-  Bmp.Free;
-  ArchiveManager := TGLSArchiveManager.Create(Self);
-  Archive := ArchiveManager.Archives.Add;
-  vMenu := None1;
 end;
 
 procedure TForm1.TreeViewCollapsing(Sender: TObject; node: TTreeNode;
@@ -498,7 +505,7 @@ begin
     for i := 0 to ListView.Items.Count - 1 do
       if ListView.Items[i].Selected then
         Archive.Extract(CurPath + ListView.Items[i].Caption,
-          FolderSel.ShellView.{$IFNDEF FPC}Path{$ELSE}GetBasePath{$ENDIF} + '\'
+          FolderSel.ShellView.Path + '\'
           + ListView.Items[i].Caption);
   end;
 end;
@@ -518,14 +525,10 @@ begin
   vMenu.Checked := False;
   vMenu := (Sender As TMenuItem);
   case vMenu.Tag of
-    0:
-      Archive.CompressionLevel := clNone;
-    1:
-      Archive.CompressionLevel := clFastest;
-    2:
-      Archive.CompressionLevel := clDefault;
-    3:
-      Archive.CompressionLevel := clMax;
+    0: Archive.CompressionLevel := clNone;
+    1: Archive.CompressionLevel := clFastest;
+    2: Archive.CompressionLevel := clDefault;
+    3: Archive.CompressionLevel := clMax;
   end;
   vMenu.Checked := True;
 end;

@@ -1,7 +1,6 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.FilePGM;
 
 (* PGM image loader *)
@@ -15,14 +14,13 @@ uses
   System.Classes,
   System.SysUtils,
   
-  GLS.OpenGLTokens,
   GLS.Context,
   GLS.Graphics,
   GLS.TextureFormat,
   GLS.Strings,
   GLS.ApplicationFileIO,
 
-  Import.CUDAUtility;
+  Imports.CUDAUtility;
 
 
 type

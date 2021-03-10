@@ -1,7 +1,6 @@
 //
-// This unit is part of the GLScene Engine, http://glscene.org
+// The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.FileTIN;
 
 (* TIN (Triangular Irregular Network) vector file format implementation *)
@@ -18,7 +17,7 @@ uses
   GLS.VectorFileObjects,
   GLS.ApplicationFileIO,
   GLS.VectorGeometry,
-  GLS.VectorRecTypes;
+  GLS.VectorTypesExt;
 
 
 type
@@ -115,7 +114,8 @@ begin
           VertArr[j].Z := StrToFloat(tl[2]);
           Inc(j);
         until (j = NVert);
-        Inc(i);  tl.DelimitedText := sl[i];
+        Inc(i);  
+		tl.DelimitedText := sl[i];
         NTri := StrToInt(tl[1]);
         j := 0;
         repeat

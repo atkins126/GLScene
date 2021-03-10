@@ -15,7 +15,7 @@
 #include "GLS.SceneViewer.hpp"
 #include "GLS.Cadencer.hpp"
 
-#include "Import.ODE.hpp"
+#include "Imports.ODE.hpp"
 #include "Physics.ODEUtils.hpp"
 #include <GLS.Navigator.hpp>
 #include <GLS.ShadowPlane.hpp>
@@ -26,7 +26,6 @@
 #include "GLS.Keyboard.hpp"
 #include "GLS.Coordinates.hpp"
 
-#include "GLS.VerletHairClasses.hpp"
 #include "GLS.VerletTypes.hpp"
 
 
@@ -91,11 +90,11 @@ public:		// User declarations
 
   TGLVerletWorld *VerletWorld;
   TList *HairList;
-  TVCSphere *VCSphere;
+  TGLVerletFricSphere *VCSphere;
   float PhysicsTime;
 
-  TVFGravity *Gravity;
-  TVFAirResistance *AirResistance;
+  TGLVerletGravity *Gravity;
+  TGLVerletAirResistance *AirResistance;
 
   void __fastcall CreateBall();
   void __fastcall CreateFur();
