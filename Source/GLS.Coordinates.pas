@@ -20,16 +20,16 @@ uses
 
 type
 
-  (* Identifie le type de données stockées au sein d'un TGLCustomCoordinates.
+  (* Identifies the type of data stored within a TGLCustomCoordinates.
      csPoint2D : a simple 2D point (Z=0, W=0)
-     csPoint : un point (W=1)
-     csVector : un vecteur (W=0)
-     csUnknown : aucune contrainte *)
+     csPoint : a point (W=1)
+     csVector : a vector (W=0)
+     csUnknown : no constraint *)
   TGLCoordinatesStyle = (csPoint2D, csPoint, csVector, csUnknown);
 
-  (* Stores and homogeneous vector.
+  (* Stores any homogeneous vector.
     This class is basicly a container for a TGLVector, allowing proper use of
-    delphi property editors and editing in the IDE. Vector/Coordinates
+    property editors and editing in the IDE. Vector/Coordinates
     manipulation methods are only minimal.
     Handles dynamic default values to save resource file space.  *)
   TGLCustomCoordinates = class(TGLUpdateAbleObject)
@@ -639,7 +639,7 @@ end;
 
 // ----------------- Conversions of coordinates --------------------
 
-// ----- Cylindrical_Cartesian ---------------------------------------------
+// ----------------- Cylindrical_Cartesian ----------------------
 
 procedure Cylindrical_Cartesian(const r, theta, z1: single; var x, y, z: single);
 
@@ -648,7 +648,7 @@ begin
   z := z1;
 end;
 
-// ----- Cylindrical_Cartesian -------------------------------------------------
+// ----- Cylindrical_Cartesian -------------------------------------
 (* Convert Cylindrical to Cartesian with no checks. Double version
   Ref: http://mathworld.wolfram.com/CylindricalCoordinates.html *)
 procedure Cylindrical_Cartesian(const r, theta, z1: double; var x, y, z: double);
@@ -658,7 +658,7 @@ begin
   z := z1;
 end;
 
-// ----- Cylindrical_Cartesian -------------------------------------------------
+// ------------------ Cylindrical_Cartesian -----------------------
 (* Convert Cylindrical to Cartesian with checks.
   ierr: [0] = ok,
   [1] = r out of bounds. Acceptable r: [0,inf)

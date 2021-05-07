@@ -1,7 +1,6 @@
 //
 // The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.VectorLists;
 
 (*  Misc. lists of vectors and entities *)
@@ -161,10 +160,10 @@ type
     procedure CombineItem(Index: Integer; const vector: TAffineVector; const f: Single);
     (*Transforms all items by the matrix as if they were points.
       ie. the translation component of the matrix is honoured. *)
-    procedure TransformAsPoints(const matrix: TMatrix);
+    procedure TransformAsPoints(const matrix: TGLMatrix);
     (* Transforms all items by the matrix as if they were vectors.
        ie. the translation component of the matrix is not honoured. *)
-    procedure TransformAsVectors(const matrix: TMatrix); overload;
+    procedure TransformAsVectors(const matrix: TGLMatrix); overload;
     procedure TransformAsVectors(const matrix: TAffineMatrix); overload;
     procedure Normalize; override;
     procedure Lerp(const list1, list2: TBaseVectorList; lerpFactor: Single); override;
@@ -172,7 +171,7 @@ type
     procedure Scale(const factors: TAffineVector); overload;
   end;
 
-  (* A list of TGLVector.
+  (* A list of TGLVectors.
    Similar to TList, but using TGLVector as items.
    The list has stack-like push/pop methods *)
   TVectorList = class(TBaseVectorList)
@@ -1474,7 +1473,7 @@ begin
   Inc(FRevision);
 end;
 
-procedure TAffineVectorList.TransformAsPoints(const matrix: TMatrix);
+procedure TAffineVectorList.TransformAsPoints(const matrix: TGLMatrix);
 var
   I: Integer;
 begin
@@ -1483,7 +1482,7 @@ begin
   Inc(FRevision);
 end;
 
-procedure TAffineVectorList.TransformAsVectors(const matrix: TMatrix);
+procedure TAffineVectorList.TransformAsVectors(const matrix: TGLMatrix);
 var
   m: TAffineMatrix;
 begin

@@ -597,7 +597,7 @@ type
     property TopCap: TGLCapType read FTopCap write SetTopCap default ctNone;
   end;
 
-  (* Base class for objects based on a polygon. *)
+  (* Base class for objects based on a polygon *)
   TGLPolygonBase = class(TGLSceneObject)
   private
     FDivision: Integer;
@@ -1303,7 +1303,7 @@ procedure TGLSprite.BuildList(var rci: TGLRenderContextInfo);
 var
   vx, vy: TAffineVector;
   W, h: Single;
-  mat: TMatrix;
+  mat: TGLMatrix;
   u0, v0, u1, v1: Integer;
 begin
   if FAlphaChannel <> 1 then
@@ -2959,7 +2959,7 @@ begin
   end;
 end;
 
-procedure TGLSphere.SetSlices(aValue: Integer);
+procedure TGLSphere.SetSlices(aValue: TGLInt);
 begin
   if aValue <> FSlices then
   begin
@@ -3531,7 +3531,7 @@ begin
   end;
 end;
 
-procedure TGLSuperellipsoid.SetSlices(aValue: Integer);
+procedure TGLSuperellipsoid.SetSlices(aValue: TGLInt);
 begin
   if aValue <> FSlices then
   begin
