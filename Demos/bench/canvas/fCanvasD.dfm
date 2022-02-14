@@ -3,122 +3,173 @@ object FormCanvas: TFormCanvas
   Top = 105
   BorderStyle = bsDialog
   Caption = 'GLCanvas vs GDI'
-  ClientHeight = 329
-  ClientWidth = 537
+  ClientHeight = 411
+  ClientWidth = 671
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -14
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
-  TextHeight = 13
+  PixelsPerInch = 120
+  TextHeight = 16
   object PaintBox: TPaintBox
-    Left = 272
-    Top = 65
-    Width = 256
-    Height = 256
+    Left = 340
+    Top = 81
+    Width = 320
+    Height = 320
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
   end
   object lbGLCanvas: TLabel
-    Left = 8
-    Top = 46
-    Width = 76
-    Height = 13
+    Left = 10
+    Top = 58
+    Width = 92
+    Height = 16
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'GLCanvas: N/A'
   end
   object lbGDI: TLabel
-    Left = 272
-    Top = 45
-    Width = 45
-    Height = 13
+    Left = 340
+    Top = 56
+    Width = 52
+    Height = 16
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'GDI: N/A'
   end
   object Bevel1: TBevel
-    Left = 267
-    Top = 48
+    Left = 334
+    Top = 60
     Width = 2
-    Height = 273
+    Height = 341
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
   end
   object BULines: TButton
-    Left = 8
-    Top = 8
-    Width = 73
-    Height = 25
+    Left = 10
+    Top = 10
+    Width = 91
+    Height = 31
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = '20k Lines'
     TabOrder = 0
     OnClick = BULinesClick
   end
   object BUEllipses: TButton
-    Left = 88
-    Top = 8
-    Width = 73
-    Height = 25
+    Left = 110
+    Top = 10
+    Width = 91
+    Height = 31
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = '20k Ellipses'
     TabOrder = 1
     OnClick = BUEllipsesClick
   end
   object GLSceneViewer: TGLSceneViewer
-    Left = 10
-    Top = 65
-    Width = 256
-    Height = 256
+    Left = 13
+    Top = 81
+    Width = 320
+    Height = 320
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Camera = GLCamera1
     Buffer.Lighting = False
-    FieldOfView = 137.326278686523400000
+    FieldOfView = 145.291946411132800000
     PenAsTouch = False
     TabOrder = 2
   end
   object RBPenWidth1: TRadioButton
-    Left = 432
-    Top = 8
-    Width = 89
-    Height = 17
+    Left = 540
+    Top = 10
+    Width = 111
+    Height = 21
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Pen Width = 1'
     Checked = True
     TabOrder = 3
     TabStop = True
   end
   object RBPenWidth2: TRadioButton
-    Left = 432
-    Top = 24
-    Width = 89
-    Height = 17
+    Left = 540
+    Top = 30
+    Width = 111
+    Height = 21
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Pen Width = 2'
     TabOrder = 4
   end
   object BUArc: TButton
-    Left = 168
-    Top = 35
-    Width = 73
-    Height = 25
+    Left = 210
+    Top = 44
+    Width = 91
+    Height = 31
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = '20k Arcs'
     TabOrder = 8
     OnClick = BUArcClick
   end
   object BUPoints: TButton
-    Left = 248
-    Top = 8
-    Width = 73
-    Height = 25
+    Left = 310
+    Top = 10
+    Width = 91
+    Height = 31
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = '200k Points'
     TabOrder = 5
     OnClick = BUPointsClick
   end
   object BURects: TButton
-    Left = 168
-    Top = 8
-    Width = 73
-    Height = 25
+    Left = 210
+    Top = 10
+    Width = 91
+    Height = 31
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = '20k Rects'
     TabOrder = 6
     OnClick = BURectsClick
   end
   object BUTextOut: TButton
-    Left = 327
-    Top = 8
-    Width = 73
-    Height = 25
+    Left = 409
+    Top = 10
+    Width = 91
+    Height = 31
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = '20k TextOut'
     TabOrder = 7
     OnClick = BUTextOutClick

@@ -1,7 +1,6 @@
 //
 // The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.Windows;
 
 (* OpenGL windows management classes and structures *)
@@ -162,16 +161,16 @@ type
   TGLBaseFontControl = class(TGLBaseControl)
   private
     FBitmapFont: TGLCustomBitmapFont;
-    FDefaultColor: TColorVector;
+    FDefaultColor: TGLColorVector;
   protected
     function GetDefaultColor: TColor;
     procedure SetDefaultColor(value: TColor);
     procedure SetBitmapFont(NewFont: TGLCustomBitmapFont);
     function GetBitmapFont: TGLCustomBitmapFont;
     procedure WriteTextAt(var rci: TGLRenderContextInfo; const X, Y: TGLFloat;
-      const Data: UnicodeString; const Color: TColorVector); overload;
+      const Data: UnicodeString; const Color: TGLColorVector); overload;
     procedure WriteTextAt(var rci: TGLRenderContextInfo; const X1, Y1, X2, Y2:
-      TGLFloat; const Data: UnicodeString; const Color: TColorVector); overload;
+      TGLFloat; const Data: UnicodeString; const Color: TGLColorVector); overload;
     function GetFontHeight: Integer;
   public
     constructor Create(AOwner: TComponent); override;
@@ -200,7 +199,7 @@ type
     FOnKeyUp: TKeyEvent;
     FOnKeyPress: TKeyPressEvent;
     FShiftState: TShiftState;
-    FFocusedColor: TColorVector;
+    FFocusedColor: TGLColorVector;
   protected
     procedure InternalKeyPress(var Key: Char); virtual;
     procedure InternalKeyDown(var Key: Word; Shift: TShiftState); virtual;
@@ -319,7 +318,7 @@ type
     Moving: Boolean;
     OldX: Integer;
     OldY: Integer;
-    FTitleColor: TColorVector;
+    FTitleColor: TGLColorVector;
     FTitleOffset: Single;
   protected
     procedure InternalMouseDown(Shift: TShiftState; Button: TMouseButton; X, Y: Integer); override;
@@ -529,7 +528,7 @@ type
     FColSelect: Boolean;
     FColumns: TStrings;
     FRows: TList;
-    FHeaderColor: TColorVector;
+    FHeaderColor: TGLColorVector;
     FMarginSize: Integer;
     FColumnSize: Integer;
     FRowHeight: Integer;
@@ -1551,7 +1550,7 @@ begin
 end;
 
 //------------------------
-// base font control 
+// base font control
 //------------------------
 
 constructor TGLBaseFontControl.Create(AOwner: TComponent);
@@ -1632,7 +1631,7 @@ begin
 end;
 
 //----------------------------------
-// GLBaseTextControl 
+// GLBaseTextControl
 //----------------------------------
 
 procedure TGLBaseTextControl.SetCaption(const NewCaption: UnicodeString);
@@ -1643,7 +1642,7 @@ begin
 end;
 
 procedure TGLBaseFontControl.WriteTextAt(var rci: TGLRenderContextInfo; const X,
-  Y: TGLFloat; const Data: UnicodeString; const Color: TColorVector);
+  Y: TGLFloat; const Data: UnicodeString; const Color: TGLColorVector);
 var
   Position: TGLVector;
 begin
@@ -1658,7 +1657,7 @@ begin
 end;
 
 procedure TGLBaseFontControl.WriteTextAt(var rci: TGLRenderContextInfo; const X1,
-  Y1, X2, Y2: TGLFloat; const Data: UnicodeString; const Color: TColorVector);
+  Y1, X2, Y2: TGLFloat; const Data: UnicodeString; const Color: TGLColorVector);
 var
   Position: TGLVector;
 begin
@@ -1685,7 +1684,7 @@ begin
 end;
 
 //----------------------------------
-// GLBaseCustomControl 
+// GLBaseCustomControl
 //----------------------------------
 
 constructor TGLCustomControl.Create(AOwner: TComponent);
@@ -1791,7 +1790,7 @@ begin
   end;
   GuiLayout.Material.UnApply(rci);
   Material.Apply(rci);
-  
+
   gl.Begin_(GL_QUADS);
   gl.TexCoord2f(FXTexCoord, -FYTexCoord);
   gl.Vertex2f(X2, Y2);
@@ -1813,7 +1812,7 @@ begin
 end;
 
 //----------------------------------
-// GLPopupMenu 
+// GLPopupMenu
 //----------------------------------
 
 procedure TGLPopupMenu.SetFocused(Value: Boolean);
@@ -2016,7 +2015,7 @@ begin
 end;
 
 //----------------------------------
-// GLForm 
+// GLForm
 //----------------------------------
 
 procedure TGLForm.InternalMouseDown(Shift: TShiftState; Button: TMouseButton;
@@ -2174,7 +2173,7 @@ end;
 procedure TGLForm.InternalRender(var rci: TGLRenderContextInfo; renderSelf,
   renderChildren: Boolean);
 var
-  ATitleColor: TColorVector;
+  ATitleColor: TGLColorVector;
 begin
   if Assigned(FGuiComponent) then
   begin
@@ -2487,7 +2486,7 @@ var
   TexHeight: Integer;
   Material: TGLMaterial;
   LibMaterial: TGLLibMaterial;
-  TextColor: TColorVector;
+  TextColor: TGLColorVector;
 begin
   if Pressed then
   begin
@@ -2536,7 +2535,7 @@ begin
       TexHeight := Material.Texture.TexHeight;
       if TexHeight = 0 then
         TexHeight := Material.Texture.Image.Height;
-		
+
       gl.Begin_(GL_QUADS);
       gl.TexCoord2f(0, 0);
       gl.Vertex2f(X1 - XOffSet, -Y1 + YOffSet);
@@ -2549,7 +2548,7 @@ begin
       gl.TexCoord2f((LogicWidth - 1) / TexWidth, 0);
       gl.Vertex2f(X1 - XOffSet + LogicWidth - 1, -Y1 + YOffSet);
       gl.End_();
-	  
+
       BitBtn.UnApply(rci);
       GuiLayout.Material.Apply(rci);
     end;
@@ -2774,38 +2773,26 @@ procedure TGLLabel.InternalRender(var rci: TGLRenderContextInfo; renderSelf,
 var
   TekstPos: TGLVector;
   Tekst: UnicodeString;
-  TextColor: TColorVector;
+  TextColor: TGLColorVector;
 begin
   if Assigned(BitmapFont) then
   begin
     case Alignment of
       taLeftJustify:
-        begin
-          TekstPos.X := 0;
-        end;
+        TekstPos.X := 0;
       taCenter:
-        begin
-          TekstPos.X := Width / 2;
-        end;
+        TekstPos.X := Width / 2;
       taRightJustify:
-        begin
-          TekstPos.X := Width;
-        end;
+        TekstPos.X := Width;
     end;
 
     case TextLayout of
       tlTop:
-        begin
-          TekstPos.Y := 0;
-        end;
+        TekstPos.Y := 0;
       tlCenter:
-        begin
-          TekstPos.Y := Round(-Height / 2);
-        end;
+        TekstPos.Y := Round(-Height / 2);
       tlBottom:
-        begin
-          TekstPos.Y := -Height;
-        end;
+        TekstPos.Y := -Height;
     end;
 
     TekstPos.Z := 0;
@@ -3488,7 +3475,7 @@ procedure TGLStringGrid.InternalRender(var rci: TGLRenderContextInfo; renderSelf
       else
         Result := '';
   end;
-  
+
 var
   ClientRect: TRectangle;
   XPos: Integer;
@@ -3648,4 +3635,3 @@ initialization
     TGLCheckBox, TGLEdit, TGLLabel, TGLAdvancedLabel, TGLScrollbar, TGLStringGrid,
     TGLCustomControl]);
 end.
-

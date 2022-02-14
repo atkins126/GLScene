@@ -31,6 +31,7 @@ uses
   GLS.VectorTypes,
   GLS.Scene,
   GLS.VectorGeometry,
+  GLS.Coordinates,
   GLS.Sound,
   GLS.SoundFileObjects;
 
@@ -65,7 +66,7 @@ implementation
 // ---------------------------------------------------------------------
 
 uses
-  Imports.OpenAL {al, alut, alTypes};
+  Sounds.OpenALImport {al, alut, alTypes};
 
 // checks for an error and raises an exception if necessary
 procedure CheckOpenALError;

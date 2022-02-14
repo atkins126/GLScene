@@ -52,14 +52,14 @@ procedure TGLDELVectorFile.LoadFromStream(aStream : TStream);
 var
    i, j : Integer;
    sl, tl : TStringList;
-   mesh : TMeshObject;
+   mesh : TGLMeshObject;
    v1, v2, v3, n : TAffineVector;
    ActiveTin : Boolean;
    Id_Tin : Integer;
    Tnam: string;
    Id_Mat, NVert, NTri : Integer;
 
-   VertArr :  TxPoint3DArray;
+   VertArr :  TPoint3DArray;
    n1, n2, n3 : Integer;
 
 
@@ -69,7 +69,7 @@ begin
   i := 0;
   try
     sl.LoadFromStream(aStream);
-    mesh      := TMeshObject.CreateOwned(Owner.MeshObjects);
+    mesh      := TGLMeshObject.CreateOwned(Owner.MeshObjects);
     mesh.Mode := momTriangles;
     // the file with nodes, edges, faces and eles described by triangles and materials
     while i < sl.Count - 1  do
@@ -131,4 +131,4 @@ initialization
 
    RegisterVectorFileFormat('delaunay', 'Triangular Irregular Network', TGLDELVectorFile);
 
-end.
+end.

@@ -2,25 +2,29 @@ object FormWhirlD: TFormWhirlD
   Left = 0
   Top = 0
   Caption = 'Whirlwind'
-  ClientHeight = 296
-  ClientWidth = 441
+  ClientHeight = 370
+  ClientWidth = 551
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -14
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
-  TextHeight = 13
+  Position = poScreenCenter
+  PixelsPerInch = 120
+  TextHeight = 17
   object GLSceneViewer1: TGLSceneViewer
     Left = 0
     Top = 0
-    Width = 441
-    Height = 268
+    Width = 551
+    Height = 335
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Camera = GLCamera1
     Buffer.BackgroundColor = clBlack
-    FieldOfView = 158.863967895507800000
+    FieldOfView = 163.022109985351600000
     PenAsTouch = False
     Align = alClient
     OnMouseDown = GLSceneViewer1MouseDown
@@ -29,9 +33,13 @@ object FormWhirlD: TFormWhirlD
   end
   object Panel1: TPanel
     Left = 0
-    Top = 268
-    Width = 441
-    Height = 28
+    Top = 335
+    Width = 551
+    Height = 35
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alBottom
     Caption = 'FPS'
     TabOrder = 1

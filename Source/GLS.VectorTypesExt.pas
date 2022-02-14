@@ -3,8 +3,8 @@
 //
 unit GLS.VectorTypesExt;
 
-(* Defines common vector types as advanced records using
-   BigIntegers and BigDecimals by Rudy Velthuis:
+(* Defines common vector types as advanced records
+   using BigIntegers and BigDecimals by Rudy Velthuis:
    https://github.com/rvelthuis *)
 
 interface
@@ -13,121 +13,128 @@ interface
 
 uses
   System.Types,
+  System.TypInfo,
   System.SysUtils,
   System.Rtti,
   System.Math,
   System.Math.Vectors,
   GLS.VectorTypes;
 
-
 type
-  TxBigMatrix = array of Extended; // replace with BigDecimals
-  T_BigMatrix = array of array of Extended;  // replace with BigDecimals
 
-  TxQuaternion = record
+  TIntegerArray = array of Integer;
+  TVertexArray = array of TVector3f;
+
+  TVectorExt = array of Extended; // may be replaced with BigDecimals
+  TMatrixExt = array of array of Extended;
+
+  TArray3DExt = array of array of array of Extended;
+
+
+  TQuaternionRec = record
   private
     FData: array[0..3] of Extended;
     procedure SetElement(Index: Byte; Value: Extended);
     function GetElement(Index: Byte): Extended;
   public
-    constructor Create(Q: TxBigMatrix);
-    class operator Multiply(Q1, Q2: TxQuaternion): TxQuaternion;
-    class operator Multiply(Q: TxQuaternion; Sc: Extended): TxQuaternion;
-    class operator Multiply(Scalar: Extended; Q: TxQuaternion): TxQuaternion;
-    class operator Implicit(V: TxBigMatrix): TxQuaternion;
-    function Inv: TxQuaternion;
-    function TruncateSTI: TxQuaternion;
+    constructor Create(Q: TVectorExt);
+    class operator Multiply(Q1, Q2: TQuaternionRec): TQuaternionRec;
+    class operator Multiply(Q: TQuaternionRec; Sc: Extended): TQuaternionRec;
+    class operator Multiply(Scalar: Extended; Q: TQuaternionRec): TQuaternionRec;
+    class operator Implicit(V: TVectorExt): TQuaternionRec;
+    function Inv: TQuaternionRec;
+    function TruncateSTI: TQuaternionRec;
     property Element[index: Byte]: Extended read GetElement
       write SetElement; default;
   end;
 
-  PxVector = ^TxVector;
-  TxVector = record
+  PVectorRec = ^TVectorRec;
+  TVectorRec = record
   private
-    FData: TxBigMatrix;
+    FData: TVectorExt;
     FCount: Word;
     procedure SetElement(Index: Word; Value: Extended);
     function GetElement(Index: Word): Extended;
     procedure CheckUnique;
   public
     constructor Create(ElementsCount: Word); overload;
-    constructor Create(V: TxBigMatrix); overload;
-    class operator Add(V1, V2: TxVector): TxVector;
-    class operator Add(V: TxVector; Scalar: Extended): TxVector;
-    class operator Add(Scalar: Extended; V: TxVector): TxVector;
-    class operator Subtract(V1, V2: TxVector): TxVector;
-    class operator Subtract(Scalar: Extended; V: TxVector): TxVector;
-    class operator Subtract(V: TxVector; Scalar: Extended): TxVector;
-    class operator Multiply(V1, V2: TxVector): TxVector;
-    class operator Multiply(V: TxVector; Scalar: Extended): TxVector;
-    class operator Multiply(Scalar: Extended; V: TxVector): TxVector;
-    class operator Divide(V: TxVector; Scalar: Extended): TxVector;
-    class operator Divide(V1, V2: TxVector): TxVector;
-    class operator Implicit(V: TxBigMatrix): TxVector;
+    constructor Create(V: TVectorExt); overload;
+    class operator Add(V1, V2: TVectorRec): TVectorRec;
+    class operator Add(V: TVectorRec; Scalar: Extended): TVectorRec;
+    class operator Add(Scalar: Extended; V: TVectorRec): TVectorRec;
+    class operator Subtract(V1, V2: TVectorRec): TVectorRec;
+    class operator Subtract(Scalar: Extended; V: TVectorRec): TVectorRec;
+    class operator Subtract(V: TVectorRec; Scalar: Extended): TVectorRec;
+    class operator Multiply(V1, V2: TVectorRec): TVectorRec;
+    class operator Multiply(V: TVectorRec; Scalar: Extended): TVectorRec;
+    class operator Multiply(Scalar: Extended; V: TVectorRec): TVectorRec;
+    class operator Divide(V: TVectorRec; Scalar: Extended): TVectorRec;
+    class operator Divide(V1, V2: TVectorRec): TVectorRec;
+    class operator Implicit(V: TVectorExt): TVectorRec;
     function Norm: Extended;
     function SumOfSquares: Extended;
     function SumOfElments: Extended;
-    function TruncateSTI: TxVector;
-    function ToQuat: TxQuaternion;
+    function TruncateSTI: TVectorRec;
+    function ToQuat: TQuaternionRec;
     procedure Fill(Value: Extended);
-    function ScalarMult(V: TxVector): Extended;
+    function ScalarMult(V: TVectorRec): Extended;
     property Count: Word read FCount;
     property Elements[index: Word]: Extended read GetElement
       write SetElement; default;
   end;
 
-  PxMatrix = ^TxMatrix;
-  TxMatrix = record
+  PMatrixRec = ^TMatrixRec;
+  TMatrixRec = record
   private
-    FData: T_BigMatrix;
+    FData: TMatrixExt;
     FRowsCount: Word;
     FColsCount: Word;
     procedure SetElement(Row, Col: Word; Value: Extended);
     function GetElement(Row, Col: Word): Extended;
-    function GetRow(Row: Word): TxVector;
-    procedure SetRow(Row: Word; Value: TxVector);
-    function GetCol(Col: Word): TxVector;
-    procedure SetCol(Col: Word; Value: TxVector);
-    function Del(A: TxMatrix; I, J: Integer; M: Integer): TxMatrix;
-    function Det(A: TxMatrix; M: Integer): Extended;
+    function GetRow(Row: Word): TVectorRec;
+    procedure SetRow(Row: Word; Value: TVectorRec);
+    function GetCol(Col: Word): TVectorRec;
+    procedure SetCol(Col: Word; Value: TVectorRec);
+    function Del(A: TMatrixRec; I, J: Integer; M: Integer): TMatrixRec;
+    function Det(A: TMatrixRec; M: Integer): Extended;
     procedure CheckUnique;
   public
     constructor Create(RowsCount, ColsCount: Word); overload;
     constructor CreateDiag(Dim: Word; Value: Extended = 1.0);
-    constructor Create(M: T_BigMatrix); overload;
-    class operator Add(M1, M2: TxMatrix): TxMatrix;
-    class operator Subtract(M1, M2: TxMatrix): TxMatrix;
-    class operator Multiply(M1, M2: TxMatrix): TxMatrix;
-    class operator Multiply(M: TxMatrix; V: TxVector): TxVector;
-    class operator Multiply(V: TxVector; M: TxMatrix): TxVector;
-    class operator Multiply(M: TxMatrix; Scalar: Extended): TxMatrix;
-    class operator Multiply(Scalar: Extended; M: TxMatrix): TxMatrix;
-    class operator Multiply(M: TxMatrix; Q: TxQuaternion): TxQuaternion;
-    class operator Implicit(M: T_BigMatrix): TxMatrix;
-    function Transp: TxMatrix;
-    function Inv: TxMatrix;
-    function ToQuat: TxQuaternion;
+    constructor Create(M: TMatrixExt); overload;
+    class operator Add(M1, M2: TMatrixRec): TMatrixRec;
+    class operator Subtract(M1, M2: TMatrixRec): TMatrixRec;
+    class operator Multiply(M1, M2: TMatrixRec): TMatrixRec;
+    class operator Multiply(M: TMatrixRec; V: TVectorRec): TVectorRec;
+    class operator Multiply(V: TVectorRec; M: TMatrixRec): TVectorRec;
+    class operator Multiply(M: TMatrixRec; Scalar: Extended): TMatrixRec;
+    class operator Multiply(Scalar: Extended; M: TMatrixRec): TMatrixRec;
+    class operator Multiply(M: TMatrixRec; Q: TQuaternionRec): TQuaternionRec;
+    class operator Implicit(M: TMatrixExt): TMatrixRec;
+    function Transp: TMatrixRec;
+    function Inv: TMatrixRec;
+    function ToQuat: TQuaternionRec;
     function Determinant: Extended;
-    function TruncateSTI: TxMatrix;
+    function TruncateSTI: TMatrixRec;
     function Trace: Extended; // sum on diagonal elements
     procedure Fill(Scalar: Extended);
     property RowCount: Word read FRowsCount;
     property ColCount: Word read FColsCount;
-    property Row[Row: Word]: TxVector read GetRow write SetRow;
-    property Col[Col: Word]: TxVector read GetCol write SetCol;
+    property Row[Row: Word]: TVectorRec read GetRow write SetRow;
+    property Col[Col: Word]: TVectorRec read GetCol write SetCol;
     property Elements[Row, Col: Word]: Extended read GetElement
       write SetElement; default;
   end;
 
-  TxQuatHelper = record helper for TxQuaternion
-    function ToMatrix: TxMatrix;
+  TQuaternionHelper = record helper for TQuaternionRec
+    function ToMatrix: TMatrixRec;
   end;
 
-  TxVecHelper = record helper for TxVector
-    function ToDiagMatrix: TxMatrix;
+  TVectorHelper = record helper for TVectorRec
+    function ToDiagMatrix: TMatrixRec;
   end;
 
-  TxDim = class(TCustomAttribute)
+  TDim = class(TCustomAttribute)
   private
     FRowCount: Integer;
     FColCount: Integer;
@@ -137,28 +144,27 @@ type
     property ColCount: Integer read FColCount;
   end;
 
-  function TxVec(V: TxBigMatrix): TxVector;
-  function TxMat(M: T_BigMatrix): TxMatrix;
-  function TxQuat(Q: TxBigMatrix): TxQuaternion;
+  function GetVectorRec(V: TVectorExt): TVectorRec;
+  function GetMatrixRec(M: TMatrixExt): TMatrixRec;
+  function GetQuaternionRec(Q: TVectorExt): TQuaternionRec;
   procedure Init(Obj, TypeInfoOfObj: Pointer; Offset: Integer = 0);
-
 
 //-----------------------
 // Point types
 //-----------------------
 type
-  TxScalarValue = Extended;  // replaced with BigDecimals
-  TxScalarField = function(X, Y, Z: Extended): TxScalarValue;
+  TScalarValue = Extended;
+  TScalarField = function(X, Y, Z: Extended): TScalarValue;
 
   // If data are made on integer XYZ index replaced with BigIntegers
-  TxScalarFieldInt = function(iX, iY, iZ: Integer): TxScalarValue of object;
+  TScalarFieldInt = function(iX, iY, iZ: Integer): TScalarValue of object;
 
-  TxVertex = record
-    P, N: TVector3f;  //Point and Normal
+  TVertexRec = record
+    P, N: TVector3f;  //Position and Normal
     Density: Extended;
   end;
 
-  TxFace = record
+  TFaceRec = record
     Normal: TVector3f;
     V1: TVector3f; // vertex 1
     V2: TVector3f; // vertex 2
@@ -166,85 +172,83 @@ type
     Padding: array [0 .. 1] of Byte;
   end;
 
-  PxPoint2D = ^TxPoint2D;
-  TxPoint2D = record
+  PPoint2DRec = ^TPoint2DRec;
+  TPoint2DRec = record
     X: Extended;
     Y: Extended;
     public
-      function Create(X, Y: Extended): TxPoint2D;
+      function Create(X, Y: Extended): TPoint2DRec;
       procedure SetPosition(const X, Y : Extended);
-      function Add(const APoint2D: TxPoint2D): TxPoint2D;
+      function Add(const APoint2D: TPoint2DRec): TPoint2DRec;
       function Length: Extended; //distance to origin
-      function Distance(const APoint2D : TxPoint2D) : Extended;
-      class function PointInCircle(const Point, Center: TxPoint2D;
+      function Distance(const APoint2D : TPoint2DRec) : Extended;
+      class function PointInCircle(const Point, Center: TPoint2DRec;
         const Radius: Integer):Boolean; static; inline;
       procedure Offset(const ADeltaX, ADeltaY : Extended);
   end;
 
-  PxPoint3D = ^TxPoint3D;
-  TxPoint3D = record
+  PPoint3DRec = ^TPoint3DRec;
+  TPoint3DRec = record
     X: Extended;
     Y: Extended;
     Z: Extended;
     public
-      function Create(X, Y, Z: Extended): TxPoint3D;
+      function Create(X, Y, Z: Extended): TPoint3DRec;
       procedure SetPosition(const X, Y, Z: Extended);
-      function Add(const AGLPoint3D: TxPoint3D): TxPoint3D;
+      function Add(const AGLPoint3D: TPoint3DRec): TPoint3DRec;
       function Length: Single; //distance to origin
-      function Distance(const APoint3D : TxPoint3D) : Extended;
+      function Distance(const APoint3D : TPoint3DRec) : Extended;
       procedure Offset(const ADeltaX, ADeltaY, ADeltaZ : Extended);
   end;
 
-
-  TxPoint2DArray = array of TxPoint2D;
-  TxPoint3DArray = array of TxPoint3D;
-
+  TPoint2DArray = array of TPoint2DRec;
+  TPoint3DArray = array of TPoint3DRec;
 
 // Voxel types
-  TxVoxelStatus = (bpExternal, bpInternal);
-  TxVoxel = record
+  TVoxelStatus = (bpExternal, bpInternal);
+
+  PVoxelRec = ^TVoxelRec;
+  TVoxelRec = record
     P: TVector3f;
-    Density: TxScalarValue;
-    Status: TxVoxelStatus;
+    Density: TScalarValue;
+    Status: TVoxelStatus;
   end;
-  PxVoxel = ^TxVoxel;
 
-  TxVoxelData = array [0 .. (MaxInt shr 8)] of TxVoxel;
-  PxVoxelData = ^TxVoxelData;
-
+  TVoxelData = array [0 .. (MaxInt shr 8)] of TVoxelRec;
+  PVoxelData = ^TVoxelData;
 
 //-----------------------
 // Vector types
 //-----------------------
 
-  TxVector2DType = array [0..1] of Extended;
-  TxVector3DType = array [0..2] of Extended;
+  TVector2DType = array [0..1] of Extended;
+  TVector3DType = array [0..2] of Extended;
 
-  TxVector2D = record
-      function Create(const AX, AY, AW : Single): TxVector2D;
-      function Add(const AVector2D: TxVector2D): TxVector2D;
+  TVector2DRec = record
+      function Create(const AX, AY, AW : Single): TVector2DRec;
+      function Add(const AVector2D: TVector2DRec): TVector2DRec;
       function Length: Extended;
       function Norm: Extended;
-      function Normalize: TxVector2D;
-      function CrossProduct(const AVector: TxVector2D): TxVector2D;
-      function DotProduct(const AVector: TxVector2D): Extended;
+      function Normalize: TVector2DRec;
+      function CrossProduct(const AVector: TVector2DRec): TVector2DRec;
+      function DotProduct(const AVector: TVector2DRec): Extended;
     case Integer of
-      0: (V: TxVector2DType;);
+      0: (V: TVector2DType;);
       1: (X: Extended;
           Y: Extended;
           W: Extended;)
   end;
 
-  TxVector3D = record
-      function Create(const AX, AY, AZ, AW : Single): TxVector3D;
-      function Add(const AVector3D: TxVector3D): TxVector3D;
+  TVector3DRec = record
+      function Create(const AX, AY, AZ, AW : Single): TVector3DRec;
+      function Add(const AVector3D: TVector3DRec): TVector3DRec;
       function Length: Single;
       function Norm: Single;
-      function Normalize: TxVector3D;
+      function Normalize: TVector3DRec;
       function CrossProduct(const AVector3D: TVector3D): TVector3D;
       function DotProduct(const AVector3D: TVector3D): Single; inline;
     case Integer of
-      0: (V: TxVector3DType;);
+      0: (V: TVector3DType;);
       1: (X: Extended;
           Y: Extended;
           Z: Extended;
@@ -252,30 +256,30 @@ type
   end;
 
 // Vector Arrays
-  TxVector2DArray = array of TxVector2D;
-  TxVector3DArray = array of TxVector3D;
+  TVector2DArray = array of TVector2DRec;
+  TVector3DArray = array of TVector3DRec;
 
 //-----------------------
 // Matrix types
 //-----------------------
-  TxMatrix2DType = array[0..3] of TxVector2D;
-  TxMatrix3DType = array[0..3] of TxVector3D;
+  TMatrix2DType = array[0..3] of TVector2DRec;
+  TMatrix3DType = array[0..3] of TVector3DRec;
 
-  TxMatrix2D = record
+  TMatrix2DRec = record
   private
   public
     case Integer of
-      0: (M: TxMatrix2DType;);
+      0: (M: TMatrix2DType;);
       1: (e11, e12, e13: Single;
           e21, e22, e23: Single;
           e31, e32, e33: Single);
   end;
 
-  TxMatrix3D = record
+  TMatrix3DRec = record
   private
   public
     case Integer of
-      0: (M: TxMatrix3DType;);
+      0: (M: TMatrix3DType;);
       1: (e11, e12, e13, e14: Single;
           e21, e22, e23, e24: Single;
           e31, e32, e33, e34: Single;
@@ -283,51 +287,51 @@ type
   end;
 
 // Matrix Arrays
-  TxMatrix2DArray = array of TxMatrix2D;
-  TxMatrix3DArray = array of TxMatrix3D;
+  TMatrix2DArray = array of TMatrix2DRec;
+  TMatrix3DArray = array of TMatrix3DRec;
 
 
 //-----------------------
 // Polygon types
 //-----------------------
 
-  TxPolygon2D = TxPoint2DArray;
+  TPolygon2D = TPoint2DArray;
+  TPolygon3D = TPoint3DArray;
 
-  TxPolygon3D = TxPoint3DArray;
-{
-  TxPolygon3D = record
-    Vertices: array of TxPoint3D;
-    function Area;
+(*
+  TPolygon3D = record
+    Vertices: array of TPoint3DRec;
+    function Length;
   end;
-}
+*)
 
 const
-   ClosedPolygon2D: TxPoint2D = (X: $FFFF; Y: $FFFF);
-   ClosedPolygon3D: TxPoint3D = (X: $FFFF; Y: $FFFF; Z: $FFFF);
+   ClosedPolygon2D: TPoint2DRec = (X: $FFFF; Y: $FFFF);
+   ClosedPolygon3D: TPoint3DRec = (X: $FFFF; Y: $FFFF; Z: $FFFF);
 
 type
-  PxVertexArray = ^TxVertexArray;
-  TxVertexArray = array [0 .. (MaxInt shr 8)] of TxVertex;
+  PVertArray = ^TVertArray;
+  TVertArray = array [0 .. (MaxInt shr 8)] of TVertexRec;
 
 type
-  TxTriangle = record
+  TTriangleRec = record
     v1, v2, v3: Integer;
-    ///Vertices: array[0..2] of TxPoint3D;
+    ///Vertices: array[0..2] of TPoint3DRec;
     ///function Area;
   end;
 
-  PxTriangleArray = ^TxTriangleArray;
-  TxTriangleArray = array [0 .. (MaxInt shr 8)] of TxTriangle;
+  PTriangleRecArray = ^TTriangleRecArray;
+  TTriangleRecArray = array [0 .. (MaxInt shr 8)] of TTriangleRec;
 
 //-----------------------
 // Polyhedron types
 //-----------------------
 type
-  TxPolyhedron = array of TxPolygon3D;
+  TPolyhedronArray = array of TPolygon3D;
 
 (*
-  TxPolyhedron = record
-    Facets: array of TxPolygon3D;
+  TPolyhedron = record
+    Facets: array of TGLPolygon3D;
     function NetLength;
     function Area;
     function Volume;
@@ -338,35 +342,35 @@ type
 // Mesh simple record types
 //--------------------------
 type
-   TxMesh2DVertex = record
+   TMesh2DVert = record
     X, Y: Single;
     NX, NY: Single;
     tU, tV: Single;
   end;
 
-   TxMesh3DVertex = packed record
+   TMesh3DVert = packed record
     X, Y, Z: Single;
     NX, NY, NZ: Single;
     tU, tV: Single;
   end;
 
-  TxMesh2D = array of TxMesh2DVertex;
-  TxMesh3D = array of TxMesh3DVertex;
+  TMesh2DArray = array of TMesh2DVert;
+  TMesh3DArray = array of TMesh3DVert;
 
 //--------------------------
-// Quaternion record types
+// Quaternion simple record types
 //--------------------------
 type
-  TxQuaternion3D = record
-    ImPart: TxVector3D;
+  TQuat3D = record
+    ImPart: TVector3DRec;
     RePart: Single;
   end;
 
-  TxQuaternionArray = array of TxQuaternion3D;
+  TQuatArray = array of TQuat3D;
 
 
 type
-  TxBox = record
+  TBoxRec = record
     ALeft, ATop, ANear, ARight, ABottom, AFar: Single;
   end;
 
@@ -382,17 +386,17 @@ implementation
 //---------------------------------------------------------------
 
 
-function TxVec(V: TxBigMatrix): TxVector;
+function GetVectorRec(V: TVectorExt): TVectorRec;
 begin
   Result.Create(V);
 end;
 
-function TxMat(M: T_BigMatrix): TxMatrix;
+function GetMatrixRec(M: TMatrixExt): TMatrixRec;
 begin
   Result.Create(M);
 end;
 
-function TxQuat(Q: TxBigMatrix): TxQuaternion;
+function GetQuaternionRec(Q: TVectorExt): TQuaternionRec;
 begin
   Result.Create(Q);
 end;
@@ -403,10 +407,12 @@ begin
   Result := (PArr - 2)^ > 1;
 end;
 
-{ TxMatrix }
+//-------------------------------------
+// TMatrixRec
+//-------------------------------------
 
 // Removing i-th row and j-th col
-function TxMatrix.Del(A: TxMatrix; I, J: Integer; M: Integer): TxMatrix;
+function TMatrixRec.Del(A: TMatrixRec; I, J: Integer; M: Integer): TMatrixRec;
 var
   K, G: Integer;
 begin
@@ -420,7 +426,7 @@ begin
 end;
 
 // Recursive calculation of det for matrix
-function TxMatrix.Det(A: TxMatrix; M: Integer): Extended;
+function TMatrixRec.Det(A: TMatrixRec; M: Integer): Extended;
 var
   I: Integer;
   Buf: Extended;
@@ -435,7 +441,7 @@ begin
   Result := Buf;
 end;
 
-class operator TxMatrix.Add(M1, M2: TxMatrix): TxMatrix;
+class operator TMatrixRec.Add(M1, M2: TMatrixRec): TMatrixRec;
 var
   I, J: Integer;
 begin
@@ -447,7 +453,7 @@ begin
       Result.FData[I, J] := M1.FData[I, J] + M2.FData[I, J];
 end;
 
-procedure TxMatrix.CheckUnique;
+procedure TMatrixRec.CheckUnique;
 var
   I: Integer;
 begin
@@ -459,7 +465,7 @@ begin
     end;
 end;
 
-constructor TxMatrix.Create(RowsCount, ColsCount: Word);
+constructor TMatrixRec.Create(RowsCount, ColsCount: Word);
 begin
   FRowsCount := RowsCount;
   FColsCount := ColsCount;
@@ -467,7 +473,7 @@ begin
   SetLength(FData, FRowsCount, FColsCount);
 end;
 
-constructor TxMatrix.Create(M: T_BigMatrix);
+constructor TMatrixRec.Create(M: TMatrixExt);
 var
   I: Integer;
 begin
@@ -483,7 +489,7 @@ begin
     end;
 end;
 
-constructor TxMatrix.CreateDiag(Dim: Word; Value: Extended = 1.0);
+constructor TMatrixRec.CreateDiag(Dim: Word; Value: Extended = 1.0);
 var
   I: Integer;
 begin
@@ -492,14 +498,14 @@ begin
     FData[I, I] := Value;
 end;
 
-function TxMatrix.Determinant: Extended;
+function TMatrixRec.Determinant: Extended;
 begin
   if (FRowsCount <> FColsCount) then
     raise EMathError.Create(sNOT_QUAD);
   Result := Det(Self, FRowsCount);
 end;
 
-procedure TxMatrix.Fill(Scalar: Extended);
+procedure TMatrixRec.Fill(Scalar: Extended);
 var
   I, J: Integer;
 begin
@@ -514,7 +520,7 @@ begin
         FData[I, J] := Scalar;
 end;
 
-function TxMatrix.GetCol(Col: Word): TxVector;
+function TMatrixRec.GetCol(Col: Word): TVectorRec;
 var
   I: Integer;
 begin
@@ -525,13 +531,13 @@ begin
     Result.FData[I] := FData[I, Col - 1];
 end;
 
-function TxMatrix.GetElement(Row, Col: Word): Extended;
+function TMatrixRec.GetElement(Row, Col: Word): Extended;
 begin
   {$R+}
   Result := FData[Pred(Row), Pred(Col)];
 end;
 
-function TxMatrix.GetRow(Row: Word): TxVector;
+function TMatrixRec.GetRow(Row: Word): TVectorRec;
 var
   I: Integer;
 begin
@@ -542,12 +548,12 @@ begin
     Result.FData[I] := FData[Row - 1, I];
 end;
 
-class operator TxMatrix.Implicit(M: T_BigMatrix): TxMatrix;
+class operator TMatrixRec.Implicit(M: TMatrixExt): TMatrixRec;
 begin
   Result.Create(M);
 end;
 
-function TxMatrix.Inv: TxMatrix;
+function TMatrixRec.Inv: TMatrixRec;
 var
   Ipiv, Indxr, Indxc: array of Integer;
   DimMat, I, J, K, L, N, ICol, IRow: Integer;
@@ -611,7 +617,7 @@ begin
       end;
 end;
 
-function TxMatrix.ToQuat: TxQuaternion;
+function TMatrixRec.ToQuat: TQuaternionRec;
 begin
     Result[0] := 0.5 * Sqrt(Abs(1 + Self[1,1] + Self[2,2] + Self[3,3]));
     Result[1] := 0.5 * Sqrt(Abs(1 + Self[1,1] - Self[2,2] - Self[3,3]));
@@ -625,7 +631,7 @@ begin
         Result[3] := -Result[3];
 end;
 
-class operator TxMatrix.Multiply(M: TxMatrix; Q: TxQuaternion): TxQuaternion;
+class operator TMatrixRec.Multiply(M: TMatrixRec; Q: TQuaternionRec): TQuaternionRec;
 var
   I, J: Integer;
 begin
@@ -637,12 +643,12 @@ begin
       Result.FData[I] := Result.FData[I] + M.FData[I, J] * Q.FData[J];
 end;
 
-class operator TxMatrix.Multiply(Scalar: Extended; M: TxMatrix): TxMatrix;
+class operator TMatrixRec.Multiply(Scalar: Extended; M: TMatrixRec): TMatrixRec;
 begin
   Result := M * Scalar;
 end;
 
-class operator TxMatrix.Multiply(V: TxVector; M: TxMatrix): TxVector;
+class operator TMatrixRec.Multiply(V: TVectorRec; M: TMatrixRec): TVectorRec;
 var
   I, J: Integer;
 begin
@@ -654,7 +660,7 @@ begin
       Result.FData[I] := Result.FData[I] + V.FData[J] * M.FData[J, I];
 end;
 
-class operator TxMatrix.Multiply(M: TxMatrix; V: TxVector): TxVector;
+class operator TMatrixRec.Multiply(M: TMatrixRec; V: TVectorRec): TVectorRec;
 var
   I, J: Integer;
 begin
@@ -666,7 +672,7 @@ begin
       Result.FData[I] := Result.FData[I] + M.FData[I, J] * V.FData[J];
 end;
 
-class operator TxMatrix.Multiply(M: TxMatrix; Scalar: Extended): TxMatrix;
+class operator TMatrixRec.Multiply(M: TMatrixRec; Scalar: Extended): TMatrixRec;
 var
   I, J: Integer;
 begin
@@ -676,7 +682,7 @@ begin
       Result.FData[I, J] := M.FData[I, J] * Scalar;
 end;
 
-class operator TxMatrix.Multiply(M1, M2: TxMatrix): TxMatrix;
+class operator TMatrixRec.Multiply(M1, M2: TMatrixRec): TMatrixRec;
 var
   I, J, K: Integer;
 begin
@@ -689,7 +695,7 @@ begin
         Result.FData[I, J] := Result.FData[I, J] + M1.FData[I, K] * M2.FData[K, J];
 end;
 
-procedure TxMatrix.SetCol(Col: Word; Value: TxVector);
+procedure TMatrixRec.SetCol(Col: Word; Value: TVectorRec);
 var
   I: Integer;
 begin
@@ -701,14 +707,14 @@ begin
     FData[I, Col - 1] := Value.FData[I];
 end;
 
-procedure TxMatrix.SetElement(Row, Col: Word; Value: Extended);
+procedure TMatrixRec.SetElement(Row, Col: Word; Value: Extended);
 begin
   {$R+}
   CheckUnique;
   FData[Pred(Row), Pred(Col)] := Value;
 end;
 
-procedure TxMatrix.SetRow(Row: Word; Value: TxVector);
+procedure TMatrixRec.SetRow(Row: Word; Value: TVectorRec);
 var
   I: Integer;
 begin
@@ -720,7 +726,7 @@ begin
     FData[Row - 1, I] := Value.FData[I];
 end;
 
-class operator TxMatrix.Subtract(M1, M2: TxMatrix): TxMatrix;
+class operator TMatrixRec.Subtract(M1, M2: TMatrixRec): TMatrixRec;
 var
   I, J: Integer;
 begin
@@ -732,7 +738,7 @@ begin
       Result.FData[I, J] := M1.FData[I, J] - M2.FData[I, J];
 end;
 
-function TxMatrix.Trace: Extended;
+function TMatrixRec.Trace: Extended;
 var
   I: Integer;
 begin
@@ -743,7 +749,7 @@ begin
     Result := Result + FData[I, I];
 end;
 
-function TxMatrix.Transp: TxMatrix;
+function TMatrixRec.Transp: TMatrixRec;
 var
   I, J: Integer;
 begin
@@ -753,7 +759,7 @@ begin
       Result.FData[I, J] := FData[J, I];
 end;
 
-function TxMatrix.TruncateSTI: TxMatrix;
+function TMatrixRec.TruncateSTI: TMatrixRec;
 const
   Int32Max: Double = Integer.MaxValue;
   Int32Min: Double = Integer.MinValue;
@@ -776,34 +782,34 @@ end;
 
 
 //-----------------------------
-// TxVector
+// TVectorRec
 //-----------------------------
 
-constructor TxVector.Create(V: TxBigMatrix);
+constructor TVectorRec.Create(V: TVectorExt);
 begin
   FCount := Length(V);
   FData := Copy(V);
 end;
 
-constructor TxVector.Create(ElementsCount: Word);
+constructor TVectorRec.Create(ElementsCount: Word);
 begin
   FCount := ElementsCount;
   FData := nil;
   SetLength(FData, FCount);
 end;
 
-class operator TxVector.Add(V1, V2: TxVector): TxVector;
+class operator TVectorRec.Add(V1, V2: TVectorRec): TVectorRec;
 var
   i: Integer;
 begin
   if (V1.FCount <> V2.FCount) then
     raise EMathError.Create(sWRONG_SIZE);
-  Result := TxVector.Create(V1.FCount);
+  Result := TVectorRec.Create(V1.FCount);
   for i := 0 to V1.FCount - 1 do
     Result.FData[i] := V1.FData[i] + V2.FData[i];
 end;
 
-class operator TxVector.Add(V: TxVector; Scalar: Extended): TxVector;
+class operator TVectorRec.Add(V: TVectorRec; Scalar: Extended): TVectorRec;
 var
   I: Integer;
 begin
@@ -812,18 +818,18 @@ begin
     Result.FData[I] := V.FData[I] + Scalar;
 end;
 
-class operator TxVector.Add(Scalar: Extended; V: TxVector): TxVector;
+class operator TVectorRec.Add(Scalar: Extended; V: TVectorRec): TVectorRec;
 begin
   Result := V + Scalar;
 end;
 
-procedure TxVector.CheckUnique;
+procedure TVectorRec.CheckUnique;
 begin
   if NotUnique(@FData) then
     FData := Copy(FData);
 end;
 
-class operator TxVector.Divide(V1, V2: TxVector): TxVector;
+class operator TVectorRec.Divide(V1, V2: TVectorRec): TVectorRec;
 var
   I: Integer;
 begin
@@ -834,17 +840,17 @@ begin
     Result.FData[I] := V1.FData[I] / V2.FData[I];
 end;
 
-class operator TxVector.Divide(V: TxVector; Scalar: Extended): TxVector;
+class operator TVectorRec.Divide(V: TVectorRec; Scalar: Extended): TVectorRec;
 begin
   Result := V * (1 / Scalar);
 end;
 
-class operator TxVector.Implicit(V: TxBigMatrix): TxVector;
+class operator TVectorRec.Implicit(V: TVectorExt): TVectorRec;
 begin
   Result.Create(V);
 end;
 
-procedure TxVector.Fill(Value: Extended);
+procedure TVectorRec.Fill(Value: Extended);
 var
   I: Integer;
 begin
@@ -858,14 +864,14 @@ begin
       FData[I] := Value;
 end;
 
-function TxVector.GetElement(Index: Word): Extended;
+function TVectorRec.GetElement(Index: Word): Extended;
 begin
   if (Index = 0) or (Index > FCount) then
     raise EMathError.Create(sWRONG_ELEMENT);
   Result := FData[Pred(Index)];
 end;
 
-class operator TxVector.Multiply(V: TxVector; Scalar: Extended): TxVector;
+class operator TVectorRec.Multiply(V: TVectorRec; Scalar: Extended): TVectorRec;
 var
   I: Integer;
 begin
@@ -874,17 +880,17 @@ begin
     Result.FData[I] := V.FData[I] * Scalar;
 end;
 
-class operator TxVector.Multiply(Scalar: Extended; V: TxVector): TxVector;
+class operator TVectorRec.Multiply(Scalar: Extended; V: TVectorRec): TVectorRec;
 begin
   Result := V * Scalar;
 end;
 
-function TxVector.Norm: Extended;
+function TVectorRec.Norm: Extended;
 begin
   Result := System.Math.Norm(FData);
 end;
 
-class operator TxVector.Multiply(V1, V2: TxVector): TxVector;
+class operator TVectorRec.Multiply(V1, V2: TVectorRec): TVectorRec;
 begin
   if (V1.FCount <> 3) or (V2.FCount <> 3) then
     raise EMathError.Create(sWRONG_SIZE);
@@ -894,7 +900,7 @@ begin
   Result.FData[2] := V1.FData[0] * V2.FData[1] - V1.FData[1] * V2.FData[0];
 end;
 
-function TxVector.ScalarMult(V: TxVector): Extended;
+function TVectorRec.ScalarMult(V: TVectorRec): Extended;
 var
   I: Integer;
 begin
@@ -905,7 +911,7 @@ begin
     Result := Result + FData[I] * V.FData[I];
 end;
 
-procedure TxVector.SetElement(Index: Word; Value: Extended);
+procedure TVectorRec.SetElement(Index: Word; Value: Extended);
 begin
   if (Index = 0) or (Index > FCount) then
     raise EMathError.Create(sWRONG_ELEMENT);
@@ -913,7 +919,7 @@ begin
   FData[Pred(Index)] := Value;
 end;
 
-class operator TxVector.Subtract(V1, V2: TxVector): TxVector;
+class operator TVectorRec.Subtract(V1, V2: TVectorRec): TVectorRec;
 var
   I: Integer;
 begin
@@ -924,7 +930,7 @@ begin
     Result.FData[I] := V1.FData[I] - V2.FData[I];
 end;
 
-class operator TxVector.Subtract(Scalar: Extended; V: TxVector): TxVector;
+class operator TVectorRec.Subtract(Scalar: Extended; V: TVectorRec): TVectorRec;
 var
   I: Integer;
 begin
@@ -933,7 +939,7 @@ begin
     Result.FData[I] := Scalar - V.FData[I];
 end;
 
-class operator TxVector.Subtract(V: TxVector; Scalar: Extended): TxVector;
+class operator TVectorRec.Subtract(V: TVectorRec; Scalar: Extended): TVectorRec;
 var
   I: Integer;
 begin
@@ -942,17 +948,17 @@ begin
     Result.FData[I] := V.FData[I] - Scalar;
 end;
 
-function TxVector.SumOfElments: Extended;
+function TVectorRec.SumOfElments: Extended;
 begin
   Result := Sum(FData);
 end;
 
-function TxVector.SumOfSquares: Extended;
+function TVectorRec.SumOfSquares: Extended;
 begin
   Result := System.Math.SumOfSquares(FData);
 end;
 
-function TxVector.ToQuat: TxQuaternion;
+function TVectorRec.ToQuat: TQuaternionRec;
 var
   ModVec: Extended;
   C1, C2: Extended;
@@ -968,7 +974,7 @@ begin
   Result := [C1, FData[0] * C2, FData[1] * C2, FData[2] * C2];
 end;
 
-function TxVector.TruncateSTI: TxVector;
+function TVectorRec.TruncateSTI: TVectorRec;
 const
   Int32Max: Double = Integer.MaxValue;
   Int32Min: Double = Integer.MinValue;
@@ -989,10 +995,10 @@ begin
 end;
 
 //-----------------------------
-// TxQuatHelper
+// TQuaternionHelper
 //-----------------------------
 
-function TxQuatHelper.ToMatrix: TxMatrix;
+function TQuaternionHelper.ToMatrix: TMatrixRec;
 begin
   Result.Create(3, 3);
   Result[1, 1] := Sqr(FData[0]) + Sqr(FData[1]) - Sqr(FData[2]) - Sqr(FData[3]);
@@ -1007,10 +1013,10 @@ begin
 end;
 
 //-----------------------------
-// TxVecHelper
+// TVectorHelper
 //-----------------------------
 
-function TxVecHelper.ToDiagMatrix: TxMatrix;
+function TVectorHelper.ToDiagMatrix: TMatrixRec;
 var
   I: Integer;
 begin
@@ -1023,8 +1029,8 @@ procedure Init(Obj, TypeInfoOfObj: Pointer; Offset: Integer = 0);
 const
   DefaultRowCount = 3;
   DefaultColCount = 3;
-  VectorTypeName = 'TGLVector';
-  MatrixTypeName = 'TGLMatrix';
+  VectorTypeName = 'TVectorRec';
+  MatrixTypeName = 'TMatrixRec';
 var
   RTTIContext: TRttiContext;
   Field : TRttiField;
@@ -1042,8 +1048,8 @@ begin
       ColCount := DefaultColCount;
       for Dim in Field.GetAttributes do
       begin
-        RowCount := (Dim as TxDim).RowCount;
-        ColCount := (Dim as TxDim).ColCount;
+        RowCount := (Dim as TDim).RowCount;
+        ColCount := (Dim as TDim).ColCount;
       end;
       if Field.FieldType.TypeKind = tkArray then
       begin
@@ -1054,15 +1060,15 @@ begin
           begin
             OffsetFromArray := I * ArrFld.ElementType.TypeSize;
             if ArrFld.ElementType.Name = VectorTypeName then
-              PxVector(Integer(Obj) +
+              PVectorRec(Integer(Obj) +
                       Field.Offset +
                       OffsetFromArray +
-                      Offset)^ := TxVector.Create(RowCount)
+                      Offset)^ := TVectorRec.Create(RowCount)
             else if ArrFld.ElementType.Name = MatrixTypeName then
-              PxMatrix(Integer(Obj) +
+              PMatrixRec(Integer(Obj) +
                       Field.Offset +
                       OffsetFromArray +
-                      Offset)^ := TxMatrix.Create(RowCount, ColCount)
+                      Offset)^ := TMatrixRec.Create(RowCount, ColCount)
             else
               Init(Obj, ArrFld.ElementType.Handle, Field.Offset + OffsetFromArray);
           end;
@@ -1071,13 +1077,13 @@ begin
       else if Field.FieldType.TypeKind = tkRecord then
       begin
         if Field.FieldType.Name = VectorTypeName then
-          PxVector(Integer(Obj) +
+          PVectorRec(Integer(Obj) +
                   Field.Offset +
-                  Offset)^ := TxVector.Create(RowCount)
+                  Offset)^ := TVectorRec.Create(RowCount)
         else if Field.FieldType.Name = MatrixTypeName then
-          PxMatrix(Integer(Obj) +
+          PMatrixRec(Integer(Obj) +
                   Field.Offset +
-                  Offset)^ := TxMatrix.Create(RowCount, ColCount)
+                  Offset)^ := TMatrixRec.Create(RowCount, ColCount)
         else
           Init(Obj, Field.FieldType.Handle, Field.Offset)
       end;
@@ -1086,10 +1092,10 @@ begin
 end;
 
 //-----------------------------
-// TxDim
+// TDim
 //-----------------------------
 
-constructor TxDim.Create(ARowCount: Integer; AColCount: Integer = 0);
+constructor TDim.Create(ARowCount: Integer; AColCount: Integer = 0);
 begin
   FRowCount := ARowCount;
   FColCount := AColCount;
@@ -1097,84 +1103,84 @@ end;
 
 
 //-----------------------------
-// TxPoint2D
+// TPoint2DRec
 //-----------------------------
 
-function TxPoint2D.Create(X, Y : Extended): TxPoint2D;
+function TPoint2DRec.Create(X, Y : Extended): TPoint2DRec;
 begin
   Result.X := X;
   Result.Y := Y;
 end;
 
-procedure TxPoint2D.SetPosition(const X, Y: Extended);
+procedure TPoint2DRec.SetPosition(const X, Y: Extended);
 begin
   Self.X := X;
   Self.Y := Y;
 end;
 
-function TxPoint2D.Length: Extended;
+function TPoint2DRec.Length: Extended;
 begin
   Result := Sqrt(Self.X * Self.X + Self.Y * Self.Y);
 end;
 
-function TxPoint2D.Add(const APoint2D: TxPoint2D): TxPoint2D;
+function TPoint2DRec.Add(const APoint2D: TPoint2DRec): TPoint2DRec;
 begin
   Result.SetPosition(Self.X + APoint2D.X, Self.Y + APoint2D.Y);
 end;
 
-function TxPoint2D.Distance(const APoint2D: TxPoint2D): Extended;
+function TPoint2DRec.Distance(const APoint2D: TPoint2DRec): Extended;
 begin
   Result := Sqrt(Sqr(Self.X - APoint2D.X) +  Sqr(Self.Y - APoint2D.Y));
 end;
 
-procedure TxPoint2D.Offset(const ADeltaX, ADeltaY: Extended);
+procedure TPoint2DRec.Offset(const ADeltaX, ADeltaY: Extended);
 begin
   Self.X := Self.X + ADeltaX;
   Self.Y := Self.Y + ADeltaY;
 end;
 
-class function TxPoint2D.PointInCircle(const Point, Center: TxPoint2D;
+class function TPoint2DRec.PointInCircle(const Point, Center: TPoint2DRec;
   const Radius: Integer): Boolean;
 begin
   Result := Point.Distance(Center) <= Radius;
 end;
 
 //-----------------------------
-// TxPoint3D
+// TPoint3DRec
 //-----------------------------
 
-function TxPoint3D.Create(X, Y, Z: Extended): TxPoint3D;
+function TPoint3DRec.Create(X, Y, Z: Extended): TPoint3DRec;
 begin
   Result.X := X;
   Result.Y := Y;
   Result.Z := Z;
 end;
 
-function TxPoint3D.Add(const AGLPoint3D: TxPoint3D): TxPoint3D;
+function TPoint3DRec.Add(const AGLPoint3D: TPoint3DRec): TPoint3DRec;
 begin
   Result.X := Self.X + AGLPoint3D.X;
   Result.Y := Self.Y + AGLPoint3D.Y;
   Result.Z := Self.Z + AGLPoint3D.Z;
 end;
 
-function TxPoint3D.Distance(const APoint3D: TxPoint3D): Extended;
+function TPoint3DRec.Distance(const APoint3D: TPoint3DRec): Extended;
 begin
   Result := Self.Length - APoint3D.Length;
 end;
 
-function TxPoint3D.Length: Single;
+function TPoint3DRec.Length: Single;
 begin
   Result := Sqrt(Self.X * Self.X + Self.Y * Self.Y + Self.Z * Self.Z);
 end;
 
-procedure TxPoint3D.Offset(const ADeltaX, ADeltaY, ADeltaZ: Extended);
+procedure TPoint3DRec.Offset(const ADeltaX, ADeltaY, ADeltaZ: Extended);
 begin
   Self.X := Self.X + ADeltaX;
   Self.Y := Self.Y + ADeltaY;
   Self.Z := Self.Z + ADeltaZ;
 end;
 
-procedure TxPoint3D.SetPosition(const X, Y, Z: Extended);
+procedure TPoint3DRec.SetPosition(const X, Y, Z: Extended);
 begin
   Self.X := X;
   Self.Y := Y;
@@ -1182,46 +1188,46 @@ begin
 end;
 
 //-----------------------------
-// TxVector2D
+// TVector2DRec
 //-----------------------------
 
-function TxVector2D.Create(const AX, AY, AW: Single): TxVector2D;
+function TVector2DRec.Create(const AX, AY, AW: Single): TVector2DRec;
 begin
   Result.X := AX;
   Result.Y := AY;
   Result.W := AW;
 end;
 
-function TxVector2D.CrossProduct(const AVector: TxVector2D): TxVector2D;
+function TVector2DRec.CrossProduct(const AVector: TVector2DRec): TVector2DRec;
 begin
   Result.X := (Self.Y * AVector.W) - (Self.W * AVector.Y);
   Result.Y := (Self.W * AVector.X) - (Self.X * AVector.W);
   Result.W := (Self.X * AVector.Y) - (Self.Y * AVector.X);
 end;
 
-function TxVector2D.DotProduct(const AVector: TxVector2D): Extended;
+function TVector2DRec.DotProduct(const AVector: TVector2DRec): Extended;
 begin
   Result := (Self.X * AVector.X) + (Self.Y * AVector.Y) + (Self.W * AVector.W);
 end;
 
-function TxVector2D.Add(const AVector2D: TxVector2D): TxVector2D;
+function TVector2DRec.Add(const AVector2D: TVector2DRec): TVector2DRec;
 begin
   Result.X := Self.X + AVector2D.X;
   Result.Y := Self.Y + AVector2D.Y;
   Result.W := 1.0;
 end;
 
-function TxVector2D.Length: Extended;
+function TVector2DRec.Length: Extended;
 begin
   Result := Sqrt((Self.X * Self.X) + (Self.Y * Self.Y));
 end;
 
-function TxVector2D.Norm: Extended;
+function TVector2DRec.Norm: Extended;
 begin
   Result := Sqr(Self.X) + Sqr(Self.Y);
 end;
 
-function TxVector2D.Normalize: TxVector2D;
+function TVector2DRec.Normalize: TVector2DRec;
 var
   invLen: Single;
   vn: Single;
@@ -1240,9 +1246,9 @@ begin
 end;
 
 //---------------------------------
-// TxVector3D
+// TVector3DRec
 //---------------------------------
-function TxVector3D.Create(const AX, AY, AZ, AW: Single): TxVector3D;
+function TVector3DRec.Create(const AX, AY, AZ, AW: Single): TVector3DRec;
 begin
   Result.X := AX;
   Result.Y := AY;
@@ -1250,7 +1256,7 @@ begin
   Result.W := AW;
 end;
 
-function TxVector3D.Add(const AVector3D: TxVector3D): TxVector3D;
+function TVector3DRec.Add(const AVector3D: TVector3DRec): TVector3DRec;
 begin
   Result.X := Self.X + AVector3D.X;
   Result.Y := Self.Y + AVector3D.Y;
@@ -1258,12 +1264,12 @@ begin
   Result.W := 1.0;
 end;
 
-function TxVector3D.Norm: Single;
+function TVector3DRec.Norm: Single;
 begin
   result := Self.X * Self.X + Self.Y * Self.Y + Self.Z * Self.Z;
 end;
 
-function TxVector3D.Normalize: TxVector3D;
+function TVector3DRec.Normalize: TVector3DRec;
 var
   invLen: Single;
   vn: Single;
@@ -1283,59 +1289,59 @@ begin
     Result := Self;
 end;
 
-function TxVector3D.DotProduct(const AVector3D: TVector3D): Single;
+function TVector3DRec.DotProduct(const AVector3D: TVector3D): Single;
 begin
   Result := (Self.X * AVector3D.X) + (Self.Y * AVector3D.Y) + (Self.Z * AVector3D.Z);
 end;
 
-function TxVector3D.CrossProduct(const AVector3D: TVector3D): TVector3D;
+function TVector3DRec.CrossProduct(const AVector3D: TVector3D): TVector3D;
 begin
   Result.X := (Self.Y * AVector3D.Z) - (Self.Z * AVector3D.Y);
   Result.Y := (Self.Z * AVector3D.X) - (Self.X * AVector3D.Z);
   Result.Z := (Self.X * AVector3D.Y) - (Self.Y * AVector3D.X);
 end;
 
-function TxVector3D.Length: Single;
+function TVector3DRec.Length: Single;
 begin
   Result := Sqrt((Self.X * Self.X) + (Self.Y * Self.Y) + (Self.Z * Self.Z));
 end;
 
 //---------------------------------
-// TxQuaternion
+// TQuaternionRec
 //---------------------------------
 
-function TxQuaternion.GetElement(Index: Byte): Extended;
+function TQuaternionRec.GetElement(Index: Byte): Extended;
 begin
   if (Index > 3) then
     raise EMathError.Create(sWRONG_ELEMENT);
   Result := FData[Index];
 end;
 
-class operator TxQuaternion.Implicit(V: TxBigMatrix): TxQuaternion;
+class operator TQuaternionRec.Implicit(V: TVectorExt): TQuaternionRec;
 begin
   if (Length(V) <> 4) then
     raise EMathError.Create(sWRONG_SIZE);
   Move(V[0], Result.FData, SizeOf(Result.FData));
 end;
 
-function TxQuaternion.Inv: TxQuaternion;
+function TQuaternionRec.Inv: TQuaternionRec;
 begin
     Result := [FData[0], -FData[1], -FData[2], -FData[3]];
 end;
 
-class operator TxQuaternion.Multiply(Scalar: Extended; Q: TxQuaternion): TxQuaternion;
+class operator TQuaternionRec.Multiply(Scalar: Extended; Q: TQuaternionRec): TQuaternionRec;
 begin
   Result := Q * Scalar;
 end;
 
-class operator TxQuaternion.Multiply(Q: TxQuaternion; Sc: Extended): TxQuaternion;
+class operator TQuaternionRec.Multiply(Q: TQuaternionRec; Sc: Extended): TQuaternionRec;
 begin
   Result := [Q.FData[0] * Sc, Q.FData[1] * Sc, Q.FData[2] * Sc, Q.FData[3] * Sc];
 end;
 
-class operator TxQuaternion.Multiply(Q1, Q2: TxQuaternion): TxQuaternion;
+class operator TQuaternionRec.Multiply(Q1, Q2: TQuaternionRec): TQuaternionRec;
 var
-  Mat: TxMatrix;
+  Mat: TMatrixRec;
 begin
   Mat := [[Q1.FData[0], -Q1.FData[1], -Q1.FData[2], -Q1.FData[3]],
           [Q1.FData[1],  Q1.FData[0], -Q1.FData[3],  Q1.FData[2]],
@@ -1344,21 +1350,21 @@ begin
   Result := Mat * Q2;
 end;
 
-constructor TxQuaternion.Create(Q: TxBigMatrix);
+constructor TQuaternionRec.Create(Q: TVectorExt);
 begin
   if Length(Q) <> 4 then
     raise EMathError.Create(sWRONG_SIZE);
   Move(Q[0], FData[0], SizeOf(FData));
 end;
 
-procedure TxQuaternion.SetElement(Index: Byte; Value: Extended);
+procedure TQuaternionRec.SetElement(Index: Byte; Value: Extended);
 begin
   if (Index > 3) then
     raise EMathError.Create(sWRONG_ELEMENT);
   FData[Index] := Value;
 end;
 
-function TxQuaternion.TruncateSTI: TxQuaternion;
+function TQuaternionRec.TruncateSTI: TQuaternionRec;
 const
   Int32Max: Double = Integer.MaxValue;
   Int32Min: Double = Integer.MinValue;
@@ -1381,5 +1387,5 @@ begin
   Result[3] := xTrunc(FData[3]);
 end;
 
+end.
 
-end.

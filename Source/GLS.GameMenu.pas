@@ -1,7 +1,6 @@
 //
 // The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.GameMenu;
 
 (* Manages a basic game menu UI *)
@@ -165,7 +164,7 @@ var
   canvas: TGLCanvas;
   buffer: TGLSceneBuffer;
   i, w, h, tw, Y: Integer;
-  color: TColorVector;
+  color: TGLColorVector;
   libMat: TGLLibMaterial;
 begin
   if Font = nil then

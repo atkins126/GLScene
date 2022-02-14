@@ -24,7 +24,7 @@ uses
 
 (* Tesselates the polygon outlined by the Vertexes. And adds them to the first
    facegroup of the Mesh. *)
-procedure DoTesselate(Vertexes: TAffineVectorList; Mesh: TGLBaseMesh;
+procedure DoTesselate(Vertexes: TGLAffineVectorList; Mesh: TGLBaseMesh;
   normal: PAffineVector = nil; invertNormals: Boolean = False);
 
 //---------------------------------------------------------------------------
@@ -32,7 +32,7 @@ implementation
 //---------------------------------------------------------------------------
 
 var
-  TessMesh: TMeshObject;
+  TessMesh: TGLMeshObject;
   TessFace: TFGIndexTexCoordList;
   TessVerticesCount, TessExtraVertices: Integer;
   TessVertices: PAffineVectorArray;
@@ -86,7 +86,7 @@ begin
   SetVector(PAffineVector(outData)^, coords[0], coords[1], coords[2]);
 end;
 
-procedure DoTesselate(Vertexes: TAffineVectorList; Mesh: TGLBaseMesh; normal: PAffineVector = nil; invertNormals: Boolean = False);
+procedure DoTesselate(Vertexes: TGLAffineVectorList; Mesh: TGLBaseMesh; normal: PAffineVector = nil; invertNormals: Boolean = False);
 var
   Tess: PGLUTesselator;
   i: Integer;
@@ -95,7 +95,7 @@ begin
   // Select or Create FaceGroup
   if Mesh.MeshObjects.Count = 0 then
   begin
-    TessMesh := TMeshObject.CreateOwned(Mesh.MeshObjects);
+    TessMesh := TGLMeshObject.CreateOwned(Mesh.MeshObjects);
     Mesh.MeshObjects[0].Mode := momFaceGroups;
   end
   else
