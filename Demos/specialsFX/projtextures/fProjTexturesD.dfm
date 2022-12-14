@@ -2,37 +2,35 @@ object FormProjTextures: TFormProjTextures
   Left = 202
   Top = 106
   Caption = 'Projected Textures'
-  ClientHeight = 555
-  ClientWidth = 855
+  ClientHeight = 499
+  ClientWidth = 762
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -14
+  Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  Position = poScreenCenter
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
-  PixelsPerInch = 120
-  TextHeight = 16
+  TextHeight = 13
   object viewer: TGLSceneViewer
     Left = 0
     Top = 0
-    Width = 855
-    Height = 555
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Width = 762
+    Height = 499
     Camera = camera
     Buffer.BackgroundColor = clSilver
     Buffer.ContextOptions = [roDoubleBuffer, roStencilBuffer, roRenderToWindow]
     Buffer.DepthPrecision = dp32bits
-    FieldOfView = 159.572052001953100000
+    FieldOfView = 157.335983276367200000
     PenAsTouch = False
     Align = alClient
     OnMouseDown = viewerMouseDown
     OnMouseUp = viewerMouseUp
     TabOrder = 0
+    ExplicitWidth = 755
+    ExplicitHeight = 489
   end
   object scene: TGLScene
     Left = 56
@@ -43,7 +41,8 @@ object FormProjTextures: TFormProjTextures
       object scenery: TGLDummyCube
         CubeSize = 1.000000000000000000
         object GLCube2: TGLCube
-          Scale.Coordinates = {000020C1000020C1000020C100000000}
+          Scale.Coordinates = {000040C0000040C0000040C000000000}
+          Visible = False
           NormalDirection = ndInside
         end
         object light2: TGLDummyCube

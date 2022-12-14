@@ -85,9 +85,9 @@ var
 {$R *.dfm}
 
 procedure TFormFPSMovement.FormCreate(Sender: TObject);
-
 begin
-  SetGLSceneMediaDir;
+  var Path: TFileName := GetCurrentAssetPath();
+  SetCurrentDir(Path  + '\model');
   Map1.LoadFromFile('map.3ds');
   Map1.BuildOctree();
   Map1.Up.SetVector(0, 1, 0);
@@ -122,7 +122,7 @@ begin
   if Key = VK_F3 then
     GLSceneViewer1.Camera := ThirdPersonCamera;
   // solid / wireframe
-  if iskeydown(VK_F5) then
+  if IsKeyDown(VK_F5) then
   begin
     WireFrame := not WireFrame;
     if WireFrame then

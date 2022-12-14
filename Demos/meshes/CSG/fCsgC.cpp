@@ -26,7 +26,8 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TForm1::FormCreate(TObject *Sender)
 {
-  SetGLSceneMediaDir();
+  TFileName Path = GetCurrentAssetPath();
+  SetCurrentDir(Path  + "\\model");
   // scaled 40
   GLFreeForm1->LoadFromFile("polyhedron.3ds");
 
@@ -84,7 +85,7 @@ void __fastcall TForm1::ButtonClearClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Button2Click(TObject *Sender)
+void __fastcall TForm1::btnUnionAandBClick(TObject *Sender)
 {
   // Union
   TGLMeshObject *Mesh;
@@ -106,7 +107,7 @@ void __fastcall TForm1::Button2Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Button3Click(TObject *Sender)
+void __fastcall TForm1::btnSubtractABClick(TObject *Sender)
 {
   // Subtract A-B
   TGLMeshObject *Mesh;
@@ -130,7 +131,7 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Button4Click(TObject *Sender)
+void __fastcall TForm1::btnSubtractBAClick(TObject *Sender)
 {
   // Subtract B-A
   TGLMeshObject *Mesh;
@@ -154,7 +155,7 @@ void __fastcall TForm1::Button4Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Button5Click(TObject *Sender)
+void __fastcall TForm1::btnIntersectAorBClick(TObject *Sender)
 {
   // Intersect
   TGLMeshObject *Mesh;

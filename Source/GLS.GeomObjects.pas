@@ -47,32 +47,24 @@ type
 
 //-------------------- TGLBaseMesh Objects -----------------------
 
-  (* The tetrahedron has no texture coordinates defined, ie. without using
+  (* This objects has no texture coordinates defined, ie. without using
     a texture generation mode, no texture will be mapped. *)
   TGLTetrahedron = class(TGLBaseMesh)
   public
     procedure BuildList(var rci: TGLRenderContextInfo); override;
   end;
-  (* The octahedron has no texture coordinates defined, ie. without using
-    a texture generation mode, no texture will be mapped. *)
   TGLOctahedron = class(TGLBaseMesh)
   public
     procedure BuildList(var rci: TGLRenderContextInfo); override;
   end;
-  (* The hexahedron has no texture coordinates defined, ie. without using
-    a texture generation mode, no texture will be mapped. *)
   TGLHexahedron = class(TGLBaseMesh)
   public
     procedure BuildList(var rci: TGLRenderContextInfo); override;
   end;
-  (* The dodecahedron has no texture coordinates defined, ie. without using
-   a texture generation mode, no texture will be mapped. *)
   TGLDodecahedron = class(TGLBaseMesh)
   public
     procedure BuildList(var rci: TGLRenderContextInfo); override;
   end;
-  (* The icosahedron has no texture coordinates defined, ie. without using
-     a texture generation mode, no texture will be mapped. *)
   TGLIcosahedron = class(TGLBaseMesh)
   public
     procedure BuildList(var rci: TGLRenderContextInfo); override;
@@ -113,7 +105,7 @@ type
     property SweepAngle: Single read FSweepAngle write SetSweepAngle;
   end;
 
-  (*  Base class to cylinder-like objects that introduces the basic cylinder description properties.
+  (* Base class to cylinder-like objects that introduces the basic cylinder description properties.
     Be aware teh default slices and stacks make up for a high-poly cylinder,
     unless you're after high-quality lighting it is recommended to reduce the
     Stacks property to 1. *)
@@ -833,7 +825,7 @@ begin
           // we also want StartAngle and StartAngle+SweepAngle to be in this range
           beginAngle := Trunc(StartAngle) mod 360;
           endAngle := Trunc(StartAngle + SweepAngle) mod 360;
-          // If beginAngle>endAngle then area crosses the boundary from 360=>0 degrees
+          // If beginAngle > endAngle then area crosses the boundary from 360=>0 degrees
           // therefore have 2 valid regions  (beginAngle to 360) & (0 to endAngle)
           // otherwise just 1 valid region (beginAngle to endAngle)
           if beginAngle > endAngle then
@@ -967,10 +959,8 @@ begin
     MakeVector(p[0], FBottomRadius * sina2, -HalfHeight, FBottomRadius * cosa2);
     MakeVector(p[1], FBottomRadius * sina1, -HalfHeight, FBottomRadius * cosa1);
     // Top corners
-    MakeVector(p[2], ShadowTopRadius * sina1, HalfHeight,
-      ShadowTopRadius * cosa1);
-    MakeVector(p[3], ShadowTopRadius * sina2, HalfHeight,
-      ShadowTopRadius * cosa2); // }
+    MakeVector(p[2], ShadowTopRadius * sina1, HalfHeight, ShadowTopRadius * cosa1);
+    MakeVector(p[3], ShadowTopRadius * sina2, HalfHeight, ShadowTopRadius * cosa2);
     // This should be optimized to use AddIndexedFace, because this method
     // searches for each of the vertices and adds them or re-uses them.
     // Skin

@@ -1,7 +1,6 @@
 //
 // The graphics rendering engine GLScene http://glscene.org
 //
-
 unit GLS.TerrainRenderer;
 
 (*
@@ -17,9 +16,9 @@ interface
 uses
   Winapi.OpenGL,
   System.Classes,
-  System.SysUtils, 
+  System.SysUtils,
   System.Types,
-  
+
   GLS.OpenGLTokens,
   GLS.Scene,
   GLS.Coordinates,
@@ -441,7 +440,7 @@ var
   Patch, PrevPatch: TGLROAMPatch;
   PatchList, RowList, prevRow, buf: TList;
   PostRenderPatchList, postRenderHeightDataList: TList;
-  rcci: TRenderContextClippingInfo;
+  rcci: TGLRenderContextClippingInfo;
   CurrentMaterialName: String;
   MaxTilePosX, MaxTilePosY, MinTilePosX, MinTilePosY: Single;
   t_l, t_t, t_r, t_b: Single;

@@ -58,7 +58,8 @@ uses
 
 procedure TFormCustomQuad.FormCreate(Sender: TObject);
 begin
-  SetGLSceneMediaDir();
+  var Path: TFileName := GetCurrentAssetPath();
+  SetCurrentDir(Path  + '\texture');
   // dynamically create 2 materials and load 2 textures
   MatLib.AddTextureMaterial('wood', 'ashwood.jpg').
     Material.FrontProperties.Emission.Color := clrGray50;
@@ -69,6 +70,9 @@ begin
     Material.FrontProperties.Emission.Color := clrGray50;
   MatLib.AddTextureMaterial('stone', 'walkway.jpg').
     Material.FaceCulling := fcNoCull;
+
+  Torus1.Material.Texture.Disabled := False;
+  Torus1.Material.Texture.Image.LoadFromFile('walkway.jpg');
 end;
 
 procedure TFormCustomQuad.DirectOpenGL1Render(Sender: TObject;
