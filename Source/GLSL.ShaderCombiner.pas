@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLSL.ShaderCombiner;
 
 (*
@@ -15,15 +14,15 @@ unit GLSL.ShaderCombiner;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
 
   GLS.Material,
   GLS.Scene,
-  GLS.VectorGeometry,
-  GLS.Strings,
+  Stage.VectorGeometry,
+  Stage.Strings,
   GLS.RenderContextInfo;
 
 type

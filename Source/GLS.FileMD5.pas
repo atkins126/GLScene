@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.FileMD5;
 
 (* Doom3 MD5 mesh and animation vector file format implementation. *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
@@ -16,10 +15,10 @@ uses
 
   GLS.VectorFileObjects,
   GLS.PersistentClasses,
-  GLS.Utils,
+  Stage.Utils,
   GLS.ApplicationFileIO,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.VectorLists;
 
 type

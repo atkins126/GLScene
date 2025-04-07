@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.MeshCSG;
 
@@ -12,7 +12,7 @@ unit GLS.MeshCSG;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.SysUtils,
@@ -20,9 +20,9 @@ uses
   System.Math,
 
   GLS.Scene,
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.VectorFileObjects,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.MeshBSP,
   GLS.VectorLists;
 

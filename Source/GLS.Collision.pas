@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Collision;
 
@@ -7,22 +7,23 @@ unit GLS.Collision;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
   System.Types,
 
-  GLS.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.OpenGLTokens,
+  Stage.VectorGeometry,
+  Stage.Manager,
+
   GLS.Scene,
   GLS.XCollection,
-  GLS.VectorGeometry,
   GLS.VectorLists,
   GLS.VectorFileObjects,
-  GLS.GeometryBB,
-  GLS.Manager,
-  GLS.VectorTypes;
+  GLS.GeometryBB;
 
 type
 

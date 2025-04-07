@@ -1,30 +1,29 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.File3DSSceneObjects;
 
 (* 3ds-specific scene objects. *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   System.SysUtils,
   System.Math,
-  
-  GLS.OpenGLTokens,
+
   GLS.OpenGLAdapter,
-  GLS.VectorGeometry,
+  Stage.OpenGLTokens,
+  GLS.PersistentClasses,
+  GLS.Coordinates,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.Context,
   GLS.Scene,
   GLS.VectorFileObjects,
-  GLS.VectorTypes,
-  GLS.PersistentClasses,
-  GLS.Coordinates,
   GLS.RenderContextInfo,
   GLS.State;
 
@@ -255,9 +254,9 @@ procedure TGLFile3DSCamera.DoRender(var rci: TGLRenderContextInfo; renderSelf, r
     //    glTranslatef(0, 0, 0.5);
     //    gluDisk(FQuadDisk[0], 0, 1, 6, 1);
     gl.Translatef(0, 0, -0.5);
-    rci.GLStates.InvertGLFrontFace;
+    rci.GLStates.InvertFrontFace;
     //    gluDisk(FQuadDisk[0], 0, 1, 6, 1);
-    rci.GLStates.InvertGLFrontFace;
+    rci.GLStates.InvertFrontFace;
   end;
 
   procedure BuildFace;
@@ -497,7 +496,10 @@ begin
   Result := LocalToAbsolute(Result);
 end;
 
+//--------------------------------------------
 initialization
+//--------------------------------------------
+
   RegisterClasses([TGLFile3DSLight, TGLFile3DSCamera, TGLFile3DSActor, TGLFile3DSFreeForm]);
 
 end.

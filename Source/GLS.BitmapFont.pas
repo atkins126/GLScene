@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.BitmapFont;
 
 (* Bitmap Fonts management classes *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpengL,
@@ -18,19 +17,20 @@ uses
   Vcl.Graphics,
   Vcl.StdCtrls,
   
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
+  Stage.TextureFormat,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+
   GLS.Scene,
-  GLS.VectorGeometry,
   GLS.Context,
   GLS.Texture,
   GLS.State,
-  GLS.Utils,
+  Stage.Utils,
   GLS.Graphics,
   GLS.Color,
   GLS.BaseClasses,
   GLS.RenderContextInfo,
-  GLS.TextureFormat,
-  GLS.VectorTypes,
   GLS.PersistentClasses;
 
 type

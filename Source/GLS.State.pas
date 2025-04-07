@@ -1,9 +1,7 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.State;
-
 (*  Tools for managing an application-side cache of OpenGL state. *)
 
 (*
@@ -23,7 +21,7 @@ unit GLS.State;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 { .$DEFINE USE_CACHE_MISS_CHECK }
 
 uses
@@ -32,17 +30,17 @@ uses
   System.Classes,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
-  GLS.TextureFormat,
-  GLS.Utils;
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.TextureFormat,
+  Stage.Utils,
+  GLS.Color;
 
 const
   GLS_VERTEX_ATTR_NUM = 16;
 
 type
-
   TGLStateType = (sttCurrent, sttPoint, sttLine, sttPolygon, sttPolygonStipple,
     sttPixelMode, sttLighting, sttFog, sttDepthBuffer, sttAccumBuffer,
     sttStencilBuffer, sttViewport, sttTransform, sttEnable, sttColorBuffer,
@@ -54,7 +52,6 @@ const
   cAllAttribBits = [low(TGLStateType) .. High(TGLStateType)];
 
 type
-
   TGLMeshPrimitive = (
     mpNOPRIMITIVE,
     mpTRIANGLES,
@@ -89,7 +86,6 @@ const
     mpPATCHES];
 
 type
-
   // Reflects all relevant (binary) states of OpenGL subsystem
   TGLState = (stAlphaTest, stAutoNormal,
     stBlend, stColorMaterial, stCullFace, stDepthTest, stDither,
@@ -148,7 +144,6 @@ const
   MAX_HARDWARE_UNIFORM_BUFFER_BINDING = 75;
 
 type
-
   TGLHintType = (hintDontCare, hintFastest, hintNicest);
 
   TGLLightSourceState = packed record
@@ -805,7 +800,6 @@ type
     // property FrameBuffer: Cardinal read FDrawFrameBuffer write SetFrameBuffer;
     // Renderbuffer currently bound render buffer. 
     property RenderBuffer: Cardinal read FRenderBuffer write SetRenderBuffer;
-
     // Pixels
     (* Controls whether byte swapping occurs during pixel unpacking. *)
     property UnpackSwapBytes: TGLboolean read FUnpackSwapBytes write SetUnpackSwapBytes;
@@ -868,7 +862,7 @@ type
     // Fragment shader derivitive hint
     property FragmentShaderDerivitiveHint: TGLHintType read FFragmentShaderDerivitiveHint write SetFragmentShaderDerivitiveHint;
     property MultisampleFilterHint: TGLHintType read FMultisampleFilterHint write SetMultisampleFilterHint;
-    // Current queries
+    // Current queries. Misc
     property CurrentQuery[Index: TGLQueryType]: Cardinal read GetCurrentQuery;
     // Begins a query of "Target" type.  "Value" must be a valid query object
     procedure BeginQuery(const target: TGLQueryType; const Value: Cardinal); inline;
@@ -893,13 +887,13 @@ type
     // Call display list
     procedure CallList(list: Cardinal); inline;
     // Defines the OpenGL texture matrix. Assumed texture mode is GL_MODELVIEW.
-    procedure SetGLTextureMatrix(const matrix: TGLMatrix); inline;
-    procedure ResetGLTextureMatrix; inline;
-    procedure ResetAllGLTextureMatrix; inline;
+    procedure SetTextureMatrix(const matrix: TGLMatrix); inline;
+    procedure ResetTextureMatrix; inline;
+    procedure ResetAllTextureMatrix; inline;
     // note: needs to change to per draw-buffer
-    procedure SetGLColorWriting(flag: Boolean); inline;
+    procedure SetColorWriting(flag: Boolean); inline;
     // Inverts front face winding (CCW/CW)
-    procedure InvertGLFrontFace; inline;
+    procedure InvertFrontFace; inline;
     // read only properties
     property States: TGLStates read FStates;
     // True for ignore deprecated and removed features in OpenGL 3x
@@ -914,10 +908,13 @@ type
 
 const
 {$WARN SYMBOL_DEPRECATED OFF}
-  cGLStateTypeToGLEnum: array [TGLStateType] of Cardinal = (GL_CURRENT_BIT, GL_POINT_BIT, GL_LINE_BIT, GL_POLYGON_BIT,
-    GL_POLYGON_STIPPLE_BIT, GL_PIXEL_MODE_BIT, GL_LIGHTING_BIT, GL_FOG_BIT, GL_DEPTH_BUFFER_BIT, GL_ACCUM_BUFFER_BIT,
-    GL_STENCIL_BUFFER_BIT, GL_VIEWPORT_BIT, GL_TRANSFORM_BIT, GL_ENABLE_BIT, GL_COLOR_BUFFER_BIT, GL_HINT_BIT, GL_EVAL_BIT,
-    GL_LIST_BIT, GL_TEXTURE_BIT, GL_SCISSOR_BIT, GL_MULTISAMPLE_BIT);
+  cGLStateTypeToGLEnum: array [TGLStateType] of Cardinal = (
+    GL_CURRENT_BIT, GL_POINT_BIT, GL_LINE_BIT, GL_POLYGON_BIT,
+    GL_POLYGON_STIPPLE_BIT, GL_PIXEL_MODE_BIT, GL_LIGHTING_BIT, GL_FOG_BIT, 
+	GL_DEPTH_BUFFER_BIT, GL_ACCUM_BUFFER_BIT, GL_STENCIL_BUFFER_BIT, 
+	GL_VIEWPORT_BIT, GL_TRANSFORM_BIT, GL_ENABLE_BIT, GL_COLOR_BUFFER_BIT, 
+	GL_HINT_BIT, GL_EVAL_BIT, GL_LIST_BIT, GL_TEXTURE_BIT, GL_SCISSOR_BIT, 
+	GL_MULTISAMPLE_BIT);
 
 {$WARN SYMBOL_DEPRECATED ON}
   cGLStateToGLEnum: array[TGLState] of TStateRecord =
@@ -997,13 +994,10 @@ const
   cGLBufferBindingTarget: array[TGLBufferBindingTarget] of Cardinal =
     (GL_UNIFORM_BUFFER, GL_TRANSFORM_FEEDBACK_BUFFER);
 
-//------------------------------------------------------
-implementation
-// ------------------------------------------------------
+implementation //------------------------------------------------------
 
 uses
-  GLS.Context,
-  GLS.Color;
+  GLS.Context;
 
 
 // ------------------
@@ -1202,7 +1196,7 @@ begin
   // Program state
   FCurrentProgram := 0;
   FUniformBufferBinding := 0;
-  FillChar(FUBOStates[bbtUniform][0], sizeof(FUBOStates), $00);
+  FillChar(FUBOStates[bbtUniform][0], SizeOf(FUBOStates), $00);
 
   // Vector + Geometry Shader state
   for I := 0 to Length(FCurrentVertexAttrib) - 1 do
@@ -2167,7 +2161,7 @@ begin
   end;
 end;
 
-procedure TGLStateCache.SetGLTextureMatrix(const matrix: TGLMatrix);
+procedure TGLStateCache.SetTextureMatrix(const matrix: TGLMatrix);
 begin
   { if FForwardContext then
     exit; }
@@ -2180,7 +2174,7 @@ begin
   gl.MatrixMode(GL_MODELVIEW);
 end;
 
-procedure TGLStateCache.ResetGLTextureMatrix;
+procedure TGLStateCache.ResetTextureMatrix;
 begin
   { if FForwardContext then
     exit; }
@@ -2190,7 +2184,7 @@ begin
   gl.MatrixMode(GL_MODELVIEW);
 end;
 
-procedure TGLStateCache.ResetAllGLTextureMatrix;
+procedure TGLStateCache.ResetAllTextureMatrix;
 var
   I: Integer;
   lastActiveTexture: Cardinal;
@@ -3390,7 +3384,7 @@ begin
   }
 end;
 
-procedure TGLStateCache.SetGLColorWriting(flag: Boolean);
+procedure TGLStateCache.SetColorWriting(flag: Boolean);
 begin
   if (FColorWriting <> flag) or FInsideList then
   begin
@@ -3402,7 +3396,7 @@ begin
   end;
 end;
 
-procedure TGLStateCache.InvertGLFrontFace;
+procedure TGLStateCache.InvertFrontFace;
 begin
   if FFrontFace = fwCounterClockWise then
     FrontFace := fwClockWise
@@ -3517,5 +3511,7 @@ begin
   ResetGLFrontFace;
  {$WARN SYMBOL_DEPRECATED ON}
 end;
+
+//--------------------------------------------------------------------------
 
 end.

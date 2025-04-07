@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLSL.TextureShaders;
 
 (*
@@ -22,23 +21,24 @@ uses
   System.Classes,
   System.SysUtils,
   
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Scene,
   GLS.Context,
   GLS.Texture,
   GLS.TextureCombiners,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.Color,
   GLS.Material,
-  GLS.Strings,
+  Stage.Strings,
   GLS.VectorFileObjects,
   GLS.XOpenGL,
   GLS.State,
   GLS.PersistentClasses,
   GLS.Coordinates,
   GLS.RenderContextInfo,
-  GLS.Utils;
+  GLS.ImageUtils,
+  Stage.Utils;
 
 type
   TGLTextureSharingShader = class;
@@ -197,7 +197,7 @@ begin
   begin
     if not (GetTextureMatrixIsUnitary) then
     begin
-      rci.GLStates.SetGLTextureMatrix(TextureMatrix);
+      rci.GLStates.SetTextureMatrix(TextureMatrix);
     end;
   end;
 
@@ -516,7 +516,7 @@ begin
   if not FLibMaterial.Material.Texture.Disabled then
     if not (GetTextureMatrixIsUnitary) then
     begin
-      rci.GLStates.ResetGLTextureMatrix;
+      rci.GLStates.ResetTextureMatrix;
     end;
 
   if Assigned(FLibMaterial.Shader) then

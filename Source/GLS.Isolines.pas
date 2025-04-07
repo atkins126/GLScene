@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.Isolines;
 
 (* Class and routines to output isolines *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.SysUtils, 
@@ -16,16 +15,17 @@ uses
   System.Math,
   System.Generics.Collections,
 
-  GLS.VectorGeometry, 
-  GLS.VectorLists, 
-  GLS.Objects, 
-  GLS.MultiPolygon,  
+  Stage.VectorGeometry, 
+  Stage.VectorTypes,
+  Stage.VectorTypesExt,
+  Stage.Spline,
+  GLS.VectorLists,
   GLS.Coordinates,
-  GLS.VectorTypesExt,
-  GLS.Color, 
-  GLS.Spline, 
-  GLS.SpaceText, 
-  GLS.VectorTypes,
+
+  GLS.Objects,
+  GLS.MultiPolygon,
+  GLS.Color,
+  GLS.SpaceText,
   GLS.VectorFileObjects;
 
 type

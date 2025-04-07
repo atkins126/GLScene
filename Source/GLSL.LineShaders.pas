@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLSL.LineShaders;
 
@@ -11,13 +11,14 @@ unit GLSL.LineShaders;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
 
-  GLS.VectorTypes,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
   GLS.Scene,
   GLS.Color,
   GLS.Material,
@@ -119,7 +120,7 @@ implementation
 // ------------------------------------------------------------------
 
 uses
-  GLS.TextureFormat;
+  Stage.TextureFormat;
 
 // ------------------
 // ------------------ TGLLineSettings ------------------

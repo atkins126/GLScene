@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.MeshLines;
 
@@ -11,8 +11,13 @@ uses
   Winapi.OpenGL,
   System.Classes,
   System.SysUtils,
-  GLS.OpenGLTokens,
 
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.Spline,
+
+  GLS.VectorLists,
   GLS.Scene,
   GLS.Objects,
   GLS.Texture,
@@ -22,10 +27,6 @@ uses
   GLS.Color,
   GLS.State,
   GLS.Nodes,
-  GLS.VectorGeometry,
-  GLS.Spline,
-  GLS.VectorTypes,
-  GLS.VectorLists,
   GLS.VectorFileObjects,
   GLS.RenderContextInfo;
 

@@ -1,25 +1,27 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.FBORenderer;
 
 (* Implements FBO support *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   Winapi.OpenGLext,
   System.Classes,
   System.SysUtils,
-  
-  GLS.OpenGLTokens,
-  GLS.VectorGeometry,
+
+  Stage.OpenGLTokens,
+  Stage.TextureFormat,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+
   GLS.PersistentClasses,
-  GLS.PipelineTransformation,
+  Stage.PipelineTransform,
   GLS.Scene,
   GLS.Texture,
   GLS.Context,
@@ -27,10 +29,8 @@ uses
   GLS.Material,
   GLS.RenderContextInfo,
   GLS.State,
-  GLS.TextureFormat,
-  GLS.VectorTypes,
   GLS.MultiSampleImage,
-  GLS.Logger;
+  Stage.Logger;
 
 const
   MaxColorAttachments = 32;

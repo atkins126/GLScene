@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileVRML;
 
@@ -7,7 +7,7 @@ unit GLS.FileVRML;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
@@ -17,8 +17,8 @@ uses
   GLS.VectorFileObjects,
   GLS.Material,
   GLS.ApplicationFileIO,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   Formats.VRML,
   GLS.MeshUtils;

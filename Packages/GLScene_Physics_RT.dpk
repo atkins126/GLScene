@@ -35,21 +35,24 @@ requires
   GLScene_RT;
 
 contains
-  Physics.NGDImport in '..\Source\Physics.NGDImport.pas',
-  Physics.NGDManager in '..\Source\Physics.NGDManager.pas',
-  Physics.NGDRagdoll in '..\Source\Physics.NGDRagdoll.pas',
-  Physics.NewtonImport in '..\Source\Physics.NewtonImport.pas',
-  Physics.ODEImport in '..\Source\Physics.ODEImport.pas',
-  Physics.ODEManager in '..\Source\Physics.ODEManager.pas',
-  Physics.ODERagdoll in '..\Source\Physics.ODERagdoll.pas',
-  Physics.ODESkeletonColliders in '..\Source\Physics.ODESkeletonColliders.pas',
-  Physics.ODEUtils in '..\Source\Physics.ODEUtils.pas',
-  Physics.SPIFields in '..\Source\Physics.SPIFields.pas',
-  Physics.SPIForces in '..\Source\Physics.SPIForces.pas',
-  Physics.SPIInertias in '..\Source\Physics.SPIInertias.pas',
-  Physics.SPIJoints in '..\Source\Physics.SPIJoints.pas',
-  Physics.SPIManager in '..\Source\Physics.SPIManager.pas',
-  Physics.PhysXImport in '..\Source\Physics.PhysXImport.pas';
+  GLS.NGDManager in '..\Source\GLS.NGDManager.pas',
+  GLS.NGDRagdoll in '..\Source\GLS.NGDRagdoll.pas',
+  GLS.ODEManager in '..\Source\GLS.ODEManager.pas',
+  GLS.ODERagdoll in '..\Source\GLS.ODERagdoll.pas',
+  GLS.ODESkeletonColliders in '..\Source\GLS.ODESkeletonColliders.pas',
+  GLS.ODEUtils in '..\Source\GLS.ODEUtils.pas',
+  GLS.PhysFields in '..\Source\GLS.PhysFields.pas',
+  GLS.PhysForces in '..\Source\GLS.PhysForces.pas',
+  GLS.PhysInertias in '..\Source\GLS.PhysInertias.pas',
+  GLS.PhysJoints in '..\Source\GLS.PhysJoints.pas',
+  GLS.PhysManager in '..\Source\GLS.PhysManager.pas',
+  ModuleLoader in '..\Src\ModuleLoader.pas',
+  Newton.Import in '..\Src\Newton.Import.pas',
+  NGD.Import in '..\Src\NGD.Import.pas',
+  ODE.Import in '..\Src\ODE.Import.pas',
+  PhysX.Import in '..\Src\PhysX.Import.pas';
 
 end.
+
+
 

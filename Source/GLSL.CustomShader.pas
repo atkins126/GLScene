@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLSL.CustomShader;
 (*
@@ -12,26 +12,25 @@ unit GLSL.CustomShader;
 *)
 interface
 
-{$I GLScene.inc}
-
 uses
   Winapi.OpenGL,
   Winapi.OpenGLext,
   System.Classes,
   System.SysUtils,
   
-  GLS.VectorGeometry,
-  GLS.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.OpenGLTokens,
+  Stage.TextureFormat,
+  Stage.Strings,
+
   GLS.Texture,
   GLS.Cadencer,
-  GLS.OpenGLTokens,
   GLS.Scene,
-  GLS.Strings,
   GLS.Context,
   GLS.RenderContextInfo,
   GLS.Material,
   GLS.VectorLists,
-  GLS.TextureFormat,
   GLSL.ShaderParameter;
 
 const

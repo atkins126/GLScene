@@ -1,26 +1,26 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.PolygonTesselation;
 
-(* Code to generate triangle strips and fans for polygons. *)
+(* Code to generate triangle strips and fans for polygons *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.SysUtils,
-  
+
   GLS.OpenGLAdapter,
-  GLS.OpenGLTokens,
-  GLS.PersistentClasses,
-  GLS.VectorTypes,
-  GLS.VectorFileObjects,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
   GLS.VectorLists,
-  GLS.VectorGeometry;
+  Stage.VectorGeometry,
+
+  GLS.VectorFileObjects,
+  GLS.PersistentClasses;
 
 (* Tesselates the polygon outlined by the Vertexes. And adds them to the first
    facegroup of the Mesh. *)
@@ -72,14 +72,14 @@ end;
 function AllocNewVertex: PAffineVector;
 begin
   Inc(TessExtraVertices);
-  
+
   // Allocate more memory if needed
   if TessExtraVertices > TessVerticesCount then
   begin
     TessVerticesCount := TessVerticesCount * 2;
     Reallocmem(TessVertices, TessVerticesCount * SizeOf(TAffineVector));
   end;
-  
+
   Result := @TessVertices[TessExtraVertices - 1];
 end;
 
@@ -104,7 +104,7 @@ begin
   end
   else
     TessMesh := Mesh.MeshObjects[0];
-	
+
   // vertices count.
   TessVerticesCount := Vertexes.Count;
   // allocate extra buffer used by GLU in complex polygons.

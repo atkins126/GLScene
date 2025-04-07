@@ -1,10 +1,10 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileVOR;
 (*
-  Supports to import TetGen files from http://wias-berlin.de/software/tetgen/fformats.html 
-  combined in a VOR ASCII file for Voronoi polyhedralization.
+  Import for VOR ASCII files of TetGen software from http://wias-berlin.de/software/tetgen/fformats.html
+  is supported for Voronoi polyhedralization.
 *)
 interface
 
@@ -13,11 +13,11 @@ uses
   System.SysUtils,
   GLS.ApplicationFileIO,
 
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   GLS.VectorFileObjects,
-  GLS.Utils;
+  Stage.Utils;
 
 type
   TVORHeader = packed record

@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit Formats.VFW;
 
@@ -77,7 +77,7 @@ unit Formats.VFW;
 interface
 
 {.$UNDEF UNICODE}
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
     Winapi.Windows,
@@ -2873,7 +2873,7 @@ function    GetSaveFileNamePreviewW(lpofn: POPENFILENAMEW): BOOL; stdcall;
 function    GetOpenFileNamePreview(lpofn: POPENFILENAMEA): BOOL; stdcall; // GetOpenFileNamePreviewA
 function    GetSaveFileNamePreview(lpofn: POPENFILENAMEA): BOOL; stdcall; // GetSaveFileNamePreviewA
 
-implementation
+implementation  //-------------------------------------------------------------
 
 function MKFOURCC( ch0, ch1, ch2, ch3: AnsiChar ): FOURCC;
 begin

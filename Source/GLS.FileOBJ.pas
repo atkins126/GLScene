@@ -1,16 +1,15 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileOBJ;
 (*
-    Support-Code to load Wavefront OBJ Files into TGLFreeForm-Components
-    in GLScene.
+    Loading Wavefront OBJ Files into FreeForms
     Note that you must manually add this unit to one of your project's uses
     to enable support for OBJ & OBJF at run-time.
 *)
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 {.$DEFINE STATS} // Define to display statistics after loading.
 
@@ -20,10 +19,10 @@ uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.ApplicationFileIO,
   GLS.PersistentClasses,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Scene,  
   GLS.VectorFileObjects,
   GLS.VectorLists,  
@@ -31,7 +30,7 @@ uses
   GLS.Color,
   GLS.RenderContextInfo, 
   GLS.Material,
-  GLS.Utils;
+  Stage.Utils;
 
 const
   // Load input data in chunks of BufSize Bytes. 
@@ -102,8 +101,8 @@ implementation
 // ------------------------------------------------------------------
 
 uses
-  GLS.Strings,
-  GLS.OpenGLTokens,
+  Stage.Strings,
+  Stage.OpenGLTokens,
   GLS.XOpenGL,
   GLS.Context,
   GLS.MeshUtils;

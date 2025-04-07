@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Texture;
 
@@ -7,7 +7,7 @@ unit GLS.Texture;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -18,9 +18,9 @@ uses
   Vcl.Imaging.jpeg,
   Vcl.Imaging.pngimage,
 
-  GLS.OpenGLTokens,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.BaseClasses,
   GLS.Graphics,
   GLS.Context,
@@ -29,11 +29,12 @@ uses
   GLS.Coordinates,
   GLS.RenderContextInfo,
   GLS.PersistentClasses,
-  GLS.PipelineTransformation,
-  GLS.TextureFormat,
+  Stage.PipelineTransform,
+  GLS.ImageUtils,
+  Stage.TextureFormat,
   GLS.ApplicationFileIO,
-  GLS.Utils,
-  GLS.Strings;
+  Stage.Utils,
+  Stage.Strings;
 
 const
   cDefaultNormalMapScale = 0.125;
@@ -2402,7 +2403,7 @@ procedure TGLTexture.Apply(var rci: TGLRenderContextInfo);
           m := rci.PipelineTransformation.ViewMatrix^;
           NormalizeMatrix(m);
           TransposeMatrix(m);
-          rci.GLStates.SetGLTextureMatrix(m);
+          rci.GLStates.SetTextureMatrix(m);
         end;
       tmmCubeMapLight0:
         begin
@@ -2415,7 +2416,7 @@ procedure TGLTexture.Apply(var rci: TGLRenderContextInfo);
               NormalizeMatrix(mm);
               TransposeMatrix(mm);
               m := MatrixMultiply(m, mm);
-              rci.GLStates.SetGLTextureMatrix(m);
+              rci.GLStates.SetTextureMatrix(m);
             end;
         end;
       tmmCubeMapCamera:
@@ -2428,7 +2429,7 @@ procedure TGLTexture.Apply(var rci: TGLRenderContextInfo);
           NormalizeMatrix(mm);
           TransposeMatrix(mm);
           m := MatrixMultiply(m, mm);
-          rci.GLStates.SetGLTextureMatrix(m);
+          rci.GLStates.SetTextureMatrix(m);
         end;
     end;
   end;
@@ -2480,7 +2481,7 @@ begin
       ActiveTexture := 0;
       ActiveTextureEnabled[FTextureHandle.Target] := False;
       if FTextureHandle.Target = ttTextureCube then
-        ResetGLTextureMatrix;
+        ResetTextureMatrix;
     end;
     UnApplyMappingMode;
   end;
@@ -2515,13 +2516,13 @@ begin
       TextureBinding[n - 1, FTextureHandle.Target] := Handle;
       ActiveTextureEnabled[FTextureHandle.Target] := True;
       if Assigned(textureMatrix) then
-        SetGLTextureMatrix(textureMatrix^)
+        SetTextureMatrix(textureMatrix^)
       else if FTextureHandle.Target = ttTextureCube then
       begin
         m := rci.PipelineTransformation.ModelViewMatrix^;
         NormalizeMatrix(m);
         TransposeMatrix(m);
-        rci.GLStates.SetGLTextureMatrix(m);
+        rci.GLStates.SetTextureMatrix(m);
       end;
 
       {if not ForwardContext then}
@@ -2550,7 +2551,7 @@ begin
       ActiveTextureEnabled[FTextureHandle.Target] := False;
       UnApplyMappingMode;
       if (FTextureHandle.Target = ttTextureCube) or reloadIdentityTextureMatrix then
-        ResetGLTextureMatrix;
+        ResetTextureMatrix;
       ActiveTexture := 0;
     end;
   end;

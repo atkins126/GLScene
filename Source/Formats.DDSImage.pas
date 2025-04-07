@@ -1,9 +1,7 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit Formats.DDSImage;
-
 (*
     Alternative for DDS unit with more supported formats of flat image:
     Alpha8, Luminance8, R3G3B2, RGB5A1, RGBA4, Alpha8Luminance8, Luminance16, R5G6B5,
@@ -14,10 +12,9 @@ unit Formats.DDSImage;
     Good for preview picture in OpenDialog,
     so you may include both DDSImage (preview) and GLFileDDS (loading)
 *)
-
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.Windows,
@@ -25,13 +22,15 @@ uses
   System.SysUtils,
   Vcl.Graphics,
 
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.OpenGLTokens,
+  Stage.VectorGeometry,
   GLS.Graphics,
-  GLS.Context;
+  GLS.Context,
+  GLS.FileDDS,
+  Stage.TextureFormat;
 
 type
-
   TDDSImage = class(TBitmap)
   public
     procedure LoadFromStream(stream: TStream); override;
@@ -40,14 +39,10 @@ type
 
   EDDSException = class(Exception);
 
-//-------------------------------------------------  
-implementation
-//-------------------------------------------------  
+implementation //-------------------------------------------------------------
 
 uses
-  Formats.DXTC,
-  GLS.FileDDS,
-  GLS.TextureFormat;
+  Formats.DXTC;
 
 // ------------------
 // ------------------ TDDSImage ------------------

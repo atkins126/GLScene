@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Tree;
 
@@ -21,7 +21,7 @@ unit GLS.Tree;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -29,11 +29,11 @@ uses
   System.SysUtils,
   System.Math,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Scene,
   GLS.State,
   GLS.Material,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   GLS.VectorFileObjects,
   GLS.ApplicationFileIO,
@@ -41,8 +41,8 @@ uses
   GLS.PersistentClasses,
   GLS.XOpenGL,
   GLS.Context,
-  GLS.VectorTypes,
-  GLS.Utils;
+  Stage.VectorTypes,
+  Stage.Utils;
 
 type
   TGLTree = class;
@@ -338,14 +338,14 @@ begin
         libMat.Apply(rci);
     end;
 
-  rci.GLStates.InvertGLFrontFace;
+  rci.GLStates.InvertFrontFace;
   for i := 0 to (FVertices.Count div 4) - 1 do
   begin
     n := VectorNegate(FNormals[i]);
     gl.Normal3fv(@n);
     gl.DrawArrays(GL_QUADS, 4 * i, 4);
   end;
-  rci.GLStates.InvertGLFrontFace;
+  rci.GLStates.InvertFrontFace;
 
   gl.DisableClientState(GL_VERTEX_ARRAY);
   xgl.DisableClientState(GL_TEXTURE_COORD_ARRAY);

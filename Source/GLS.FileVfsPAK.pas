@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLS.FileVfsPAK;
@@ -14,14 +14,14 @@ unit GLS.FileVfsPAK;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.Contnrs,
   System.SysUtils,
 
-  GLS.Strings,
+  Stage.Strings,
   GLS.ApplicationFileIO;
 
 const

@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileOCT;
 
@@ -10,7 +10,7 @@ unit GLS.FileOCT;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
@@ -21,9 +21,9 @@ uses
   GLS.Material,
   GLS.Graphics,
   GLS.State,
-  GLS.TextureFormat,
+  Stage.TextureFormat,
   GLS.VectorFileObjects,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.ApplicationFileIO,
   Formats.OCT;
 

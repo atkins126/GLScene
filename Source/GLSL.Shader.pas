@@ -1,29 +1,28 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLSL.Shader;
 
-(* TGLSLShader is a wrapper for GLS shaders. *)
+(* TGLSLShader is a wrapper for GLS shaders *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   Winapi.OpenGLext,
   System.Classes,
   System.SysUtils,
-  
-  GLS.OpenGLTokens,
-  GLS.VectorGeometry,
-  GLS.VectorTypes,
+
+  Stage.OpenGLTokens,
+  Stage.VectorGeometry,
+  Stage.VectorTypes,
   GLS.Texture,
   GLS.Context,
   GLSL.CustomShader,
   GLS.RenderContextInfo,
-  GLS.TextureFormat,
+  Stage.TextureFormat,
   GLSL.ShaderParameter,
   GLS.Material,
   GLS.State;
@@ -448,8 +447,8 @@ begin
   SetTex(TexParamName, Mat.Material.Texture);
 end;
 
-{ TGLSLShaderParameter }
-
+// TGLSLShaderParameter
+//
 function TGLSLShaderParameter.GetAsCustomTexture(
   const TextureIndex: Integer; TextureTarget: TGLTextureTarget): Cardinal;
 begin

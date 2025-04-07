@@ -1,36 +1,37 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.VerletTypes;
-
 (*
   Base Verlet modelling/simulation classes.
-  This unit is generic, GLScene-specific sub-classes are in GLVerletClasses.
+  This unit is generic, GLScene-specific sub-classes are in GLS.VerletClothify.
 
   Note that currently, the SatisfyConstraintForEdge methods push the nodes in
   the edge uniformly - it should push the closer node more for correct physics.
   It's a matter of leverage.
+  The registered classes are:
+  [TGLVerletSkeletonCollider, TGLVerletSphere, TGLVerletCapsule]
 *)
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
   System.Types,
 
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.PersistentClasses,
-
   GLS.BaseClasses,
+  GLS.Coordinates,
+  Stage.VectorGeometry,
+  GLS.VectorLists,
+  GLS.GeometryBB,
+
   GLS.Objects,
   GLS.Scene,
-  GLS.Coordinates,
-  GLS.VectorGeometry,
-  GLS.VectorLists,
   GLS.SpacePartition,
-  GLS.GeometryBB,
   GLS.VectorFileObjects;
 
 const

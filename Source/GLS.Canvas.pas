@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Canvas;
 (*
@@ -9,7 +9,7 @@ unit GLS.Canvas;
 *)
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -18,11 +18,11 @@ uses
   System.Math,
   Vcl.Graphics,
 
-  GLS.OpenGLTokens,
-  GLS.VectorGeometry,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.Color,
   GLS.Context,
-  GLS.VectorTypes,
   GLS.State;
 
 type
@@ -164,9 +164,7 @@ type
     property ArcDirection: TGLArcDirection read FArcDirection write FArcDirection;
   end;
 
-//-------------------------------------------------------------
-implementation
-//-------------------------------------------------------------
+implementation //-------------------------------------------------------------
 
 const
   cNoPrimitive = MaxInt;
@@ -760,6 +758,8 @@ begin
   pX^ := pY^;
   pY^ := tmp;
 end;
+
+//---------------------------------------------------------------------------
 
 end.
 

@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit Formats.HDRImage;
 
 (*
@@ -12,7 +11,7 @@ unit Formats.HDRImage;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.Windows,
@@ -20,25 +19,21 @@ uses
   System.SysUtils,
   Vcl.Graphics,
 
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
-  GLS.Graphics;
+  Stage.VectorTypes,
+  Stage.OpenGLTokens,
+  Stage.VectorGeometry,
+  Stage.TextureFormat,
+
+  GLS.FileHDR;
 
 type
-
   THDRImage = class(TBitmap)
   public
     procedure LoadFromStream(stream: TStream); override;
     procedure SaveToStream(stream: TStream); override;
   end;
-  
-//--------------------------------------------------------------------  
-implementation
-//--------------------------------------------------------------------
 
-uses
-  GLS.FileHDR,
-  GLS.TextureFormat;
+implementation //------------------------------------------------------------
 
 // ------------------
 // ------------------ THDRImage ------------------
@@ -80,15 +75,11 @@ begin
   Assert(False, 'Not supported');
 end;
 
-// ------------------------------------------------------------------
-initialization
-// ------------------------------------------------------------------
+initialization // ------------------------------------------------------------
 
   TPicture.RegisterFileFormat('HDR', 'High Dynamic Range Image', THDRImage);
 
-// ------------------------------------------------------------------
-finalization
-// ------------------------------------------------------------------
+finalization // --------------------------------------------------------------
 
   TPicture.UnregisterGraphicClass(THDRImage);
 

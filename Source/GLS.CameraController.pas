@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.CameraController;
 
 (*
@@ -19,12 +18,13 @@ uses
   System.Contnrs,
   System.Types,
 
-  GLS.Scene,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.Coordinates,
   GLS.PersistentClasses,
-  GLS.VectorGeometry,
-  GLS.SmoothNavigator,
-  GLS.VectorTypes;
+
+  GLS.Scene,
+  GLS.SmoothNavigator;
 
 type
 

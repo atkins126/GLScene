@@ -1,0 +1,96 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{5FE5B196-8E5A-4535-86DA-03BBB0E22FA1}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="FastFourierTransformation\FastFourierD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="PostProcessing\PostProcessingD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ScalarProduct\ScalarProductD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="SimpleCUDATexture\SimpleTextureD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="StableFluids\FluidsD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="VertexDataGeneration\VertexGeneration.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="FastFourierD">
+        <MSBuild Projects="FastFourierTransformation\FastFourierD.dproj"/>
+    </Target>
+    <Target Name="FastFourierD:Clean">
+        <MSBuild Projects="FastFourierTransformation\FastFourierD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FastFourierD:Make">
+        <MSBuild Projects="FastFourierTransformation\FastFourierD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="PostProcessingD">
+        <MSBuild Projects="PostProcessing\PostProcessingD.dproj"/>
+    </Target>
+    <Target Name="PostProcessingD:Clean">
+        <MSBuild Projects="PostProcessing\PostProcessingD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PostProcessingD:Make">
+        <MSBuild Projects="PostProcessing\PostProcessingD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ScalarProductD">
+        <MSBuild Projects="ScalarProduct\ScalarProductD.dproj"/>
+    </Target>
+    <Target Name="ScalarProductD:Clean">
+        <MSBuild Projects="ScalarProduct\ScalarProductD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ScalarProductD:Make">
+        <MSBuild Projects="ScalarProduct\ScalarProductD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="SimpleTextureD">
+        <MSBuild Projects="SimpleCUDATexture\SimpleTextureD.dproj"/>
+    </Target>
+    <Target Name="SimpleTextureD:Clean">
+        <MSBuild Projects="SimpleCUDATexture\SimpleTextureD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SimpleTextureD:Make">
+        <MSBuild Projects="SimpleCUDATexture\SimpleTextureD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="FluidsD">
+        <MSBuild Projects="StableFluids\FluidsD.dproj"/>
+    </Target>
+    <Target Name="FluidsD:Clean">
+        <MSBuild Projects="StableFluids\FluidsD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FluidsD:Make">
+        <MSBuild Projects="StableFluids\FluidsD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="VertexGeneration">
+        <MSBuild Projects="VertexDataGeneration\VertexGeneration.dproj"/>
+    </Target>
+    <Target Name="VertexGeneration:Clean">
+        <MSBuild Projects="VertexDataGeneration\VertexGeneration.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VertexGeneration:Make">
+        <MSBuild Projects="VertexDataGeneration\VertexGeneration.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="FastFourierD;PostProcessingD;ScalarProductD;SimpleTextureD;FluidsD;VertexGeneration"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="FastFourierD:Clean;PostProcessingD:Clean;ScalarProductD:Clean;SimpleTextureD:Clean;FluidsD:Clean;VertexGeneration:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="FastFourierD:Make;PostProcessingD:Make;ScalarProductD:Make;SimpleTextureD:Make;FluidsD:Make;VertexGeneration:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

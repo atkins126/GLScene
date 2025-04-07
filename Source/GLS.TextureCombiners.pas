@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLS.TextureCombiners;
@@ -8,7 +8,7 @@ unit GLS.TextureCombiners;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -16,7 +16,7 @@ uses
   System.SysUtils,
   System.Classes,
    
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Context;
 
 

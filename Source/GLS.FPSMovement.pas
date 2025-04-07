@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FPSMovement;
 
@@ -7,7 +7,7 @@ unit GLS.FPSMovement;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -17,11 +17,11 @@ uses
   System.SysUtils,
   Vcl.Graphics,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Coordinates,
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.Context,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Scene,
   GLS.VectorFileObjects,
   GLS.VectorLists,
@@ -30,7 +30,7 @@ uses
   GLS.Navigator,
   GLS.RenderContextInfo,
   GLS.BaseClasses,
-  GLS.Manager,
+  Stage.Manager,
   GLS.State;
 
 type

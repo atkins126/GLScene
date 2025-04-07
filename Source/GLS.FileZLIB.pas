@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.FileZLIB;
 
 (* Methods for archiving using ZLib *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes, 
@@ -209,6 +208,7 @@ begin
    Dir.FilePos := FHeader.DirOffset;
    Dir.CbrMode := compressionLevel;
 
+   //Create a stream for archiving
    compressed := TMemoryStream.Create;
 
    // Archive data to stream
@@ -329,10 +329,10 @@ begin
       Extract(FContentList.IndexOf(ContentName), NewName);
 end;
 
-//-----------------------------
-initialization
-//-----------------------------
+initialization //--------------------------------------------------------
 
-  RegisterArchiveFormat('zlib', 'GLScene file uses the zlib compression algorithm', TZLibArchive);
+  RegisterArchiveFormat('zlib', 'Using the zlib compression algorithm', TZLibArchive);
+
+finalization //----------------------------------------------------------
 
 end.

@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileMD3;
 
@@ -13,7 +13,7 @@ uses
   GLS.VectorFileObjects, 
   GLS.Material, 
   GLS.ApplicationFileIO,
-  GLS.VectorGeometry, 
+  Stage.VectorGeometry, 
   Formats.MD3,
   GLS.Texture;
 

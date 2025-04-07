@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.GameMenu;
 
@@ -7,15 +7,15 @@ unit GLS.GameMenu;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
-  GLS.VectorTypes,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
   GLS.Coordinates,
 
   GLS.Scene,

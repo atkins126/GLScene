@@ -1,10 +1,9 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.FileNurbs;
 
-(* Nurbs surfaces vector file loading. *)
+(* Loading Nurbs surfaces vector files. *)
 
 interface
 
@@ -12,13 +11,13 @@ uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.VectorFileObjects,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   GLS.ApplicationFileIO,
   GLS.ParametricSurfaces,
-  GLS.Utils;
+  Stage.Utils;
 
 type
 

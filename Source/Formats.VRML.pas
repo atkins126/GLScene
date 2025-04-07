@@ -1,5 +1,5 @@
 //
-// The unit is part of the GLScene Engine, http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit Formats.VRML;
 
@@ -7,17 +7,17 @@ unit Formats.VRML;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
   System.Types,
 
-  GLS.VectorGeometry,
-  GLS.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.VectorTypes,
   GLS.VectorLists,
-  GLS.Utils;
+  Stage.Utils;
 
 type
   TVRMLNode = class
@@ -148,9 +148,7 @@ type
       write FAllowUnknownNodes;
   end;
 
-// ---------------------------------------------------------------------------
-implementation
-// ---------------------------------------------------------------------------
+implementation // ------------------------------------------------------------
 
 function CreateVRMLTokenList(Text: String): TStringList;
 const

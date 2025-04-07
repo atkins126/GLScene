@@ -1,28 +1,29 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Portal;
-
 (*
   Portal Rendering support for GLScene.
   The portal structures are subclasses of the Mesh structures, with a "sector"
   being assimilated to a "MeshObject" and sector polygons to facegroups.
-*)
+  The registered classes are:
+    [TGLPortal, TGLSectorMeshObject, TFGPolygon, TFGPortalPolygon]
 
+*)
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
   GLS.PersistentClasses,
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.VectorFileObjects,
   GLS.Scene,
   GLS.Material,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.RenderContextInfo;
 
 type
@@ -269,7 +270,6 @@ end;
 initialization
 // ------------------------------------------------------------------
 
-// class registrations
 RegisterClasses([TGLPortal, TGLSectorMeshObject, TFGPolygon, TFGPortalPolygon]);
 
 end.

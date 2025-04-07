@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.MeshBuilder;
 
@@ -16,11 +16,12 @@ uses
   System.SysUtils,
   System.Classes,
 
-  GLS.Scene,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   GLS.PersistentClasses,
+
+  GLS.Scene,
   GLS.VectorFileObjects,
   GLS.MeshUtils;
 
@@ -38,8 +39,8 @@ type
   end;
 
   (*
-    Properties of a sphere with two hemisphere parts
-    using 5 points to make each hemisphere
+    Properties of a sphere with two hemispheres
+    using 5 points to make each hemisphere part
   *)
   TGLSphereProperties = record
     Normal3f: TVector3f;

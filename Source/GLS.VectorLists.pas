@@ -1,20 +1,23 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.VectorLists;
-
-(*  Misc. lists of vectors and entities *)
-
+(*
+  Misc. lists of vectors and entities
+  The registered classes are:
+    [TGLAffineVectorList, TGLVectorList, TGLTexPointList,
+     TGLSingleList, TGLDoubleList, TGL4ByteList, TGLLongWordList]
+*)
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.PersistentClasses;
 
 type
@@ -432,13 +435,13 @@ type
     4 : (Word  : record Value : array[0..1] of Word; end);
   end;
 
-  T4ByteArrayList = array[0..MaxInt shr 4] of TGL4ByteData;
-  P4ByteArrayList = ^T4ByteArrayList;
+  TGL4ByteArrayList = array[0..MaxInt shr 4] of TGL4ByteData;
+  PG4ByteArrayList = ^TGL4ByteArrayList;
 
   // A list of TGL4ByteData
   TGL4ByteList = class(TGLBaseList)
   private
-    FList: P4ByteArrayList;
+    FList: PG4ByteArrayList;
   protected
     function  Get(Index: Integer): TGL4ByteData;
     procedure Put(Index: Integer; const item: TGL4ByteData);
@@ -464,7 +467,7 @@ type
     function  Pop: TGL4ByteData;
     procedure Insert(Index: Integer; const item: TGL4ByteData);
     property Items[Index: Integer]: TGL4ByteData read Get write Put; default;
-    property List: P4ByteArrayList read FList;
+    property List: PG4ByteArrayList read FList;
   end;
 
   TGLLongWordList = class(TGLBaseList)
@@ -505,9 +508,8 @@ procedure QuickSortLists(startIndex, endIndex: Integer; refList: TGLSingleList; 
    Use if, and *ONLY* if refList contains only values superior or equal to 1 *)
 procedure FastQuickSortLists(startIndex, endIndex: Integer; const refList: TGLSingleList; const objList: TGLPersistentObjectList);
 
-// ------------------------------------------------------------------
-implementation
-// ------------------------------------------------------------------
+
+implementation // ------------------------------------------------------------
 
 const
   cDefaultListGrowthDelta = 16;
@@ -3177,7 +3179,7 @@ end;
 procedure TGL4ByteList.SetCapacity(NewCapacity: Integer);
 begin
   inherited;
-  FList := P4ByteArrayList(FBaseList);
+  FList := PG4ByteArrayList(FBaseList);
 end;
 
 procedure TGL4ByteList.Push(const Val: TGL4ByteData);

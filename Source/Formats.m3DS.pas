@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit Formats.m3DS;
 
@@ -17,7 +17,8 @@ unit Formats.m3DS;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
+
 {$ALIGN ON}
 {$MINENUMSIZE 4}
 {$RANGECHECKS OFF}

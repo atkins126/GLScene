@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLS.MaterialMultiProxy;
@@ -24,7 +24,7 @@ unit GLS.MaterialMultiProxy;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -32,17 +32,17 @@ uses
   System.SysUtils,
   
   GLS.Scene,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Texture,
   GLS.Material,
   GLS.Silhouette,
-  GLS.Strings,
+  Stage.Strings,
   GLS.PersistentClasses,
   GLS.RenderContextInfo,
   GLS.BaseClasses,
   GLS.Context,
-  GLS.VectorTypes,
-  GLS.PipelineTransformation;
+  Stage.VectorTypes,
+  Stage.PipelineTransform;
 
 type
   TGLMaterialMultiProxy = class;

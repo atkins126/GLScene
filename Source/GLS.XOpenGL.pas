@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.XOpenGL;
 
@@ -14,18 +14,17 @@ unit GLS.XOpenGL;
 
 interface
 
-{$I GLScene.inc}
+{.$I GLScene.Defines.inc}
 
 uses
   Winapi.OpenGLext,
 
-  GLS.VectorTypes,
-  GLS.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.OpenGLTokens,
   GLS.State;
 
 type
-  TMapTexCoordMode = (mtcmUndefined, mtcmNull, mtcmMain, mtcmDual, mtcmSecond,
-    mtcmArbitrary);
+  TMapTexCoordMode = (mtcmUndefined, mtcmNull, mtcmMain, mtcmDual, mtcmSecond, mtcmArbitrary);
 
   TGLMultitextureCoordinator = class
   private

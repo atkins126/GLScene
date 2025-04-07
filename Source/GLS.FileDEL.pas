@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileDEL;
 (*
@@ -8,18 +8,19 @@ unit GLS.FileDEL;
 *)
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorTypes,
+  Stage.VectorTypes,
+  Stage.VectorTypesExt,
+  Stage.VectorGeometry,
+
   GLS.VectorFileObjects,
   GLS.ApplicationFileIO,
-  GLS.VectorGeometry,
-  GLS.VectorTypesExt,
-  GLS.Utils;
+  Stage.Utils;
 
 
 type
@@ -46,7 +47,7 @@ const
 
 class function TGLDELVectorFile.Capabilities: TGLDataFileCapabilities;
 begin
-   Result:=[dfcRead];
+   Result := [dfcRead];
 end;
 
 procedure TGLDELVectorFile.LoadFromStream(aStream : TStream);

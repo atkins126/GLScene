@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.HeightData;
 
@@ -19,7 +19,7 @@ unit GLS.HeightData;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.Windows, // to CreateMonochromeBitmap
@@ -28,9 +28,9 @@ uses
   System.Types,
   Vcl.Graphics,
 
+  Stage.VectorGeometry,
   GLS.ApplicationFileIO,
-  GLS.Utils,
-  GLS.VectorGeometry,
+  Stage.Utils,
   GLS.Material,
   GLS.BaseClasses;
 
@@ -40,8 +40,7 @@ type
   PByteRaster = ^TByteRaster;
   TSmallintArray = array [0 .. MaxInt div (2 * SizeOf(SmallInt))] of SmallInt;
   PSmallIntArray = ^TSmallintArray;
-  TSmallIntRaster = array [0 .. MaxInt div (2 * SizeOf(Pointer))
-    ] of PSmallIntArray;
+  TSmallIntRaster = array [0 .. MaxInt div (2 * SizeOf(Pointer))] of PSmallIntArray;
   PSmallIntRaster = ^TSmallIntRaster;
   TSingleRaster = array [0 .. MaxInt div (2 * SizeOf(Pointer))] of PSingleArray;
   PSingleRaster = ^TSingleRaster;

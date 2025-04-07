@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLS.TexLensFlare;
@@ -8,7 +8,7 @@ unit GLS.TexLensFlare;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -16,15 +16,15 @@ uses
   
   GLS.Scene,
   GLS.PersistentClasses,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Objects,
   GLS.Texture,
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Context,
   GLS.RenderContextInfo,
   GLS.BaseClasses,
   GLS.State,
-  GLS.VectorTypes;
+  Stage.VectorTypes;
 
 type
 

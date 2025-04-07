@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.MultiSampleImage;
 
@@ -12,19 +12,19 @@ unit GLS.MultiSampleImage;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   Winapi.OpenGLext,
   System.Classes,
 
-  GLS.VectorTypes,
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.TextureFormat,
   GLS.Context,
   GLS.Texture,
-  GLS.Graphics,
-  GLS.TextureFormat;
+  GLS.Graphics;
 
 type
   TGLMultisampleImage = class(TGLTextureImage)
@@ -76,7 +76,6 @@ implementation
 // ------------------ TGLMultisampleImage ------------------
 // ------------------
 
- 
 constructor TGLMultisampleImage.Create(AOwner: TPersistent);
 begin
   inherited;

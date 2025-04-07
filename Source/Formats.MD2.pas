@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit Formats.MD2;
 
 (* Loading methods for MD2 file format *)
@@ -9,14 +8,13 @@ unit Formats.MD2;
 interface
 
 {$R-}
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
    
-  GLS.VectorGeometry, 
-  GLS.VectorTypes;
+  Stage.VectorTypes;
 
 const
   MAX_MD2_TRIANGLES = 4096;
@@ -101,9 +99,7 @@ type
     property VertexList: TGLVertexList read fVertexList;
   end;
 
-// ------------------------------------------------------------------
-implementation
-// ------------------------------------------------------------------
+implementation // ------------------------------------------------------------
 
 // ------------------
 // ------------------ TFileMD2 ------------------
@@ -190,5 +186,7 @@ begin
      end;
   end;
 end;
+
+//---------------------------------------------------------------------------
 
 end.

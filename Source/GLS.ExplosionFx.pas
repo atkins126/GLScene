@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.ExplosionFx;
 
 (*
@@ -22,16 +21,16 @@ unit GLS.ExplosionFx;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
 
-  GLS.OpenGLTokens,
-  GLS.VectorGeometry,
+  Stage.OpenGLTokens,
+  Stage.VectorGeometry,
+  Stage.VectorTypes,
   GLS.Scene,
   GLS.VectorFileObjects,
-  GLS.VectorTypes,
   GLS.VectorLists,
   GLS.XCollection,
   GLS.Coordinates,

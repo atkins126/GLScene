@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.GeometryBB;
 
@@ -7,14 +7,14 @@ unit GLS.GeometryBB;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.SysUtils,
 
-  GLS.VectorGeometry,
-  GLS.VectorLists,
-  GLS.VectorTypes;
+  Stage.VectorGeometry,
+  Stage.VectorTypes,
+  GLS.VectorLists;
 
 type
   //  Structure for storing Bounding Boxes 
@@ -39,7 +39,7 @@ type
     Radius: Single;
   end;
 
-  TGLClipRect = record
+  TGClipRect = record
     Left, Top: Single;
     Right, Bottom: Single;
   end;
@@ -100,7 +100,7 @@ function BBToAABB(const ABB: THmgBoundingBox): TAABB;
 function AABBToBB(const AnAABB: TAABB): THmgBoundingBox; overload;
 // Transforms an AABB to a BB. 
 function AABBToBB(const AnAABB: TAABB; const M: TGLMatrix): THmgBoundingBox; overload;
-//  Adds delta to min and max of the AABB. 
+//  Adds delta to min and max of the AABB.
 procedure OffsetAABB(var Aabb: TAABB; const Delta: TAffineVector); overload;
 procedure OffsetAABB(var Aabb: TAABB; const Delta: TGLVector); overload;
 //  Adds delta to min and max of the BB.
@@ -157,7 +157,7 @@ function BSphereToAABB(const Center: TGLVector; Radius: Single): TAABB; overload
 
 // Determines to which extent one AABB contains another AABB 
 function AABBContainsAABB(const MainAABB, TestAABB: TAABB): TSpaceContains;
-// Determines to which extent a BSphere contains an AABB 
+// Determines to which extent a BSphere contains an AABB
 function BSphereContainsAABB(const MainBSphere: TBSphere; const TestAABB: TAABB): TSpaceContains;
 // Determines to which extent one BSphere contains another BSphere 
 function BSphereContainsBSphere(const MainBSphere, TestBSphere: TBSphere): TSpaceContains;
@@ -177,10 +177,10 @@ function ClipToAABB(const V: TAffineVector; const AABB: TAABB): TAffineVector;
 function BSphereIntersectsBSphere(const MainBSphere, TestBSphere: TBSphere): Boolean;
 
 // Extend the clip rect to include given coordinate. 
-procedure IncludeInClipRect(var ClipRect: TGLClipRect; X, Y: Single);
+procedure IncludeInClipRect(var ClipRect: TGClipRect; X, Y: Single);
 // Projects an AABB and determines the extent of its projection as a clip rect.
 function AABBToClipRect(const Aabb: TAABB; const ModelViewProjection: TGLMatrix;
-  ViewportSizeX, ViewportSizeY: Integer): TGLClipRect;
+  ViewportSizeX, ViewportSizeY: Integer): TGClipRect;
 
 // Finds the intersection between a ray and an axis aligned bounding box. 
 function RayCastAABBIntersect(const RayOrigin, RayDirection: TGLVector;
@@ -204,10 +204,8 @@ const
     (0, 1, 5, 4), (2, 3, 7, 6));
   CDirPlan: TDirPlan = (0, 0, 1, 1, 2, 2);
 
-// --------------------------------------------------------------
-implementation
-// --------------------------------------------------------------
- 
+implementation // -------------------------------------------------------------
+
 // ------------------------------------------------------------------------------
 // ----------------- BB functions -------------------------------------------
 // ------------------------------------------------------------------------------
@@ -1272,7 +1270,7 @@ begin
     Result.Z := AABB.Max.Z;
 end;
 
-procedure IncludeInClipRect(var ClipRect: TGLClipRect; X, Y: Single);
+procedure IncludeInClipRect(var ClipRect: TGClipRect; X, Y: Single);
 begin
   with ClipRect do
   begin
@@ -1288,7 +1286,7 @@ begin
 end;
 
 function AABBToClipRect(const Aabb: TAABB; const ModelViewProjection: TGLMatrix;
-  ViewportSizeX, ViewportSizeY: Integer): TGLClipRect;
+  ViewportSizeX, ViewportSizeY: Integer): TGClipRect;
 var
   I: Integer;
   V, Vt: TGLVector;

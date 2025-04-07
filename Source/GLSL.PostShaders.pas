@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLSL.PostShaders;
@@ -18,23 +18,23 @@ unit GLSL.PostShaders;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Texture,
   GLS.Scene,
   GLS.State,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.RenderContextInfo,
-  GLS.TextureFormat,
+  Stage.TextureFormat,
   GLS.Context,
   GLS.Material,
   GLSL.Shader,
   GLSL.CustomShader,
-  GLS.VectorTypes;
+  Stage.VectorTypes;
 
 type
   // Custom class for GLSLPostBlurShader. A shader that blurs the entire scene

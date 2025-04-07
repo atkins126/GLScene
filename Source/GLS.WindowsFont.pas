@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.WindowsFont;
 
@@ -7,7 +7,7 @@ unit GLS.WindowsFont;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -24,20 +24,20 @@ uses
   GLS.BitmapFont,
   GLS.RenderContextInfo,
   GLS.VectorLists,
-  GLS.Utils,
-  GLS.VectorGeometry,
-  GLS.OpenGLTokens,
+  Stage.Utils,
+  Stage.VectorGeometry,
+  Stage.OpenGLTokens,
   GLS.ApplicationFileIO,
-  GLS.VectorTypes;
+  Stage.VectorTypes;
 
 type
 
-  (* A bitmap font automatically built from a TFont. 
+  (* A bitmap font automatically built from a TFont.
      It works like a TGLBitmapfont, you set ranges and which chars are assigned
      to which indexes, however here you also set the Font property to any TFont
      available to the system and it renders in GLScene as close to that font
      as posible, on some font types this is 100% on some a slight difference
-     in spacing can occur at most 1 pixel per char on some char combinations. 
+     in spacing can occur at most 1 pixel per char on some char combinations.
      Ranges must be sorted in ascending ASCII order and should not overlap.
      As the font texture is automatically layed out, the Ranges StartGlyphIdx
      property is ignored and replaced appropriately. *)
@@ -72,9 +72,7 @@ type
     property Ranges stored StoreRanges;
   end;
 
-// ------------------------------------------------------------------
-implementation
-// ------------------------------------------------------------------
+implementation // ------------------------------------------------------------
 
 const
   cDefaultLast = '}';
@@ -224,7 +222,7 @@ procedure TGLWindowsBitmapFont.LoadWindowsFont;
 
 var
   bitmap: TBitmap;
-  ch: widechar;
+  ch: WideChar;
   i, cw, nbChars, n: Integer;
 begin
   InvalidateUsers;
@@ -264,15 +262,15 @@ begin
   for i := 0 to nbChars - 1 do
   begin
     ch := TileIndexToChar(i);
-    cw := GetTextSize(bitmap.canvas.Handle, @ch, 1).cx-HSpaceFix;
+    cw := GetTextSize(bitmap.Canvas.Handle, @ch, 1).cx-HSpaceFix;
     n  := n + cw + GlyphsIntervalX;
     SetCharWidths(i, cw);
   end;
   //try to make best guess...
   //~total pixels, including some waste (10%)
   n := n * (CharHeight + GlyphsIntervalY) * 11 div 10;
-  TextureWidth := min(512, RoundUpToPowerOf2( round(sqrt(n)) ));
-  TextureHeight := min(512, RoundUpToPowerOf2( n div TextureWidth));
+  TextureWidth := min(512, RoundUpToPowerOf2(Round(Sqrt(n))));
+  TextureHeight := min(512, RoundUpToPowerOf2(n div TextureWidth));
 
   bitmap.Width := TextureWidth;
 
@@ -358,7 +356,7 @@ var
   ACharList : TGLIntegerList;
 begin
   ACharList := TGLIntegerList.Create;
-  for i := 1 to length(s) do
+  for i := 1 to Length(s) do
       ACharList.Add(integer(s[i]));
   SetList(ACharList);
   ACharList.Free;
@@ -377,13 +375,13 @@ begin
   Result := GL_ALPHA;
 end;
 
-// ------------------------------------------------------------------
-initialization
-// ------------------------------------------------------------------
+initialization // ------------------------------------------------------------
   Win32PlatformIsUnicode := (Win32Platform = VER_PLATFORM_WIN32_NT);
 
 
   RegisterClasses([TGLWindowsBitmapFont]);
+
+// ---------------------------------------------------------------------------
 
 end.
 

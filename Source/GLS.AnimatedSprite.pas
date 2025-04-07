@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.AnimatedSprite;
 
 (* A sprite that uses a scrolling texture for animation. *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -16,10 +15,10 @@ uses
   System.SysUtils,
   System.Math,
    
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Scene,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.Material,
   GLS.PersistentClasses,
   GLS.XCollection,

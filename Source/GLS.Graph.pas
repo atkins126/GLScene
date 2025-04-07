@@ -1,32 +1,36 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Graph;
 
-(* Graph plotting objects for GLScene *)
+(*
+  Graph plotting objects:
+  - TGLSamplingScale, TGLHeightField, TGLXYZGrid;
+*)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   System.SysUtils,
   
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+  GLS.VectorLists,
+  GLS.BaseClasses,
+
   GLS.Scene,
-  GLS.OpenGLTokens,
   GLS.Context,
   GLS.XOpenGL,
-  GLS.VectorGeometry,
   GLS.Material,
   GLS.Objects,
-  GLS.VectorLists,
   GLS.Color,
-  GLS.BaseClasses,
   GLS.RenderContextInfo,
-  GLS.State,
-  GLS.VectorTypes;
+  GLS.State;
 
 type
 
@@ -734,3 +738,4 @@ initialization
 RegisterClasses([TGLHeightField, TGLXYZGrid]);
 
 end.
+

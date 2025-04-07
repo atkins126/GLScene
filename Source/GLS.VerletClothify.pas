@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.VerletClothify;
 
@@ -7,19 +7,19 @@ unit GLS.VerletClothify;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.VectorFileObjects,
   GLS.VerletTypes,
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.VectorLists,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Texture,
   GLS.RenderContextInfo,
   GLS.State,

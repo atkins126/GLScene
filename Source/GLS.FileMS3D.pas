@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.FileMS3D;
 
 (* Support for MS3D file format. *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Math,
@@ -16,11 +15,11 @@ uses
   System.SysUtils, 
    
   GLS.VectorFileObjects,
-  GLS.VectorTypes, 
+  Stage.VectorTypes, 
   GLS.Material, 
   GLS.Color, 
   GLS.Texture,
-  GLS.VectorGeometry, 
+  Stage.VectorGeometry, 
   GLS.VectorLists, 
   GLS.ApplicationFileIO;
   

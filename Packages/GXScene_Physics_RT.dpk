@@ -1,0 +1,59 @@
+//
+// The graphics engine GXScene https://github.com/glscene
+//
+package GXScene_Physics_RT;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'GXScene Physics Managers'}
+{$RUNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  fmx,
+  GXScene_RT;
+
+contains
+  GXS.NGDManager in '..\Sourcex\GXS.NGDManager.pas',
+  GXS.NGDRagdoll in '..\Sourcex\GXS.NGDRagdoll.pas',
+  GXS.ODEManager in '..\Sourcex\GXS.ODEManager.pas',
+  GXS.ODERagdoll in '..\Sourcex\GXS.ODERagdoll.pas',
+  GXS.ODESkeletonColliders in '..\Sourcex\GXS.ODESkeletonColliders.pas',
+  GXS.ODEUtils in '..\Sourcex\GXS.ODEUtils.pas',
+  GXS.PhysFields in '..\Sourcex\GXS.PhysFields.pas',
+  GXS.PhysForces in '..\Sourcex\GXS.PhysForces.pas',
+  GXS.PhysInertias in '..\Sourcex\GXS.PhysInertias.pas',
+  GXS.PhysJoints in '..\Sourcex\GXS.PhysJoints.pas',
+  GXS.PhysManager in '..\Sourcex\GXS.PhysManager.pas',
+  ModuleLoader in '..\Src\ModuleLoader.pas',
+  Newton.Import in '..\Src\Newton.Import.pas',
+  NGD.Import in '..\Src\NGD.Import.pas',
+  ODE.Import in '..\Src\ODE.Import.pas';
+
+end.
+
+

@@ -1,11 +1,11 @@
 ﻿//
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.ArchiveManager;
 
 (* Archive manager -  the class to work with archives *)
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 interface
 
@@ -15,7 +15,7 @@ uses
 
   GLS.ApplicationFileIO,
   GLS.PersistentClasses,
-  GLS.Strings;
+  Stage.Strings;
 
 type
 

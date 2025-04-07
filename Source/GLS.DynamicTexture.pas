@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.DynamicTexture;
 
@@ -10,7 +10,7 @@ unit GLS.DynamicTexture;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -19,11 +19,11 @@ uses
   System.Classes,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
-  GLS.Utils,
+  Stage.OpenGLTokens,
+  Stage.TextureFormat,
+  Stage.Utils,
   GLS.Context,
   GLS.Texture,
-  GLS.TextureFormat,
   GLS.Graphics;
 
 type
@@ -79,7 +79,7 @@ implementation
 // ---------------------------------------------------------
 
 uses
-  GLS.VectorGeometry;
+  Stage.VectorGeometry;
 
 // ----------------------------------
 // TGLDynamicTextureImage
@@ -255,8 +255,7 @@ function TGLDynamicTextureImage.GetDataFormat: integer;
 var
   Data, color: Cardinal;
 begin
-  FindCompatibleDataFormat(TGLTexture(OwnerTexture).TextureFormatEx,
-    color, Data);
+  FindCompatibleDataFormat(TGLTexture(OwnerTexture).TextureFormatEx, color, Data);
   Result := Data;
 end;
 
@@ -269,8 +268,7 @@ function TGLDynamicTextureImage.GetTextureFormat: integer;
 var
   Data, color: Cardinal;
 begin
-  FindCompatibleDataFormat(TGLTexture(OwnerTexture).TextureFormatEx,
-    color, Data);
+  FindCompatibleDataFormat(TGLTexture(OwnerTexture).TextureFormatEx, color, Data);
   if FUseBGR then
     case color of
       GL_RGB:

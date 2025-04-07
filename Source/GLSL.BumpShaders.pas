@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLSL.BumpShaders;
 
 (*
@@ -28,8 +27,6 @@ unit GLSL.BumpShaders;
 
 interface
 
-{$I GLScene.inc}
-
 uses
   Winapi.OpenGL,
   Winapi.OpenGLext,
@@ -37,26 +34,26 @@ uses
   System.Classes,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
 
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.Material,
   GLS.Graphics,
   GLS.VectorLists,
   GLS.Color,
   GLS.RenderContextInfo,
   GLS.State,
-  GLS.TextureFormat,
+  Stage.TextureFormat,
 
   GLS.Texture,
   GLS.Scene,
   GLS.Context,
   GLS.Cadencer,
-  GLS.Strings,
+  Stage.Strings,
   GLSL.Shader,
   GLSL.CustomShader,
-  GLS.Utils;
+  Stage.Utils;
 
 type
   TBumpMethod = (bmDot3TexCombiner, bmBasicARBFP);

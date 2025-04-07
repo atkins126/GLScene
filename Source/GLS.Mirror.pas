@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Mirror;
 (*
@@ -9,24 +9,24 @@ unit GLS.Mirror;
 *)
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.OpenGLAdapter,
   GLS.Scene,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Context,
   GLS.Material,
   GLS.Color,
   GLS.RenderContextInfo,
   GLS.State,
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.PersistentClasses,
-  GLS.PipelineTransformation,
+  Stage.PipelineTransform,
   GLS.XCollection,
   GLS.Texture;
 
@@ -176,7 +176,7 @@ begin
               clrBlack, clrBlack, 0);
           end
           else
-            SetGLColorWriting(False);
+            SetColorWriting(False);
 
           Enable(stDepthTest);
           DepthWriteMask := False;
@@ -194,7 +194,7 @@ begin
             ClearZBufferArea(CurrentBuffer);
 
           if not (moOpaque in MirrorOptions) then
-            SetGLColorWriting(True);
+            SetColorWriting(True);
         end;
 
         ARci.PipelineTransformation.Push;
@@ -324,7 +324,7 @@ begin
     with aBuffer.RenderingContext.GLStates do
     begin
       DepthFunc := cfAlways;
-      SetGLColorWriting(False);
+      SetColorWriting(False);
     end;
 
     gl.Begin_(GL_QUADS);
@@ -345,7 +345,7 @@ begin
     with aBuffer.RenderingContext.GLStates do
     begin
       DepthFunc := cfLess;
-      SetGLColorWriting(True);
+      SetColorWriting(True);
     end;
 
     gl.MatrixMode(GL_PROJECTION);

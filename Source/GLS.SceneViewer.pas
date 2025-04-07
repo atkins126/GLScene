@@ -1,13 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.SceneViewer;
 
-(* Windows specific Scene viewer *)
+(* Component for windows specific Scene viewer *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   WinApi.Windows,
@@ -21,8 +21,6 @@ uses
   GLS.Scene,
   GLS.WindowsContext,
   GLS.Context;
-
-
 
 type
   TTouchEvent = procedure(X, Y, TouchWidth, TouchHeight : integer; TouchID : Cardinal;

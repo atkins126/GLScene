@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLS.SmoothNavigator;
@@ -22,7 +22,7 @@ unit GLS.SmoothNavigator;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Types,
@@ -30,9 +30,9 @@ uses
   
   GLS.Scene,
   GLS.PersistentClasses,
-  GLS.VectorTypes, 
+  Stage.VectorTypes, 
   GLS.Navigator,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Coordinates,
   GLS.Screen, 
   GLS.XCollection;
@@ -725,7 +725,7 @@ begin
 
     if (Abs(FinalPitch) > FCutOff) or (Abs(FinalTurn) > FCutOff) then
     begin
-      MovingObject.AbsolutePosition := GLS.VectorGeometry.MoveObjectAround(
+      MovingObject.AbsolutePosition := Stage.VectorGeometry.MoveObjectAround(
         MovingObject.AbsolutePosition, lUp, AObject.AbsolutePosition, FinalPitch, FinalTurn);
       Result := True;
     end;

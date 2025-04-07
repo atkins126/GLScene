@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.WindowsContext;
 
@@ -7,7 +7,7 @@ unit GLS.WindowsContext;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -18,15 +18,15 @@ uses
   System.Classes,
   Vcl.Forms,
 
-  GLS.VectorTypes,
-  GLS.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.OpenGLTokens,
   GLS.OpenGLAdapter,
-  GLS.PipelineTransformation,
+  Stage.PipelineTransform,
   GLS.Context,
   GLS.State,
-  GLS.Logger,
-  GLS.Strings,
-  GLS.VectorGeometry;
+  Stage.Logger,
+  Stage.Strings,
+  Stage.VectorGeometry;
 
 type
   // A context driver for standard Windows OpenGL (via MS OpenGL).
@@ -35,7 +35,7 @@ type
     FDC: NativeUInt;
     FRC: NativeUInt;
     FShareContext: TGLWindowsContext;
-    FHPBUFFER: Integer;
+    FHPBUFFER: HPBUFFERARB;
     FiAttribs: packed array of Integer;
     FfAttribs: packed array of Single;
     FLegacyContextsOnly: Boolean;
@@ -911,7 +911,7 @@ var
   nbFormats: Integer;
   iFormats: array [0 .. 31] of Integer;
   iPBufferAttribs: array [0 .. 0] of Integer;
-  localHPBuffer: Integer;
+  localHPBuffer: HPBUFFERARB;
   localRC: HGLRC;
   localDC, tempDC: HDC;
   tempWnd: HWND;

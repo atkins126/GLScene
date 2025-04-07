@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileASE;
 
@@ -7,19 +7,19 @@ unit GLS.FileASE;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
   GLS.VectorFileObjects,
   GLS.ApplicationFileIO,
-  GLS.VectorTypes, 
-  GLS.VectorGeometry, 
+  Stage.VectorTypes, 
+  Stage.VectorGeometry, 
   GLS.VectorLists,
   GLS.Texture,
   GLS.Material,
-  GLS.Utils;
+  Stage.Utils;
 
 const
   GL_ASE_MAX_TEXURE_CHANNELS = 12; // maximum texture channels

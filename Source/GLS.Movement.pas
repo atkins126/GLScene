@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Movement;
 
@@ -11,23 +11,24 @@ unit GLS.Movement;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorTypes,
-  GLS.OpenGLTokens,
-  GLS.Scene,
+  Stage.VectorTypes,
+  Stage.OpenGLTokens,
   GLS.PersistentClasses,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.XCollection,
-  GLS.Spline,
-  GLS.Objects,
-  GLS.Strings,
+  Stage.Spline,
   GLS.BaseClasses,
-  GLS.Utils;
+
+  GLS.Scene,
+  GLS.Objects,
+  Stage.Strings,
+  Stage.Utils;
 
 type
 

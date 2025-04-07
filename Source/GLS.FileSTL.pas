@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileSTL;
 (*
@@ -21,11 +21,11 @@ uses
   System.SysUtils,
   GLS.ApplicationFileIO,
 
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   GLS.VectorFileObjects,
-  GLS.Utils;
+  Stage.Utils;
 
 type
   TSTLHeader = packed record
@@ -45,7 +45,7 @@ type
 
 type
 
-  TglSTLVectorFile = class(TglVectorFile)
+  TGLSTLVectorFile = class(TGLVectorFile)
   public
     class function Capabilities: TGLDataFileCapabilities; override;
     procedure LoadFromStream(aStream: TStream); override;
@@ -146,27 +146,24 @@ var
     P: Int64;
     Header: TSTLHeader;
     PHeader: ^TSTLHeader;
-  begin
-    Result := True;
-    try
-      if (AStream.Size - AStream.Position) < SizeOf(TSTLHeader) then Abort;
-      P := AStream.Position;
-      PHeader := @Header;
-      AStream.Read(PHeader^, SizeOf(Header));
-      AStream.Position := P;
-      if not
-      (
-        (Header.Dummy[0] = 's') and
-        (Header.Dummy[1] = 'o') and
-        (Header.Dummy[2] = 'l') and
-        (Header.Dummy[3] = 'i') and
-        (Header.Dummy[4] = 'd')
-      ) then Exit;
-      if AStream.Size <> (SizeOf(TSTLHeader) + (Header.Faces * FACET_SIZE)) then Abort;
-      Result := True;
-    except
-      Result := False;
-    end;
+   begin
+    if (AStream.Size - AStream.Position) < SizeOf(TSTLHeader) then
+      raise Exception.Create('STL file is broken!');
+    P := AStream.Position;
+    PHeader := @Header;
+    AStream.Read(PHeader^, SizeOf(Header));
+    AStream.Position := P;
+    Result := not
+    (
+      (Header.Dummy[0] = 's') and
+      (Header.Dummy[1] = 'o') and
+      (Header.Dummy[2] = 'l') and
+      (Header.Dummy[3] = 'i') and
+      (Header.Dummy[4] = 'd')
+    );
+    if Result and
+      (AStream.Size <> (SizeOf(TSTLHeader) + (Header.Faces * FACET_SIZE))) then
+      raise Exception.Create('Binary STL file is broken!');
   end;
 
 begin

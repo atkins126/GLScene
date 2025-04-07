@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.MultiProxy;
 
@@ -7,21 +7,22 @@ unit GLS.MultiProxy;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.PersistentClasses,
+  Stage.VectorGeometry,
+
   GLS.Context,
   GLS.Scene,
-  GLS.VectorGeometry,
   GLS.Silhouette,
   GLS.RenderContextInfo,
   GLS.BaseClasses,
-  GLS.VectorTypes;
+  Stage.VectorTypes;
 
 type
 

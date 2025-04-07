@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLS.WaterPlane;
@@ -12,23 +12,23 @@ unit GLS.WaterPlane;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   Vcl.Graphics,
 
-  GLS.OpenGLTokens,
-  GLS.VectorGeometry,
+  Stage.OpenGLTokens,
+  Stage.VectorGeometry,
   GLS.Scene,
   GLS.VectorLists,
   GLS.PersistentClasses,
   GLS.BaseClasses,
   GLS.Context,
   GLS.RenderContextInfo,
-  GLS.VectorTypes,
-  GLS.Utils;
+  Stage.VectorTypes,
+  Stage.Utils;
 
 type
    TGLWaterPlaneOption = (wpoTextured);

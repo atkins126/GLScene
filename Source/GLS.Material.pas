@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.Material;
 
 (* Handles all the material + material library stuff *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
@@ -16,9 +15,12 @@ uses
   System.Types,
   Vcl.Graphics,
 
-  GLS.OpenGLTokens,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.TextureFormat,
+  Stage.Strings,
+
   GLS.RenderContextInfo,
   GLS.BaseClasses,
   GLS.Context,
@@ -27,13 +29,12 @@ uses
   GLS.Coordinates,
   GLS.PersistentClasses,
   GLS.State,
-  GLS.TextureFormat, 
   GLS.XOpenGL,
   GLS.ApplicationFileIO,
   GLS.Graphics,
-  GLS.Utils,
-  GLS.Strings,
-  GLS.Logger;
+  GLS.ImageUtils,
+  Stage.Utils,
+  Stage.Logger;
 
 {$UNDEF USE_MULTITHREAD}
 type
@@ -411,9 +412,9 @@ type
     FName: TGLLibMaterialName;
     FNameHashKey: Integer;
     FTag: Integer;
-	// Used for recursivity protection
-    FNotifying: Boolean; 
-    {implementing IGLMaterialLibrarySupported}
+	  // Used for recursivity protection
+    FNotifying: Boolean;
+    (* implementing IGLMaterialLibrarySupported *)
     function GetMaterialLibrary: TGLAbstractMaterialLibrary;
     // Implementing IInterface
     function QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
@@ -484,7 +485,7 @@ type
     procedure Assign(Source: TPersistent); override;
     procedure PrepareBuildList;
     procedure Apply(var ARci: TGLRenderContextInfo); override;
-    { Restore non-standard material states that were altered}
+    // Restore non-standard material states that were altered
     function UnApply(var ARci: TGLRenderContextInfo): Boolean; override;
     procedure NotifyUsersOfTexMapChange;
     property TextureMatrix: TGLMatrix read FTextureMatrix write SetTextureMatrix;
@@ -510,7 +511,7 @@ type
        if not supported). *)
     property Texture2Name: TGLLibMaterialName read FTexture2Name write
       SetTexture2Name;
-    {Optionnal shader for the material. }
+    // Optionnal shader for the material.
     property Shader: TGLShader read FShader write SetShader;
   end;
 
@@ -1227,7 +1228,7 @@ begin
     if MaterialLoopFrom(TGLLibMaterial(newLibMaterial)) then
     begin
       if IsDesignTime then
-        InformationDlg(Format(strCyclicRefMat, [val]))
+        InformationDlg(Format(strCyclicRefMat, [val]))   
       else
         GLSLogger.LogErrorFmt(strCyclicRefMat, [val]);
       exit;
@@ -1839,14 +1840,14 @@ begin
   begin
     // no multitexturing ("standard" mode)
     if not FTextureMatrixIsIdentity then
-        ARci.GLStates.SetGLTextureMatrix(FTextureMatrix);
+        ARci.GLStates.SetTextureMatrix(FTextureMatrix);
     Material.Apply(ARci);
   end
   else
   begin
     // multitexturing is ON
     if not FTextureMatrixIsIdentity then
-      ARci.GLStates.SetGLTextureMatrix(FTextureMatrix);
+      ARci.GLStates.SetTextureMatrix(FTextureMatrix);
     Material.Apply(ARci);
 
     if not libMatTexture2.FTextureMatrixIsIdentity then
@@ -1904,7 +1905,7 @@ begin
     Material.UnApply(ARci);
     if not Material.Texture.Disabled then
       if not FTextureMatrixIsIdentity then
-        ARci.GLStates.ResetGLTextureMatrix;
+        ARci.GLStates.ResetTextureMatrix;
     if Assigned(FShader) then
     begin
       case Shader.ShaderStyle of

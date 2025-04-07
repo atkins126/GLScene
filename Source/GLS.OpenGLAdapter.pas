@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.OpenGLAdapter;
 
@@ -7,7 +7,7 @@ unit GLS.OpenGLAdapter;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -15,11 +15,11 @@ uses
   Winapi.Windows,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
-  GLS.Strings,
-  GLS.Logger,
-  GLS.VectorGeometry,
-  GLS.VectorTypes;
+  Stage.OpenGLTokens,
+  Stage.Strings,
+  Stage.Logger,
+  Stage.VectorGeometry,
+  Stage.VectorTypes;
 
 const
   {$IFDEF CROSSVCL}

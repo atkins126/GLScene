@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileQ3BSP;
 
@@ -11,7 +11,7 @@ unit GLS.FileQ3BSP;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
@@ -20,17 +20,17 @@ uses
 
   GLS.VectorFileObjects,
   GLS.ApplicationFileIO,
-  GLS.VectorGeometry,
-  GLS.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.VectorTypes,
   GLS.VectorLists,
   Formats.Q3BSP,
   GLS.MeshBSP,
   GLS.Texture,
   GLS.Graphics,
   GLS.State,
-  GLS.Utils,
+  Stage.Utils,
   GLS.Material,
-  GLS.TextureFormat;
+  Stage.TextureFormat;
 
 type
 
@@ -45,7 +45,7 @@ var
   // Q3 lightmaps are quite dark, we brighten them a lot by default
   vQ3BSPLightmapGammaCorrection: Single = 2.5;
   vQ3BSPLightmapBrightness: Single = 2; // scaling factor, 1.0 = unchanged
-  vGLFileQ3BSPLoadMaterials: boolean = True; // Mrqzzz : Flag to avoid loading materials (useful for IDE Extentions like GlaredX)
+  vGLFileQ3BSPLoadMaterials: boolean = True; // Flag to avoid loading materials (useful for IDE Extentions)
 
 // ------------------------------------------------------------------
 implementation

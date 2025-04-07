@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.SoundFileObjects;
 
 (*
@@ -11,7 +10,7 @@ unit GLS.SoundFileObjects;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.MMSystem,
@@ -214,7 +213,7 @@ end;
 
 procedure TGLSoundFile.PlayOnWaveOut;
 begin
-  // GLSM.SoundFileObjects.PlayOnWaveOut(PCMData, LengthInSamples, Sampling);
+///  PlayOnWaveOut(PCMData, LengthInSamples, Sampling); ?
 end;
 
 function TGLSoundFile.LengthInSamples: Integer;

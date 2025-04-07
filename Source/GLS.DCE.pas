@@ -1,8 +1,7 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.DCE;
-
 (*
   Dynamic Collision Engine
   How to use:
@@ -22,30 +21,30 @@ unit GLS.DCE;
   - SlideOrBounce: The object can bounce like a ball or slide like an FPS
   - BounceFactor: Restituition factor, 1 means that it will bounce forever
 *)
-
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
   System.Types,
 
-  GLS.Scene,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+  GLS.BaseClasses,
+  GLS.Coordinates,
+  Stage.Manager,
   GLS.XCollection,
-  GLS.VectorGeometry,
   GLS.VectorLists,
+
+  GLS.Scene,
   GLS.VectorFileObjects,
   GLS.EllipseCollision,
   GLS.TerrainRenderer,
-  GLS.Coordinates,
-  GLS.BaseClasses,
   GLS.ProxyObjects,
   GLS.MultiProxy,
-  GLS.Manager,
-  GLS.VectorTypes,
-  GLS.Strings;
+  Stage.Strings;
 
 type
   // Only csEllipsoid can have dynamic behaviour

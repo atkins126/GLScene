@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.FilePNG;
 
 (* PNG files loading implementation *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -16,12 +15,12 @@ uses
   System.SysUtils,
   VCL.Imaging.pngimage,
 
-  GLS.OpenGLTokens,
-  GLS.Strings,
+  Stage.OpenGLTokens,
+  Stage.Strings,
   GLS.Context,
   GLS.Graphics,
   GLS.ApplicationFileIO,
-  GLS.TextureFormat;
+  Stage.TextureFormat;
 
 type
 

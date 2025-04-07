@@ -1,21 +1,20 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit Formats.OCT;
 
 (* Loader for FSRad OCT files *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorGeometry,
-  GLS.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.VectorTypes,
   GLS.VectorLists;
 
 type
@@ -82,12 +81,7 @@ type
       lightIntensity: Integer);
   end;
 
-// ------------------------------------------------------------------
-implementation
-// ------------------------------------------------------------------
-
-uses
-  GLS.MeshUtils;
+implementation // ------------------------------------------------------------
 
 // ------------------
 // ------------------ TOCTFile ------------------
@@ -191,5 +185,7 @@ begin
     intensity := lightIntensity;
   end;
 end;
+
+//---------------------------------------------------------------------------
 
 end.

@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.ProjectedTextures;
 
@@ -7,18 +7,18 @@ unit GLS.ProjectedTextures;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Scene,
   GLS.PersistentClasses,
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.Texture,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.RenderContextInfo,
   GLS.State,
   GLS.Material;
@@ -137,7 +137,7 @@ begin
   // Set the projector's "perspective" (i.e. the "spotlight cone"):.
   PM := MatrixMultiply(CreatePerspectiveMatrix(FFOVy, FAspect, 0.1, 1), cBaseMat);
   PM := MatrixMultiply(invAbsoluteMatrix, PM);
-  Arci.GLStates.SetGLTextureMatrix(PM);
+  Arci.GLStates.SetTextureMatrix(PM);
 end;
 
 // ------------------

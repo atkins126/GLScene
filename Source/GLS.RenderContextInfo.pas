@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.RenderContextInfo;
 
@@ -7,14 +7,14 @@ unit GLS.RenderContextInfo;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   GLS.PersistentClasses,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.State,
-  GLS.PipelineTransformation,
+  Stage.PipelineTransform,
   GLS.Color;
 
 type
@@ -32,8 +32,7 @@ type
    osRenderFarthestFirst : render objects whose Position is the farthest from the camera first.
    osRenderBlendedLast : opaque objects are not sorted and rendered first, blended ones are rendered afterwards and depth sorted.
    osRenderNearestFirst : render objects whose Position is the nearest to the camera first.  *)
-  TGLObjectsSorting = (osInherited, osNone, osRenderFarthestFirst,
-    osRenderBlendedLast, osRenderNearestFirst);
+  TGLObjectsSorting = (osInherited, osNone, osRenderFarthestFirst, osRenderBlendedLast, osRenderNearestFirst);
 
   (* Determines the visibility culling mode.
      Culling is done level by level, allowed values are:
@@ -75,7 +74,7 @@ type
     ObjectsSorting: TGLObjectsSorting;
     VisibilityCulling: TGLVisibilityCulling;
     GLStates: TGLStateCache;
-    PipelineTransformation: TGLTransformation;
+    PipelineTransformation: TGTransformation;
     Rcci: TGLRenderContextClippingInfo;
     SceneAmbientColor: TGLColorVector;
     BufferFaceCull: Boolean;
@@ -95,8 +94,6 @@ type
   end;
   PGLRenderContextInfo = ^TGLRenderContextInfo;
 
-//====================================================================
-implementation
-//====================================================================
+implementation //-------------------------------------------------------------
 
 end.

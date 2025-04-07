@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileSMD;
 
@@ -16,11 +16,11 @@ uses
   GLS.Texture,
   GLS.PersistentClasses,
   GLS.ApplicationFileIO,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.Material,
-  GLS.Strings,
-  GLS.Utils;
+  Stage.Strings,
+  Stage.Utils;
 
 type
   (* The SMD vector file is Half-life's skeleton format.

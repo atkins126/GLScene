@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.TerrainRenderer;
 
@@ -11,7 +11,7 @@ unit GLS.TerrainRenderer;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -19,19 +19,19 @@ uses
   System.SysUtils,
   System.Types,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Scene,
   GLS.Coordinates,
   GLS.HeightData,
   GLS.Material,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Context,
   GLS.ROAMPatch,
   GLS.VectorLists,
   GLS.RenderContextInfo,
   GLS.XOpenGL,
-  GLS.Utils,
-  GLS.VectorTypes,
+  Stage.Utils,
+  Stage.VectorTypes,
   GLS.Texture;
 
 const

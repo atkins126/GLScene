@@ -1,24 +1,25 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Objects;
 
 (*
-  Implementation of basic scene objects plus some management routines:
-  - TGLDummyCube, TGLPlane, TGLSprite, TGLPoints, TGLLines, TGLCube,
-    TGLSphere, TGLPolygonBase, TGLSuperellipsoid.
+  Implementation of basic scene objects plus some management routines.
+  The registered classes are:
+    [TGLSphere, TGLCube, TGLPlane, TGLSprite, TGLPoints,
+    TGLDummyCube, TGLLines, TGLSuperellipsoid]
 
   All objects declared in this unit are part of the basic GLScene package,
   these are only simple objects and should be kept simple and lightweight.
 
   More complex or more specialized versions should be placed in dedicated
   units where they can grow and prosper untammed. "Generic" geometrical
-  objects can be found GLS.GeomObjects.
+  objects can be found in GLS.GeomObjects unit.
 *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -28,22 +29,22 @@ uses
   System.SysUtils,
   System.Math,
 
-  GLS.OpenGLTokens,
   GLS.OpenGLAdapter,
-  GLS.VectorTypes,
+  Stage.OpenGLTokens,
+  Stage.VectorGeometry,
+  Stage.VectorTypes,
+  GLS.PersistentClasses,
+  GLS.BaseClasses,
+  GLS.Coordinates,
+  Stage.Spline,
   GLS.VectorLists,
-  GLS.VectorGeometry,
-  GLS.Spline,
+  Stage.PipelineTransform,
   GLS.Scene,
-  GLS.PipelineTransformation,
   GLS.Context,
   GLS.Silhouette,
   GLS.Color,
   GLS.RenderContextInfo,
-  GLS.PersistentClasses,
-  GLS.BaseClasses,
   GLS.Nodes,
-  GLS.Coordinates,
   GLS.XOpenGL,
   GLS.State;
 
@@ -2723,7 +2724,7 @@ begin
   DoReverse := (FNormalDirection = ndInside);
   rci.GLStates.PushAttrib([sttPolygon]);
   if DoReverse then
-    rci.GLStates.InvertGLFrontFace;
+    rci.GLStates.InvertFrontFace;
 
   // common settings
   AngTop := DegToRad(1.0 * FTop);
@@ -2872,7 +2873,7 @@ begin
     gl.End_;
   end;
   if DoReverse then
-    rci.GLStates.InvertGLFrontFace;
+    rci.GLStates.InvertFrontFace;
   gl.PopMatrix;
   rci.GLStates.PopAttrib;
 end;
@@ -3156,7 +3157,6 @@ end;
 // ------------------
 // ------------------ TGLSuperellipsoid ------------------
 // ------------------
-
 constructor TGLSuperellipsoid.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -3185,7 +3185,7 @@ var
 begin
   DoReverse := (FNormalDirection = ndInside);
   if DoReverse then
-    rci.GLStates.InvertGLFrontFace;
+    rci.GLStates.InvertFrontFace;
 
   // common settings
   AngTop := DegToRad(1.0 * FTop);
@@ -3195,7 +3195,7 @@ begin
   StepH := (AngStop - AngStart) / FSlices;
   StepV := (AngTop - AngBottom) / FStacks;
 
-  { Even integer used with the Power function, only produce positive points }
+  // Even integer used with the Power function, only produce positive points
   tc1 := trunc(VCurve);
   tc2 := trunc(HCurve);
   if tc1 mod 2 = 0 then
@@ -3217,7 +3217,7 @@ begin
     if FTopCap = ctCenter then
       gl.Vertex3f(0, 0, 0)
     else
-    begin { FTopCap = ctFlat }
+    begin // FTopCap = ctFlat
       if (Sign(SinP) = 1) or (tc1 = VCurve) then
         SinPc1 := Power(SinP, VCurve)
       else
@@ -3227,7 +3227,7 @@ begin
       N1 := YVector;
       if DoReverse then
         N1.Y := -N1.Y;
-    end; { FTopCap = ctFlat }
+    end; // FTopCap = ctFlat
 
     // v1.Y := SinP;
     if (Sign(SinP) = 1) or (tc1 = VCurve) then
@@ -3378,7 +3378,7 @@ begin
     if FBottomCap = ctCenter then
       gl.Vertex3f(0, 0, 0)
     else
-    begin { FTopCap = ctFlat }
+    begin // FTopCap = ctFlat
       if (Sign(SinP) = 1) or (tc1 = VCurve) then
         SinPc1 := Power(SinP, VCurve)
       else
@@ -3435,7 +3435,7 @@ begin
     gl.End_;
   end;
   if DoReverse then
-    rci.GLStates.InvertGLFrontFace;
+    rci.GLStates.InvertFrontFace;
 end;
 
 // This will probably not work

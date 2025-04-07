@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.SpaceText;
 
@@ -15,7 +15,7 @@ unit GLS.SpaceText;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 {$IFDEF UNIX}{$MESSAGE Error 'Unit not supported'} {$ENDIF}
 
 uses
@@ -30,13 +30,13 @@ uses
   VCL.Graphics,
   VCL.Controls,
 
-  GLS.VectorTypes,
-  GLS.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.OpenGLTokens,
   GLS.Scene,
   GLS.Texture,
   GLS.Context,
-  GLS.VectorGeometry,
-  GLS.Strings,
+  Stage.VectorGeometry,
+  Stage.Strings,
   GLS.RenderContextInfo,
   GLS.State;
 

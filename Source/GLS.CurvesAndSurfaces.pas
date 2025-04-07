@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.CurvesAndSurfaces;
 
@@ -9,8 +9,8 @@ interface
 
 uses
   System.SysUtils,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.VectorLists;
 
 type
@@ -33,9 +33,7 @@ procedure GenerateBSplineSurface(Steps, UOrder, VOrder, Width, Height: integer;
 procedure GenerateKnotVector(KnotVector: TGLSingleList;
   NumberOfPoints, Order: integer; Continuity: TBSplineContinuity);
 
-// --------------------------------------------------------------------------
-implementation
-// --------------------------------------------------------------------------
+implementation // -----------------------------------------------------------
 
 function Factorial(n: integer): single;
 var
@@ -289,5 +287,7 @@ begin
 
   end;
 end;
+
+//----------------------------------------------------------------------------
 
 end.

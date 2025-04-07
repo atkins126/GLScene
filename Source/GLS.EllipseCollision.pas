@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.EllipseCollision;
 
@@ -7,13 +7,13 @@ unit GLS.EllipseCollision;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.Octree,
-  GLS.VectorLists,
-  GLS.VectorTypes;
+  GLS.VectorLists;
 
 type
   // The Ellipsoid collision class

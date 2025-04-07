@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLS.ProxyObjects;
@@ -8,27 +8,27 @@ unit GLS.ProxyObjects;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Scene,
   GLS.XCollection,
-  GLS.PipelineTransformation,
-  GLS.VectorGeometry,
+  Stage.PipelineTransform,
+  Stage.VectorGeometry,
   GLS.Texture,
   GLS.VectorFileObjects,
-  GLS.Strings,
+  Stage.Strings,
   GLS.RenderContextInfo,
   GLS.BaseClasses,
   GLS.Material,
   GLS.Context,
   GLS.PersistentClasses,
-  GLS.VectorTypes;
+  Stage.VectorTypes;
 
 type
   EGLProxyException = class(Exception);

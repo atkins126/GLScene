@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLS.Trail;
@@ -8,21 +8,21 @@ unit GLS.Trail;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
   
   GLS.Scene,
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.MeshUtils,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.VectorFileObjects,
   GLS.Mesh,
   GLS.Objects,
   GLS.Material,
-  GLS.Strings,
+  Stage.Strings,
   GLS.BaseClasses;
 
 

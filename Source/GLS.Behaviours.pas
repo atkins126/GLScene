@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Behaviours;
 
@@ -7,15 +7,15 @@ unit GLS.Behaviours;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.Scene,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.XCollection,
   GLS.BaseClasses,
   GLS.Coordinates;
@@ -156,9 +156,7 @@ function GetOrCreateInertia(obj: TGLBaseSceneObject): TGLBInertia; overload;
 function GetOrCreateAcceleration(behaviours: TGLBehaviours): TGLBAcceleration; overload;
 function GetOrCreateAcceleration(obj: TGLBaseSceneObject): TGLBAcceleration; overload;
 
-// ------------------------------------------------------------------
-implementation
-// ------------------------------------------------------------------
+implementation // -----------------------------------------------------------
 
 function GetInertia(const AGLSceneObject: TGLBaseSceneObject): TGLBInertia;
 var
@@ -602,15 +600,13 @@ begin
   end;
 end;
 
-// ------------------------------------------------------------------
-initialization
-// ------------------------------------------------------------------
+initialization // ------------------------------------------------------------
 
 // class registrations
   RegisterXCollectionItemClass(TGLBInertia);
   RegisterXCollectionItemClass(TGLBAcceleration);
 
-finalization
+finalization // --------------------------------------------------------------
 
   UnregisterXCollectionItemClass(TGLBInertia);
   UnregisterXCollectionItemClass(TGLBAcceleration);

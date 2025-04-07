@@ -1,25 +1,24 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit Formats.TGA;
 
-(* Graphic engine friendly loading of TGA image. *)
+(* Graphic engine friendly loading of TGA image *)
 
 interface
 
-{.$I GLScene.inc}
+{.$I GLS.inc}
 
 uses
   Winapi.OpenGL,
   Winapi.OpenGLext,
   System.Classes,
   System.SysUtils,
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Context,
   GLS.Graphics,
   GLS.ApplicationFileIO,
-  GLS.TextureFormat;
+  Stage.TextureFormat;
 
 type
 
@@ -36,9 +35,7 @@ type
       reintroduce;
   end;
 
-//===============================================================
-implementation
-//===============================================================
+implementation //--------------------------------------------------------------
 
 type
 
@@ -276,9 +273,7 @@ begin
   Result := [dfcRead {, dfcWrite}];
 end;
 
-//-------------------------------------------
-initialization
-//-------------------------------------------
+initialization //--------------------------------------------------------------
 
   RegisterRasterFormat('tga', 'TARGA Image File', TGLTGAImage);
 

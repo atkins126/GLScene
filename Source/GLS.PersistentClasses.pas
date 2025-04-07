@@ -1,24 +1,25 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.PersistentClasses;
 (*
    Base persistence classes.
+   The registered class is:
+     [TGLPersistentObjectList]
 
    These classes are used in GLScene but are designed for generic purpose.
    They implement a slightly different persistence mechanism then that of the VCL,
    allowing for object-level versioning (100% backward compatibility) and full
    polymorphic persistence.
+
+   Internal Note: stripped down versions of XClasses & XLists.
 *)
 interface
-
-{$I GLScene.inc}
 
 uses
   System.Classes,
   System.SysUtils,
-  GLS.Strings,
-  GLS.Utils;
+  Stage.Strings;
 
 type
 
@@ -36,7 +37,7 @@ type
     function NextValue: TValueType; virtual; abstract;
     function ReadInteger: Integer; virtual; abstract;
     function ReadBoolean: Boolean; virtual; abstract;
-    function ReadString: string; virtual; abstract;
+    function ReadString: String; virtual; abstract;
     function ReadFloat: Extended; virtual; abstract;
     procedure ReadListBegin; virtual; abstract;
     procedure ReadListEnd; virtual; abstract;
@@ -61,8 +62,8 @@ type
     procedure WriteTStrings(const aStrings: TStrings; storeObjects: Boolean = True);
   end;
 
-  TVirtualReaderClass = class of TGLVirtualReader;
-  TVirtualWriterClass = class of TGLVirtualWriter;
+  TGLVirtualReaderClass = class of TGLVirtualReader;
+  TGLVirtualWriterClass = class of TGLVirtualWriter;
 
   (*Interface for persistent objects.
      This interface does not really allow polymorphic persistence,
@@ -94,24 +95,24 @@ type
     procedure Assign(source: TPersistent); override;
     function CreateClone: TGLPersistentObject; dynamic;
     class function FileSignature: string; virtual;
-    class function FileVirtualWriter: TVirtualWriterClass; virtual;
-    class function FileVirtualReader: TVirtualReaderClass; virtual;
+    class function FileVirtualWriter: TGLVirtualWriterClass; virtual;
+    class function FileVirtualReader: TGLVirtualReaderClass; virtual;
     procedure WriteToFiler(writer: TGLVirtualWriter); dynamic;
     procedure ReadFromFiler(reader: TGLVirtualReader); dynamic;
-    procedure SaveToStream(stream: TStream; writerClass: TVirtualWriterClass = nil); dynamic;
-    procedure LoadFromStream(stream: TStream; readerClass: TVirtualReaderClass = nil); dynamic;
-    procedure SaveToFile(const fileName: string; writerClass: TVirtualWriterClass = nil); dynamic;
-    procedure LoadFromFile(const fileName: string; readerClass: TVirtualReaderClass = nil); dynamic;
-    function SaveToString(writerClass: TVirtualWriterClass = nil): string; dynamic;
-    procedure LoadFromString(const data: string; readerClass: TVirtualReaderClass = nil); dynamic;
+    procedure SaveToStream(stream: TStream; writerClass: TGLVirtualWriterClass = nil); dynamic;
+    procedure LoadFromStream(stream: TStream; readerClass: TGLVirtualReaderClass = nil); dynamic;
+    procedure SaveToFile(const fileName: string; writerClass: TGLVirtualWriterClass = nil); dynamic;
+    procedure LoadFromFile(const fileName: string; readerClass: TGLVirtualReaderClass = nil); dynamic;
+    function SaveToString(writerClass: TGLVirtualWriterClass = nil): string; dynamic;
+    procedure LoadFromString(const data: string; readerClass: TGLVirtualReaderClass = nil); dynamic;
   end;
 
-  TPersistentObjectClass = class of TGLPersistentObject;
+  TGLPersistentObjectClass = class of TGLPersistentObject;
 
   PGLPointerObjectList = ^TGLPointerObjectList;
   TGLPointerObjectList = array[0..MaxInt div (2*SizeOf(Pointer))] of TObject;
 
-  TObjectListSortCompare = function(item1, item2: TObject): Integer;
+  TGLObjectListSortCompare = function(item1, item2: TObject): Integer;
 
   (*A persistent Object list.
     Similar to TList but works on TObject items and has facilities for
@@ -187,7 +188,7 @@ type
     procedure PopAndFree;
     function AddObjects(const objectList: TGLPersistentObjectList): Integer;
     procedure RemoveObjects(const objectList: TGLPersistentObjectList);
-    procedure Sort(compareFunc: TObjectListSortCompare);
+    procedure Sort(compareFunc: TGLObjectListSortCompare);
   end;
 
   //Wraps a TReader-compatible reader.
@@ -298,9 +299,7 @@ type
 procedure RaiseFilerException(aClass: TClass; archiveVersion: Integer);
 function UTF8ToWideString(const s: AnsiString): WideString;
 
-// ------------------------------------------------------------------
-implementation
-// ------------------------------------------------------------------
+implementation // -----------------------------------------------------------
 
 const
   cDefaultListGrowthDelta = 64;
@@ -318,7 +317,7 @@ const
 procedure RaiseFilerException(aClass: TClass; archiveVersion: Integer);
 begin
   raise EFilerException.Create(aClass.ClassName +
-                 strUnknownArchiveVersion + IntToStr(archiveVersion));
+    strUnknownArchiveVersion + IntToStr(archiveVersion));
 end;
 
 function UTF8ToWideString(const s: AnsiString): WideString;
@@ -503,7 +502,7 @@ end;
 
 function TGLPersistentObject.CreateClone: TGLPersistentObject;
 begin
-  Result := TPersistentObjectClass(Self.ClassType).Create;
+  Result := TGLPersistentObjectClass(Self.ClassType).Create;
   Result.Assign(Self);
 end;
 
@@ -512,12 +511,12 @@ begin
   Result := '';
 end;
 
-class function TGLPersistentObject.FileVirtualWriter: TVirtualWriterClass;
+class function TGLPersistentObject.FileVirtualWriter: TGLVirtualWriterClass;
 begin
   Result := TGLBinaryWriter;
 end;
 
-class function TGLPersistentObject.FileVirtualReader: TVirtualReaderClass;
+class function TGLPersistentObject.FileVirtualReader: TGLVirtualReaderClass;
 begin
   Result := TGLBinaryReader;
 end;
@@ -559,7 +558,7 @@ begin
   Result := 0;
 end;
 
-procedure TGLPersistentObject.SaveToStream(stream: TStream; writerClass: TVirtualWriterClass = nil);
+procedure TGLPersistentObject.SaveToStream(stream: TStream; writerClass: TGLVirtualWriterClass = nil);
 var
   wr: TGLVirtualWriter;
   fileSig: AnsiString;
@@ -579,7 +578,7 @@ begin
   end;
 end;
 
-procedure TGLPersistentObject.LoadFromStream(stream: TStream; readerClass: TVirtualReaderClass = nil);
+procedure TGLPersistentObject.LoadFromStream(stream: TStream; readerClass: TGLVirtualReaderClass = nil);
 var
   rd: TGLVirtualReader;
   sig: AnsiString;
@@ -601,7 +600,7 @@ begin
   end;
 end;
 
-procedure TGLPersistentObject.SaveToFile(const fileName: string; writerClass: TVirtualWriterClass = nil);
+procedure TGLPersistentObject.SaveToFile(const fileName: string; writerClass: TGLVirtualWriterClass = nil);
 var
   fs: TStream;
 begin
@@ -615,7 +614,7 @@ begin
   end;
 end;
 
-procedure TGLPersistentObject.LoadFromFile(const fileName: string; readerClass: TVirtualReaderClass = nil);
+procedure TGLPersistentObject.LoadFromFile(const fileName: string; readerClass: TGLVirtualReaderClass = nil);
 var
   fs: TStream;
 begin
@@ -629,7 +628,7 @@ begin
   end;
 end;
 
-function TGLPersistentObject.SaveToString(writerClass: TVirtualWriterClass = nil): string;
+function TGLPersistentObject.SaveToString(writerClass: TGLVirtualWriterClass = nil): string;
 var
   ss: TStringStream;
 begin
@@ -642,7 +641,7 @@ begin
   end;
 end;
 
-procedure TGLPersistentObject.LoadFromString(const data: string; readerClass: TVirtualReaderClass = nil);
+procedure TGLPersistentObject.LoadFromString(const data: string; readerClass: TGLVirtualReaderClass = nil);
 var
   ss: TStringStream;
 begin
@@ -800,6 +799,8 @@ begin
   Result := FList^[Index];
 end;
 
+// IndexOf
+//
 function TGLPersistentObjectList.IndexOf(Item: TObject): Integer;
 var
   I: Integer;
@@ -1098,7 +1099,7 @@ end;
 procedure TGLPersistentObjectList.ReadFromFilerWithEvent(reader: TGLVirtualReader; afterSenderObjectCreated: TNotifyEvent);
 var
   obj: TGLPersistentObject;
-  m: TPersistentObjectClass;
+  m: TGLPersistentObjectClass;
   version: integer;
   objTypes: TList;
 begin
@@ -1123,7 +1124,7 @@ begin
               Cardinal(vaInt64) + 1 { vaUTF8String }:
               begin
                 // Unknown class, to be registered
-                m := TPersistentObjectClass(FindClass(ReadString));
+                m := TGLPersistentObjectClass(FindClass(ReadString));
                 objTypes.Add(m);
                 obj := m.Create;
                 if Assigned(afterSenderObjectCreated) then
@@ -1134,7 +1135,7 @@ begin
             Cardinal(vaInt8), Cardinal(vaInt16), Cardinal(vaInt32):
               begin
                 // known class, direct retrieve
-                m := TPersistentObjectClass(objTypes[ReadInteger]);
+                m := TGLPersistentObjectClass(objTypes[ReadInteger]);
                 obj := m.Create;
                 if Assigned(afterSenderObjectCreated) then
                   afterSenderObjectCreated(obj);
@@ -1186,7 +1187,7 @@ begin
 end;
 
 procedure POListQuickSort(SortList: PGLPointerObjectList; L, R: Integer;
-  compareFunc: TObjectListSortCompare);
+  compareFunc: TGLObjectListSortCompare);
 var
   I, J: Integer;
   P, T: TObject;
@@ -1215,7 +1216,7 @@ begin
   until I >= R;
 end;
 
-procedure TGLPersistentObjectList.Sort(compareFunc: TObjectListSortCompare);
+procedure TGLPersistentObjectList.Sort(compareFunc: TGLObjectListSortCompare);
 begin
   if Count > 1 then
     POListQuickSort(FList, 0, Count - 1, compareFunc);
@@ -1632,7 +1633,7 @@ begin
   ReadLine(cVTInteger);
   oldDc := FormatSettings.DecimalSeparator;
   FormatSettings.DecimalSeparator := '.';
-  Result := GLStrToFloatDef(FData);
+  Result := StrToFloat(FData);
   FormatSettings.DecimalSeparator := oldDc;
 end;
 
@@ -1801,10 +1802,9 @@ begin
     Result := E_NOINTERFACE;
 end;
 
-// ------------------------------------------------------------------
-initialization
-// ------------------------------------------------------------------
+initialization // -------------------------------------------------------------
 
+	// class registrations
   RegisterClass(TGLPersistentObjectList);
 
 end.

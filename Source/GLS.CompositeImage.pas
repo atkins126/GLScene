@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.CompositeImage;
 
@@ -14,10 +14,10 @@ uses
   System.Classes,
   
   GLS.Context, 
-  GLS.OpenGLTokens, 
+  Stage.OpenGLTokens, 
   GLS.Graphics, 
   GLS.Texture, 
-  GLS.TextureFormat;
+  Stage.TextureFormat;
 
 type
 
@@ -51,9 +51,7 @@ type
     property Depth: Integer read GetDepth write SetDepth;
   end;
 
-//-----------------------------------------------------------------------
-implementation
-//-----------------------------------------------------------------------
+implementation //-------------------------------------------------------------
 
 constructor TGLCompositeImage.Create(AOwner: TPersistent);
 begin
@@ -266,9 +264,7 @@ begin
     Result := ttNoShape;
 end;
 
-//-------------------------------------------------
-initialization
-//-------------------------------------------------
+initialization //-------------------------------------------------
 
   RegisterGLTextureImageClass(TGLCompositeImage);
 

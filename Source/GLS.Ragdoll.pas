@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Ragdoll;
 
@@ -7,13 +7,13 @@ unit GLS.Ragdoll;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   GLS.Scene,
   GLS.PersistentClasses,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.VectorFileObjects,
   GLS.VectorLists,
   GLS.Objects;

@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.Blur;
 
 (* Applies a blur effect over the viewport *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -17,8 +16,11 @@ uses
   System.SysUtils,
   VCL.Graphics,
 
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.TextureFormat,
+
   GLS.BaseClasses,
   GLS.Scene,
   GLS.Objects,
@@ -31,7 +33,6 @@ uses
   GLS.Context,
   GLS.XOpenGL,
   GLS.State,
-  GLS.TextureFormat,
   GLS.RenderContextInfo;
 
 type
@@ -167,7 +168,7 @@ implementation
 uses
   GLS.Coordinates,
   GLS.PersistentClasses,
-  GLS.Strings,
+  Stage.Strings,
   GLS.OpenGLAdapter;
 
 const

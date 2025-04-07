@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.ShadowPlane;
 
@@ -12,28 +12,28 @@ unit GLS.ShadowPlane;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   System.Types,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.PersistentClasses,
-  GLS.PipelineTransformation,
-  GLS.VectorTypes,
+  Stage.PipelineTransform,
+  Stage.VectorTypes,
   GLS.Scene,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Objects,
   GLS.Color,
   GLS.RenderContextInfo,
   GLS.State,
-  GLS.TextureFormat,
+  Stage.TextureFormat,
   GLS.Context,
   GLS.Material,
   GLS.Texture,
-  GLS.Utils;
+  Stage.Utils;
 
 type
   TShadowPlaneOption = (spoUseStencil, spoScissor, spoTransparent, spoIgnoreZ);
@@ -171,10 +171,10 @@ begin
         // "Render"  plane and stencil mask
         if (spoTransparent in ShadowOptions) then
         begin
-          SetGLColorWriting(False);
+          SetColorWriting(False);
           DepthWriteMask := False;
           BuildList(ARci);
-          SetGLColorWriting(True);
+          SetColorWriting(True);
         end
         else
         begin

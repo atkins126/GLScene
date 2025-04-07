@@ -1,9 +1,7 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.ParticleFX;
-
 (*
    Base classes for scene-wide blended particles FX.
 
@@ -11,10 +9,9 @@ unit GLS.ParticleFX;
    particle depth-sorting (allowing correct rendering of interwoven separate
    fire and smoke particle systems for instance).
 *)
-
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -23,14 +20,14 @@ uses
   System.Types,
   System.Math,
   
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Scene,
-  GLS.Utils,
-  GLS.PipelineTransformation,
+  Stage.Utils,
+  Stage.PipelineTransform,
   GLS.State,
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.PersistentClasses,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.XCollection,
   GLS.Material,
   GLS.Cadencer,
@@ -41,8 +38,8 @@ uses
   GLS.BaseClasses,
   GLS.Coordinates,
   GLS.RenderContextInfo,
-  GLS.Manager,
-  GLS.TextureFormat;
+  Stage.Manager,
+  Stage.TextureFormat;
 
 const
   cPFXNbRegions = 128; // number of distance regions

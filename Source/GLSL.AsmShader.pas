@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLSL.AsmShader;
 
 (*
@@ -12,15 +11,13 @@ unit GLSL.AsmShader;
 
 interface
 
-{$I GLScene.inc}
-
 uses
   System.Classes,
   System.SysUtils,
   
-  GLS.OpenGLTokens,
-  GLS.VectorGeometry,
-  GLS.VectorTypes,
+  Stage.OpenGLTokens,
+  Stage.VectorGeometry,
+  Stage.VectorTypes,
   GLS.Texture,
   GLS.Context,
   GLSL.CustomShader,

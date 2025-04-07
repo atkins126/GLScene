@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit Formats.Q3BSP;
 
 (* Simple Quake III BSP file loader. *)
@@ -11,7 +10,7 @@ interface
 uses
   System.Classes,
   System.SysUtils,
-  GLS.VectorTypes;
+  Stage.VectorTypes;
 
 const
   FACE_POLYGON = 1;
@@ -149,9 +148,7 @@ const
   kVisData = 16; // Stores PVS and cluster info (visibility)
   kMaxLumps = 17; // A constant to store the number of lumps
 
-// ------------------------------------------------------------------
-implementation
-// ------------------------------------------------------------------
+implementation // -----------------------------------------------------------
 
 // ------------------
 // ------------------ TQ3BSP ------------------

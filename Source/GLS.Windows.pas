@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Windows;
 
@@ -7,7 +7,7 @@ unit GLS.Windows;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -19,29 +19,29 @@ uses
   Vcl.Controls,
   Vcl.Graphics,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.PersistentClasses,
-  GLS.Strings,
+  Stage.Strings,
   GLS.Coordinates,
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.Objects,
   GLS.State,
-  GLS.Utils,
+  Stage.Utils,
   GLS.Scene,
   GLS.HudObjects,
   GLS.Material,
   GLS.Context,
   GLS.BitmapFont,
   GLS.WindowsFont,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Gui,
   GLS.Color,
+  GLS.ImageUtils,
   GLS.Texture,
   GLS.RenderContextInfo,
   GLS.BaseClasses;
 
 type
-
   TGLBaseComponent = class(TGLBaseGuiObject)
   private
     FGUIRedraw: Boolean;
@@ -3627,11 +3627,10 @@ begin
   ReGetRootControl;
 end;
 
-//--------------------------------------------
-initialization
-//--------------------------------------------
+initialization //------------------------------------------------------------
 
-  RegisterClasses([TGLBaseControl, TGLPopupMenu, TGLForm, TGLPanel, TGLButton,
-    TGLCheckBox, TGLEdit, TGLLabel, TGLAdvancedLabel, TGLScrollbar, TGLStringGrid,
-    TGLCustomControl]);
+RegisterClasses([TGLBaseControl, TGLPopupMenu, TGLForm, TGLPanel, TGLButton,
+  TGLCheckBox, TGLEdit, TGLLabel, TGLAdvancedLabel, TGLScrollbar, TGLStringGrid,
+  TGLCustomControl]);
+
 end.

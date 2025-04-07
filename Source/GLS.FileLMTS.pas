@@ -1,25 +1,24 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.FileLMTS;
 
 (* File loader for MTS *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
   Vcl.Graphics,
 
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.VectorFileObjects,
   GLS.ApplicationFileIO,
   GLS.VectorLists,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Texture,
   GLS.PersistentClasses,
   GLS.Graphics,
@@ -108,7 +107,7 @@ implementation
 //---------------------------------------------------
 
 uses
-  GLS.TextureFormat;
+  Stage.TextureFormat;
 
 // ------------------
 // ------------------ TGLLMTSVectorFile ------------------
@@ -686,9 +685,7 @@ begin
   setlength(Matinfo, 0);
 end;
 
-//-----------------------------------------------
-initialization
-//-----------------------------------------------
+initialization //-------------------------------------------------------------
 
 RegisterVectorFileFormat('lmts', 'Pulsar Studio LMTS File Format',
   TGLLMTSVectorFile);

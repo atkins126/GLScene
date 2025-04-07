@@ -1,0 +1,156 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{02A55F1F-28A9-4F0B-BC74-BAC6D4030B89}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="AdvDemos\ActorMS3D\Actorms3dD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AdvDemos\Archipelago\ArchipelagoD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AdvDemos\Christmas\ChristmasD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AdvDemos\Earth\EarthD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AdvDemos\Forest\ForestD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AdvDemos\GLSViewer\GLSViewerD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AdvDemos\IntensityMesh\IntensityMeshD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AdvDemos\PanoramViewer\PanoViewerD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AdvDemos\Quake3Actor\QuakeActorD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AdvDemos\TexCombine\TexCombineD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AdvDemos\Archipelago\Splitter\SplitterD.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Actorms3dD">
+        <MSBuild Projects="AdvDemos\ActorMS3D\Actorms3dD.dproj"/>
+    </Target>
+    <Target Name="Actorms3dD:Clean">
+        <MSBuild Projects="AdvDemos\ActorMS3D\Actorms3dD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Actorms3dD:Make">
+        <MSBuild Projects="AdvDemos\ActorMS3D\Actorms3dD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ArchipelagoD">
+        <MSBuild Projects="AdvDemos\Archipelago\ArchipelagoD.dproj"/>
+    </Target>
+    <Target Name="ArchipelagoD:Clean">
+        <MSBuild Projects="AdvDemos\Archipelago\ArchipelagoD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ArchipelagoD:Make">
+        <MSBuild Projects="AdvDemos\Archipelago\ArchipelagoD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ChristmasD">
+        <MSBuild Projects="AdvDemos\Christmas\ChristmasD.dproj"/>
+    </Target>
+    <Target Name="ChristmasD:Clean">
+        <MSBuild Projects="AdvDemos\Christmas\ChristmasD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ChristmasD:Make">
+        <MSBuild Projects="AdvDemos\Christmas\ChristmasD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="EarthD">
+        <MSBuild Projects="AdvDemos\Earth\EarthD.dproj"/>
+    </Target>
+    <Target Name="EarthD:Clean">
+        <MSBuild Projects="AdvDemos\Earth\EarthD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="EarthD:Make">
+        <MSBuild Projects="AdvDemos\Earth\EarthD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ForestD">
+        <MSBuild Projects="AdvDemos\Forest\ForestD.dproj"/>
+    </Target>
+    <Target Name="ForestD:Clean">
+        <MSBuild Projects="AdvDemos\Forest\ForestD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ForestD:Make">
+        <MSBuild Projects="AdvDemos\Forest\ForestD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GLSViewerD">
+        <MSBuild Projects="AdvDemos\GLSViewer\GLSViewerD.dproj"/>
+    </Target>
+    <Target Name="GLSViewerD:Clean">
+        <MSBuild Projects="AdvDemos\GLSViewer\GLSViewerD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GLSViewerD:Make">
+        <MSBuild Projects="AdvDemos\GLSViewer\GLSViewerD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="IntensityMeshD">
+        <MSBuild Projects="AdvDemos\IntensityMesh\IntensityMeshD.dproj"/>
+    </Target>
+    <Target Name="IntensityMeshD:Clean">
+        <MSBuild Projects="AdvDemos\IntensityMesh\IntensityMeshD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="IntensityMeshD:Make">
+        <MSBuild Projects="AdvDemos\IntensityMesh\IntensityMeshD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="PanoViewerD">
+        <MSBuild Projects="AdvDemos\PanoramViewer\PanoViewerD.dproj"/>
+    </Target>
+    <Target Name="PanoViewerD:Clean">
+        <MSBuild Projects="AdvDemos\PanoramViewer\PanoViewerD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PanoViewerD:Make">
+        <MSBuild Projects="AdvDemos\PanoramViewer\PanoViewerD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="QuakeActorD">
+        <MSBuild Projects="AdvDemos\Quake3Actor\QuakeActorD.dproj"/>
+    </Target>
+    <Target Name="QuakeActorD:Clean">
+        <MSBuild Projects="AdvDemos\Quake3Actor\QuakeActorD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="QuakeActorD:Make">
+        <MSBuild Projects="AdvDemos\Quake3Actor\QuakeActorD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TexCombineD">
+        <MSBuild Projects="AdvDemos\TexCombine\TexCombineD.dproj"/>
+    </Target>
+    <Target Name="TexCombineD:Clean">
+        <MSBuild Projects="AdvDemos\TexCombine\TexCombineD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TexCombineD:Make">
+        <MSBuild Projects="AdvDemos\TexCombine\TexCombineD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="SplitterD">
+        <MSBuild Projects="AdvDemos\Archipelago\Splitter\SplitterD.dproj"/>
+    </Target>
+    <Target Name="SplitterD:Clean">
+        <MSBuild Projects="AdvDemos\Archipelago\Splitter\SplitterD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SplitterD:Make">
+        <MSBuild Projects="AdvDemos\Archipelago\Splitter\SplitterD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Actorms3dD;ArchipelagoD;ChristmasD;EarthD;ForestD;GLSViewerD;IntensityMeshD;PanoViewerD;QuakeActorD;TexCombineD;SplitterD"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Actorms3dD:Clean;ArchipelagoD:Clean;ChristmasD:Clean;EarthD:Clean;ForestD:Clean;GLSViewerD:Clean;IntensityMeshD:Clean;PanoViewerD:Clean;QuakeActorD:Clean;TexCombineD:Clean;SplitterD:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Actorms3dD:Make;ArchipelagoD:Make;ChristmasD:Make;EarthD:Make;ForestD:Make;GLSViewerD:Make;IntensityMeshD:Make;PanoViewerD:Make;QuakeActorD:Make;TexCombineD:Make;SplitterD:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileGRD;
 
@@ -7,18 +7,18 @@ unit GLS.FileGRD;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorGeometry,
-  GLS.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.VectorTypes,
   GLS.VectorFileObjects,
   GLS.ApplicationFileIO,
   GLS.Graph,
-  GLS.Utils;
+  Stage.Utils;
 
 type
   (* The GRD file represents ascii grid formats in 2D/3D.

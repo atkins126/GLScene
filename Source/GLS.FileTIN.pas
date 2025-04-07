@@ -1,24 +1,24 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileTIN;
 
-(* TIN (Triangular Irregular Network) vector file format implementation *)
+(* Import of TIN (Triangular Irregular Network) vector file format implementation *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.VectorFileObjects,
   GLS.ApplicationFileIO,
-  GLS.VectorGeometry,
-  GLS.VectorTypesExt,
-  GLS.Utils;
+  Stage.VectorGeometry,
+  Stage.VectorTypesExt,
+  Stage.Utils;
 
 
 type

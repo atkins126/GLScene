@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLS.ProcTextures;
@@ -15,8 +15,8 @@ uses
   
   GLS.Texture,
   GLS.Graphics,
-  GLS.TextureFormat,
-  GLS.VectorGeometry;
+  Stage.TextureFormat,
+  Stage.VectorGeometry;
 
 const
   GRADIENT_TABLE_SIZE = 256;
@@ -720,13 +720,11 @@ begin
   PERM[255] := 52;
 end;
 
-// ------------------------------------------------------------------
-initialization
-// ------------------------------------------------------------------
+initialization // ------------------------------------------------------------
 
   RegisterGLTextureImageClass(TGLProcTextureNoise);
 
-finalization
+finalization // --------------------------------------------------------------
 
 end.
 

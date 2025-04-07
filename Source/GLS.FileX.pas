@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileX;
 
@@ -7,18 +7,19 @@ unit GLS.FileX;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorTypes,
+  Stage.VectorTypes,
+  GLS.VectorLists,
+  Stage.VectorGeometry,
+
   GLS.VectorFileObjects,
   GLS.ApplicationFileIO,
-  GLS.VectorGeometry,
   GLS.Texture,
-  GLS.VectorLists,
   GLS.Material,
 
   Formats.X;
@@ -30,9 +31,7 @@ type
     procedure LoadFromStream(aStream: TStream); override;
   end;
 
-// -------------------------------------------------------------
-implementation
-// -------------------------------------------------------------
+implementation // -------------------------------------------------------------
 
 class function TGLXVectorFile.Capabilities: TGLDataFileCapabilities;
 begin
@@ -151,10 +150,10 @@ begin
   end;
 end;
 
-//--------------------------------------------------------
-initialization
-//--------------------------------------------------------
+initialization //--------------------------------------------------------
 
 RegisterVectorFileFormat('x', 'DirectX Model files', TGLXVectorFile);
+
+finalization //----------------------------------------------------------
 
 end.

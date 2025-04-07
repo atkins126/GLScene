@@ -1,19 +1,18 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.FileGTS;
 
 (* GTS (GNU Triangulated Surface) vector file format implementation. *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
 
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   GLS.VectorFileObjects,
   GLS.ApplicationFileIO;
@@ -40,7 +39,7 @@ uses
 {$IFDEF Unicode}
   Sysutils,
 {$ENDIF}
-  GLS.Utils;
+  Stage.Utils;
 
 // ------------------
 // ------------------ TGLGTSVectorFile ------------------

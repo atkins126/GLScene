@@ -1,12 +1,10 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.FileNMF;
 
 (*
-  NormalMapper loading into GLScene FreeForms/Actors
-
+  NormalMapper loading into FreeForms/Actors
   Notes:
   NormalMapper can be found at http://www.ati.com/developer/tools.html
 *)
@@ -16,10 +14,10 @@ interface
 uses
   System.Classes,
 
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.VectorFileObjects,
   GLS.PersistentClasses,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   GLS.ApplicationFileIO;
 

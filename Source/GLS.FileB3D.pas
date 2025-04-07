@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileB3D;
 
@@ -11,14 +11,16 @@ uses
   System.Classes, 
   System.SysUtils,
    
-  GLS.VectorFileObjects, 
-  GLS.ApplicationFileIO, 
-  GLS.Texture, 
-  GLS.TextureFormat,
-  GLS.Material, 
-  GLS.VectorTypes, 
-  GLS.VectorGeometry, 
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.TextureFormat,
+
+  GLS.VectorFileObjects,
+  GLS.ApplicationFileIO,
+  GLS.Texture,
+  GLS.Material,
   GLS.VectorLists,
+
   Formats.B3D;
 
 type

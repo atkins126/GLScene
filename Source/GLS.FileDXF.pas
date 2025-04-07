@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileDXF;
 
@@ -17,16 +17,16 @@ uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.PersistentClasses,
   GLS.ApplicationFileIO,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   GLS.Scene,
   GLS.Texture,
   GLS.VectorFileObjects,
   GLS.Material,
-  GLS.Utils;
+  Stage.Utils;
 
 type
   TGLDXFVectorFile = class(TGLVectorFile)
@@ -49,7 +49,7 @@ type
     // procedure DoProgress (Stage: TGLProgressStage; PercentDone: single; RedrawNow: Boolean; const Msg: string);
     function NeedMesh(basemesh: TGLBaseMesh; layer: STRING): TGLMeshObject;
     function NeedFaceGroup(m: TGLMeshObject; fgmode: TGLFaceGroupMeshMode;
-      fgmat: STRING): TFGVertexIndexList;
+      fgmat: String): TFGVertexIndexList;
     procedure NeedMeshAndFaceGroup(basemesh: TGLBaseMesh; layer: STRING;
       fgmode: TGLFaceGroupMeshMode; fgmat: STRING; var m: TGLMeshObject;
       var fg: TFGVertexIndexList);

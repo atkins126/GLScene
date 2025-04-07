@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLSL.PhongShader;
 
 (*  An ARBvp1.0 + ARBfp1.0 shader that implements phong shading. *)
 
 interface
 
-{$I GLScene.inc }
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -17,10 +16,10 @@ uses
   System.SysUtils,
 
   GLS.Texture,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.VectorLists,
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Context,
   GLSL.AsmShader,
   GLS.RenderContextInfo,

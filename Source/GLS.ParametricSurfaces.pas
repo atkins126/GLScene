@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLS.ParametricSurfaces;
@@ -28,19 +28,20 @@ unit GLS.ParametricSurfaces;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
 
-  GLS.OpenGLTokens,
   GLS.OpenGLAdapter,
-  GLS.VectorTypes,
-  GLS.VectorFileObjects,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
   GLS.CurvesAndSurfaces,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   GLS.PersistentClasses,
+
+  GLS.VectorFileObjects,
   GLS.Texture,
   GLS.State,
   GLS.Context,

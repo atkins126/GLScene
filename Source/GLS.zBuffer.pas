@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.zBuffer;
 
 (*
@@ -25,7 +24,7 @@ unit GLS.zBuffer;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -33,10 +32,13 @@ uses
   System.SysUtils,
   System.Math,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
+  Stage.VectorGeometry,
+  Stage.TextureFormat,
+  Stage.VectorTypes,
+
   GLS.XOpenGL,
   GLS.Scene,
-  GLS.VectorGeometry,
   GLS.Graphics,
   GLS.Objects,
   GLS.Context,
@@ -44,11 +46,8 @@ uses
   GLS.Color,
   GLS.RenderContextInfo,
   GLS.State,
-  GLS.TextureFormat,
-  GLS.VectorTypes,
   GLS.Coordinates,
   GLS.PersistentClasses;
-
 
 type
   EZBufferException = class(Exception);

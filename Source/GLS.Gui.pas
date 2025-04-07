@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Gui;
 
@@ -7,7 +7,7 @@ unit GLS.Gui;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -15,14 +15,15 @@ uses
   System.SysUtils,
   System.Types,
 
-  GLS.OpenGLTokens,
-  GLS.VectorTypes,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+
   GLS.Scene,
   GLS.BitmapFont,
   GLS.Material,
   GLS.Context,
   GLS.PersistentClasses,
-  GLS.VectorGeometry,
   GLS.Coordinates,
   GLS.BaseClasses;
 
@@ -155,7 +156,7 @@ type
       write SetItems; default;
   end;
 
-  TGLGuiLayout = class(TGLUpdateableComponent)
+  TGLGuiLayout = class(TGLUpdateAbleComponent)
   private
     FBitmapFont: TGLCustomBitmapFont;
     FMaterial: TGLMaterial;
@@ -175,8 +176,8 @@ type
     procedure Clear;
     procedure SaveToStream(Stream: TStream);
     procedure SaveToFile(FN: string);
-    procedure AddGuiComponent(Component: TGLUpdateableComponent);
-    procedure RemoveGuiComponent(Component: TGLUpdateableComponent);
+    procedure AddGuiComponent(Component: TGLUpdateAbleComponent);
+    procedure RemoveGuiComponent(Component: TGLUpdateAbleComponent);
     procedure NotifyChange(Sender: TObject); override;
   published
     property BitmapFont: TGLCustomBitmapFont read FBitmapFont write FBitmapFont;
@@ -440,7 +441,7 @@ begin
   end;
 end;
 
-procedure TGLGuiLayout.AddGuiComponent(Component: TGLUpdateableComponent);
+procedure TGLGuiLayout.AddGuiComponent(Component: TGLUpdateAbleComponent);
 begin
   if FGuiComponentList.IndexOf(Component) < 0 then
   begin
@@ -449,7 +450,7 @@ begin
   end;
 end;
 
-procedure TGLGuiLayout.RemoveGuiComponent(Component: TGLUpdateableComponent);
+procedure TGLGuiLayout.RemoveGuiComponent(Component: TGLUpdateAbleComponent);
 begin
   FGuiComponentList.Remove(Component);
   RemoveFreeNotification(Component);
@@ -475,10 +476,10 @@ begin
       LComponent.name := LLayout.FGuiComponents[i].name;
     end;
     for i := 0 to FGuiComponentList.Count - 1 do
-      TGLUpdateableComponent(FGuiComponentList[i]).RemoveFreeNotification(Self);
+      TGLUpdateAbleComponent(FGuiComponentList[i]).RemoveFreeNotification(Self);
     FGuiComponentList.Assign(LLayout.FGuiComponentList);
     for i := 0 to FGuiComponentList.Count - 1 do
-      TGLUpdateableComponent(FGuiComponentList[i]).FreeNotification(Self);
+      TGLUpdateAbleComponent(FGuiComponentList[i]).FreeNotification(Self);
   end
   else
     inherited; // Assign Error
@@ -502,7 +503,7 @@ var
 begin
   inherited;
   for xc := FGuiComponentList.Count - 1 downto 0 do
-    TGLUpdateableComponent(FGuiComponentList[xc]).NotifyChange(Self);
+    TGLUpdateAbleComponent(FGuiComponentList[xc]).NotifyChange(Self);
 end;
 
 procedure TGLGuiLayout.LoadFromStream(Stream: TStream);

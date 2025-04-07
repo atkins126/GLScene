@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLSL.ProjectedTextures;
@@ -21,22 +21,22 @@ unit GLSL.ProjectedTextures;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.PipelineTransformation,
+  Stage.PipelineTransform,
   GLS.Scene,
   GLS.PersistentClasses,
   GLS.Texture,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Context,
   GLS.Color,
   GLS.RenderContextInfo,
-  GLS.TextureFormat,
-  GLS.VectorTypes;
+  Stage.TextureFormat,
+  Stage.VectorTypes;
 
 type
   TGLSLProjectedTexturesStyle = (ptsLight, ptsShadow);

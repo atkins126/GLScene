@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.FilePAK;
 
 (* Methods for PAK Archiving *)
@@ -42,25 +41,18 @@ type
       Procedure SetCompressionLevel(aValue: TCompressionLevel); override;
     public
      property ContentCount: integer Read GetContentCount;
-
       procedure LoadFromFile(const FileName: string); override;
       procedure Clear; override;
-
       function ContentExists(ContentName: string): boolean; override;
-
       function GetContent(Stream: TStream; index: integer): TStream;  override;
       function GetContent(index: integer): TStream;  override;
       function GetContent(ContentName: string): TStream;  override;
-
       function GetContentSize(index: integer): integer; override;
       function GetContentSize(ContentName: string): integer; override;
-
       procedure AddFromStream(ContentName, Path: string; FS: TStream); override;
       procedure AddFromFile(FileName, Path: string); override;
-
       procedure RemoveContent(index: integer); override;
       procedure RemoveContent(ContentName: string); override;
-
       procedure Extract(index: integer; NewName: string); override;
       procedure Extract(ContentName, NewName: string); override;
   end;

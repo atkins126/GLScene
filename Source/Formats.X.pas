@@ -1,23 +1,23 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit Formats.X;
 
-(* Simple X format support for Microsoft's favorite format *)
+(* Loading simple X format files for Microsoft's favorite format *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   GLS.PersistentClasses,
-  GLS.Utils;
+  Stage.Utils;
 
 type
   TDXNode = class;
@@ -116,9 +116,7 @@ type
 
   end;
 
-// ----------------------------------------------------------------------
-implementation
-// ----------------------------------------------------------------------
+implementation // -------------------------------------------------------
 
 // ----------------------------------------------------------------------
 // Text parsing functions
@@ -690,5 +688,7 @@ begin
   if Assigned(AOwner) then
     AOwner.Add(Self);
 end;
+
+// ----------------------------------------------------------------------
 
 end.

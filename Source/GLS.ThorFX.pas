@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.ThorFX;
 
 (* ThorFX  for GLScene *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -17,22 +16,22 @@ uses
   System.Types,
   System.Math,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Scene,
   GLS.XCollection,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Context,
   GLS.VectorLists,
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.Cadencer,
   GLS.Color,
   GLS.BaseClasses,
   GLS.Coordinates,
   GLS.RenderContextInfo,
-  GLS.PipelineTransformation,
-  GLS.Manager,
+  Stage.PipelineTransform,
+  Stage.Manager,
   GLS.State,
-  GLS.TextureFormat;
+  Stage.TextureFormat;
 
 type
   PThorpoint = ^TThorpoint;

@@ -1,5 +1,5 @@
 ﻿//
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Extrusion;
 (*
@@ -7,10 +7,12 @@ unit GLS.Extrusion;
   Suggestion:
     All extrusion objects use actually the same kind of "parts",
     one common type should do.
+  The registered class is:
+    [TGLRevolutionSolid, TGLExtrusionSolid, TGLPipe]
 *)
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -18,17 +20,17 @@ uses
   System.SysUtils,
   System.Math,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Context,
   GLS.Objects,
   GLS.Scene,
   GLS.MultiPolygon,
   GLS.Color,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.RenderContextInfo,
   GLS.Nodes,
   GLS.State,
-  GLS.VectorTypes;
+  Stage.VectorTypes;
 
 type
 
@@ -70,7 +72,7 @@ type
     destructor Destroy; override;
     procedure Assign(Source: TPersistent); override;
     procedure BuildList(var rci: TGLRenderContextInfo); override;
-    {Number of triangles used for rendering. }
+    // Number of triangles used for rendering.
     property TriangleCount: Integer read FTriangleCount;
     function AxisAlignedDimensionsUnscaled: TGLVector; override;
     procedure StructureChanged; override;
@@ -247,7 +249,7 @@ implementation
 // ------------------------------------------------------------------
 
 uses
-  GLS.Spline,
+  Stage.Spline,
   GLS.VectorLists,
   GLS.XOpenGL;
 
@@ -795,7 +797,7 @@ begin
   FNodes := TGLPipeNodes.Create(Self);
 end;
 
- 
+
 destructor TGLPipe.Destroy;
 begin
   inherited Destroy;

@@ -1,18 +1,22 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Scene;
 
-(* Base classes and structures *)
+(*
+  Base classes and structures. The registered classes are:
+   [TGLScene, TGLLightSource, TGLCamera, TGLProxyObject,
+    TGLRenderPoint, TGLMemoryViewer, TGLDirectOpenGL]
+*)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
+  Winapi.Windows,
   Winapi.OpenGL,
   Winapi.OpenGLext,
-  Winapi.Windows,
   System.Classes,
   System.SysUtils,
   System.UITypes,
@@ -20,15 +24,19 @@ uses
   Vcl.Graphics,
   Vcl.Controls,
 
-  GLS.OpenGLTokens,
-  GLS.XOpenGL,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.OpenGLTokens,
   GLS.XCollection,
-  GLS.Strings,
+  Stage.Strings,
+  Stage.PipelineTransform,
+  Stage.TextureFormat,
+  Stage.Utils,
+  Stage.Logger,
+
   GLS.Context,
-  GLS.VectorGeometry,
   GLS.Silhouette,
   GLS.PersistentClasses,
-  GLS.PipelineTransformation,
   GLS.State,
   GLS.Graphics,
   GLS.GeometryBB,
@@ -39,15 +47,13 @@ uses
   GLS.Coordinates,
   GLS.RenderContextInfo,
   GLS.Material,
-  GLS.TextureFormat,
+  GLS.XOpenGL,
   GLS.Selection,
-  GLS.VectorTypes,
   GLS.ApplicationFileIO,
-  GLS.Utils,
-  GLS.Logger;
+  GLS.ImageUtils;
 
 type
-  //Defines which features are taken from the master object.
+  // Defines which features are taken from the master object.
   TGLProxyObjectOption = (pooEffects, pooObjects, pooTransformation);
   TGLProxyObjectOptions = set of TGLProxyObjectOption;
   TGLCameraInvarianceMode = (cimNone, cimPosition, cimOrientation);
@@ -55,11 +61,10 @@ type
 
 const
   cDefaultProxyOptions = [pooEffects, pooObjects, pooTransformation];
-  GLSCENE_REVISION = '$Revision: 2022$';
-  GLSCENE_VERSION = 'v2.2 %s';
+  GLSCENE_REVISION = '$Revision: 2024$';
+  GLSCENE_VERSION = 'v2.5 %s';
 
 type
-
   TGLNormalDirection = (ndInside, ndOutside);
 
   // Used to describe the changes in an object, which have to be reflected in the scene
@@ -76,8 +81,7 @@ type
      roDoubleBuffer: enables double-buffering.
      roRenderToWindows: ignored (legacy).
      roTwoSideLighting: enables two-side lighting model.
-     roStereo: enables stereo support in the driver (dunno if it works,
-         I don't have a stereo device to test...)
+     roStereo: enables stereo support in the driver (need to test with a stereo device...)
      roDestinationAlpha: request an Alpha channel for the rendered output
      roNoColorBuffer: don't request a color buffer (color depth setting ignored)
      roNoColorBufferClear: do not clear the color buffer automatically, if the
@@ -128,8 +132,7 @@ type
   // Interface to objects that need initialization
   IGLInitializable = interface
     ['{EA40AE8E-79B3-42F5-ADF1-7A901B665E12}']
-    procedure InitializeObject(ASender: TObject; const ARci:
-      TGLRenderContextInfo);
+    procedure InitializeObject(ASender: TObject; const ARci: TGLRenderContextInfo);
   end;
 
   // Just a list of objects that support IGLInitializable.
@@ -139,8 +142,7 @@ type
     procedure PutItems(const Index: Integer; const Value: IGLInitializable);
   public
     function Add(const Item: IGLInitializable): Integer;
-    property Items[const Index: Integer]: IGLInitializable read GetItems write
-    PutItems; default;
+    property Items[const Index: Integer]: IGLInitializable read GetItems write PutItems; default;
   end;
 
   (* Base class for all scene objects.
@@ -532,7 +534,7 @@ type
     property Direction: TGLCoordinates read FDirection write SetDirection;
     property Up: TGLCoordinates read FUp write SetUp;
     property Scale: TGLCoordinates read FScaling write SetScaling;
-    property Scene: TGLScene read FScene;
+    property Scene: TGLScene read FScene;     // Scene
     property Visible: Boolean read FVisible write SetVisible default True;
     property Pickable: Boolean read FPickable write SetPickable default True;
     property ObjectsSorting: TGLObjectsSorting read FObjectsSorting write
@@ -763,8 +765,7 @@ type
   end;
 
   // Event for user-specific rendering in a TGLDirectOpenGL object.
-  TGLDirectRenderEvent = procedure(Sender: TObject; var rci: TGLRenderContextInfo)
-    of object;
+  TGLDirectRenderEvent = procedure(Sender: TObject; var rci: TGLRenderContextInfo) of object;
 
   (* Provides a way to issue direct OpenGL calls during the rendering.
      You can use this object to do your specific rendering task in its OnRender
@@ -786,7 +787,7 @@ type
     function AxisAlignedDimensionsUnscaled: TGLVector; override;
   published
     (* Specifies if a build list be made.
-       If True, GLScene will generate a build list (OpenGL-side cache),
+       If True, GLScene will generate a build list (side cache),
        ie. OnRender will only be invoked once for the first render, or after
        a StructureChanged call. This is suitable for "static" geometry and
        will usually speed up rendering of things that don't change.
@@ -6423,7 +6424,7 @@ begin
       gl.GetIntegerv(GL_BLUE_BITS, @LColorDepth); // could've used red or green too
       SetState(context, (LColorDepth < 8), stDither);
     end;
-    ResetAllGLTextureMatrix;
+    ResetAllTextureMatrix;
   end;
 end;
 
@@ -6721,8 +6722,7 @@ begin
           Top := 0;
           Width := ABitmap.Width;
           Height := ABitmap.Height;
-          FRenderingContext.GLStates.ViewPort :=
-            Vector4iMake(Left, Top, Width, Height);
+          FRenderingContext.GLStates.ViewPort := Vector4iMake(Left, Top, Width, Height);
         end;
         ClearBuffers;
         FRenderDPI := DPI;
@@ -7431,7 +7431,7 @@ begin
   rci.ignoreMaterials := (roNoColorBuffer in FContextOptions)
     or (rci.drawState = dsPicking);
   rci.amalgamating := rci.drawState = dsPicking;
-  rci.GLStates.SetGLColorWriting(not rci.ignoreMaterials);
+  rci.GLStates.SetColorWriting(not rci.ignoreMaterials);
   if Assigned(FInitiateRendering) then
     FInitiateRendering(Self, rci);
 
@@ -7454,7 +7454,7 @@ begin
   end
   else
     baseObject.Render(rci);
-  rci.GLStates.SetGLColorWriting(True);
+  rci.GLStates.SetColorWriting(True);
   with FAfterRenderEffects do
     if Count > 0 then
       for i := 0 to Count - 1 do
@@ -7743,8 +7743,7 @@ begin
       // For MRT
       gl.ReadBuffer(MRT_BUFFERS[BufferIndex]);
 
-      Buffer.RenderingContext.GLStates.TextureBinding[0,
-        EncodeGLTextureTarget(target)] := handle;
+      Buffer.RenderingContext.GLStates.TextureBinding[0, EncodeGLTextureTarget(target)] := handle;
 
       if target = GL_TEXTURE_CUBE_MAP_ARB then
         target := GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB + FCubeMapRotIdx;
@@ -7958,7 +7957,7 @@ const
   MaxAxuBufCount = 4; // Current hardware limit = 4
 begin
   if FBufferCount = Value then
-    exit;
+    Exit;
   FBufferCount := Value;
 
   if FBufferCount < 1 then

@@ -1,13 +1,22 @@
 ﻿//
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.VectorFileObjects;
-
-(* Vector File related objects *)
-
+(*
+  Vector File related objects.
+  The registered classes are:
+    [TGLFreeForm, TGLActor, TGLSkeleton, TGLSkeletonFrame, TGLSkeletonBone,
+    TGLSkeletonMeshObject, TGLMeshObject, TGLSkeletonFrameList, TGLMeshMorphTarget,
+    TGLMorphableMeshObject, TGLFaceGroup, TFGVertexIndexList,
+    TFGVertexNormalTexIndexList, TGLAnimationControler,
+    TFGIndexTexCoordList, TGLSkeletonCollider, TGLSkeletonColliderList
+    TGLBaseMeshObject, TGLSkeleton, TGLMeshObject, TGLSkeletonMeshObject;
+    TGLFaceGroup, TGLVectorFile, TGLSMVectorFile, TGLFreeForm;
+    TGLActor, TGLVectorFileFormat, TGLVectorFileFormatsList]
+*)
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -18,30 +27,34 @@ uses
   System.Math,
   VCL.Consts,
 
-  GLS.OpenGLTokens,
-  GLS.Scene,
-  GLS.VectorGeometry,
-  GLS.VectorTypes,
-  GLS.VectorTypesExt,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.VectorTypesExt,
+  Stage.TextureFormat,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   GLS.PersistentClasses,
+  GLS.Coordinates,
+  GLS.BaseClasses,
+  GLS.GeometryBB,
+  Stage.Utils,
+
+  GLS.Scene,
   GLS.Silhouette,
-  GLS.Strings,
+  Stage.Strings,
   GLS.Texture,
   GLS.Material,
   GLS.Mesh,
-  GLS.Logger,
   GLS.Octree,
-  GLS.GeometryBB,
   GLS.ApplicationFileIO,
   GLS.Context,
   GLS.Color,
-  GLS.PipelineTransformation,
+  Stage.PipelineTransform,
   GLS.Selection,
-  GLS.RenderContextInfo,
-  GLS.Coordinates,
-  GLS.BaseClasses,
-  GLS.TextureFormat;
+  GLS.XOpenGL,
+  GLS.MeshUtils,
+  GLS.State,
+  GLS.RenderContextInfo;
 
 type
   TGLMeshObjectList = class;
@@ -457,7 +470,7 @@ type
     procedure SetColors(const val: TGLVectorList);
     procedure BufferArrays;
     procedure DeclareArraysToOpenGL(var mrci: TGLRenderContextInfo;
-	  EvenIfAlreadyDeclared: Boolean = False);
+   	  EvenIfAlreadyDeclared: Boolean = False);
     procedure DisableOpenGLArrays(var mrci: TGLRenderContextInfo);
     procedure EnableLightMapArray(var mrci: TGLRenderContextInfo);
     procedure DisableLightMapArray(var mrci: TGLRenderContextInfo);
@@ -480,7 +493,7 @@ type
     procedure ReadFromFiler(reader: TGLVirtualReader); override;
     procedure Clear; override;
     function ExtractTriangles(texCoords: TGLAffineVectorList = nil;
-	  Normals: TGLAffineVectorList = nil): TGLAffineVectorList; override;
+	    Normals: TGLAffineVectorList = nil): TGLAffineVectorList; override;
     // Returns number of triangles in the mesh object.
     function TriangleCount: Integer; virtual;
     procedure PrepareMaterialLibraryCache(matLib: TGLMaterialLibrary);
@@ -1056,7 +1069,7 @@ type
   TGLActorOptions = set of TGLActorOption;
 
 const
-  cDefaultGLActorOptions = [aoSkeletonNormalizeNormals];
+  cDefaultActorOptions = [aoSkeletonNormalizeNormals];
 
 type
   TGLActor = class;
@@ -1198,7 +1211,7 @@ type
   (* Mesh class specialized in animated meshes.
     The TGLActor provides a quick interface to animated meshes based on morph
     or skeleton frames, it is capable of performing frame interpolation and
-    animation blending (via TGLAnimationControler components). *)
+    animation blending (via TGLAnimationController components). *)
   TGLActor = class(TGLBaseMesh)
   private
     FStartFrame, FEndFrame: Integer;
@@ -1268,7 +1281,7 @@ type
     // Interval between frames, in milliseconds. 
     property Interval: Integer read FInterval write FInterval;
     // Actor and animation miscellanious options. 
-    property Options: TGLActorOptions read FOptions write SetOptions default cDefaultGLActorOptions;
+    property Options: TGLActorOptions read FOptions write SetOptions default cDefaultActorOptions;
     // Triggered after each CurrentFrame change. 
     property OnFrameChanged: TNotifyEvent read FOnFrameChanged write FOnFrameChanged;
     // Triggered after EndFrame has been reached by progression or "nextframe"
@@ -1330,15 +1343,9 @@ var
   // Flag to avoid loading materials (useful for IDE Extentions or scene editors)
   vGLVectorFileObjectsEnableVBOByDefault: Boolean = True;
 
-// ------------------------------------------------------------------
-implementation
-// ------------------------------------------------------------------
+implementation // ------------------------------------------------------------
 
 uses
-  GLS.XOpenGL,
-  GLS.MeshUtils,
-  GLS.State,
-  GLS.Utils,
   GLS.BaseMeshSilhouette;
 
 var
@@ -5975,8 +5982,8 @@ begin
   FLastLoadedFilename := '';
   if fileName <> '' then
   begin
+    fs := TBufferedFileStream.Create(fileName, fmOpenRead + fmShareDenyWrite);
     try
-      fs := TFileStream.Create(fileName, fmOpenRead + fmShareDenyWrite);
       LoadFromStream(fileName, fs);
       FLastLoadedFilename := filename;
     finally
@@ -6024,8 +6031,8 @@ var
 begin
   if fileName <> '' then
   begin
+    fs := TFileStream.Create(fileName, fmCreate);
     try
-      fs := TFileStream.Create(fileName, fmCreate);
       SaveToStream(fileName, fs);
     finally
       fs.Free;
@@ -6355,7 +6362,7 @@ begin
     // set winding
     case FNormalsOrientation of
       mnoDefault:  ; // nothing
-      mnoInvert:  rci.GLStates.InvertGLFrontFace;
+      mnoInvert:  rci.GLStates.InvertFrontFace;
     else
       Assert(False);
     end;
@@ -6393,7 +6400,7 @@ begin
         rci.GLStates.CallList(GetHandle(rci));
     end;
     if FNormalsOrientation <> mnoDefault then
-      rci.GLStates.InvertGLFrontFace;
+      rci.GLStates.InvertFrontFace;
   end;
   if Assigned(LightmapLibrary) then
     xgl.AllowSecondTextureUnit;
@@ -7096,7 +7103,7 @@ begin
   FInterval := 100; // 10 animation frames per second
   FAnimations := TGLActorAnimations.Create(Self);
   FControlers := nil; // created on request
-  FOptions := cDefaultGLActorOptions;
+  FOptions := cDefaultActorOptions;
 end;
 
 destructor TGLActor.Destroy;
@@ -7520,9 +7527,7 @@ begin
   result := FTargetSmoothAnimation <> nil;
 end;
 
-// ------------------------------------------------------------------
-initialization
-// ------------------------------------------------------------------
+initialization // ------------------------------------------------------------
 
 RegisterVectorFileFormat('glsm', 'GLScene Mesh', TGLSMVectorFile);
 
@@ -7533,7 +7538,7 @@ RegisterVectorFileFormat('glsm', 'GLScene Mesh', TGLSMVectorFile);
     TFGVertexNormalTexIndexList, TGLAnimationControler,
     TFGIndexTexCoordList, TGLSkeletonCollider, TGLSkeletonColliderList]);
 
-finalization
+finalization // --------------------------------------------------------------
 
 FreeAndNil(vVectorFileFormats);
 

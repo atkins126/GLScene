@@ -1,0 +1,72 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{47BA3ACE-A42B-4A10-B874-31EE04DA77DE}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Demos\bench\BenchD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Demos\movements\MovementsD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Demos\extrusion\ExtrusionD.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Demos\graph\GraphD.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="BenchD">
+        <MSBuild Projects="Demos\bench\BenchD.dproj"/>
+    </Target>
+    <Target Name="BenchD:Clean">
+        <MSBuild Projects="Demos\bench\BenchD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="BenchD:Make">
+        <MSBuild Projects="Demos\bench\BenchD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="MovementsD">
+        <MSBuild Projects="Demos\movements\MovementsD.dproj"/>
+    </Target>
+    <Target Name="MovementsD:Clean">
+        <MSBuild Projects="Demos\movements\MovementsD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MovementsD:Make">
+        <MSBuild Projects="Demos\movements\MovementsD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ExtrusionD">
+        <MSBuild Projects="Demos\extrusion\ExtrusionD.dproj"/>
+    </Target>
+    <Target Name="ExtrusionD:Clean">
+        <MSBuild Projects="Demos\extrusion\ExtrusionD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ExtrusionD:Make">
+        <MSBuild Projects="Demos\extrusion\ExtrusionD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GraphD">
+        <MSBuild Projects="Demos\graph\GraphD.dproj"/>
+    </Target>
+    <Target Name="GraphD:Clean">
+        <MSBuild Projects="Demos\graph\GraphD.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GraphD:Make">
+        <MSBuild Projects="Demos\graph\GraphD.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="BenchD;MovementsD;ExtrusionD;GraphD"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="BenchD:Clean;MovementsD:Clean;ExtrusionD:Clean;GraphD:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="BenchD:Make;MovementsD:Make;ExtrusionD:Make;GraphD:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

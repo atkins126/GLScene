@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.ROAMPatch;
 
@@ -7,22 +7,22 @@ unit GLS.ROAMPatch;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   Winapi.OpenGLext,
   System.SysUtils,
   
-  GLS.OpenGLTokens, 
+  Stage.OpenGLTokens, 
   GLS.XOpenGL, 
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.HeightData, 
   GLS.VectorLists, 
   GLS.Context,
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.Isolines,
-  GLS.Strings;
+  Stage.Strings;
 
 type
 

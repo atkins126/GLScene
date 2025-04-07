@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Particles;
 
@@ -7,19 +7,19 @@ unit GLS.Particles;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.Scene,
   GLS.XCollection,
   GLS.PersistentClasses,
-  GLS.VectorGeometry,
-  GLS.OpenGLTokens,
+  Stage.VectorGeometry,
+  Stage.OpenGLTokens,
   GLS.Context,
   GLS.Color,
   GLS.BaseClasses,
@@ -367,4 +367,5 @@ initialization
   RegisterClass(TGLParticles);
 
 end.
+
 

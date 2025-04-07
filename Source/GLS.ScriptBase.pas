@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLS.ScriptBase;
@@ -243,7 +243,7 @@ begin
   inherited;
 end;
 
-initialization
+initialization //-------------------------------------------------------------
 
 RegisterClasses([TGLScriptLibrary, TGLScripts, TGLScriptBase]);
 

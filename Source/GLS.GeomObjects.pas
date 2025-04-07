@@ -1,38 +1,39 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.GeomObjects;
 
-(*
-  Geometric objects:
-   - TGLTetrahedron, TGLOctahedron, TGLHexahedron, TGLDodecahedron, TGLIcosahedron;
-   - TGLDisk, TGLCylinderBase, TGLCone, TGLCylinder, TGLCapsule, TGLAnnulus,
-     TGLTorus, TGLArrowLine, TGLArrowArc, TGLPolygon, TGLFrustum;
-   - TGLTeapot;
+(* 
+  Geometric objects.
+  The registered classes are:
+    [TGLDodecahedron, TGLIcosahedron, TGLHexahedron, TGLOctahedron, TGLTetrahedron,
+    TGLCylinder, TGLCone, TGLTorus, TGLDisk, TGLArrowLine, TGLAnnulus,
+    TGLFrustrum, TGLPolygon, TGLCapsule, TGLArrowArc, TGLTeapot]
 *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Math,
   System.Classes,
 
-  GLS.OpenGLTokens,
   GLS.OpenGLAdapter,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.PipelineTransform,
+  Stage.Polynomials,
+
   GLS.Scene,
   GLS.State,
   GLS.PersistentClasses,
-  GLS.VectorGeometry,
   GLS.VectorLists,
-  GLS.Polynomials,
   GLS.Silhouette,
-  GLS.VectorTypes,
   GLS.GeometryBB,
   GLS.VectorFileObjects,
-  GLS.PipelineTransformation,
   GLS.Material,
   GLS.Texture,
 
@@ -406,10 +407,10 @@ type
   TGLPolygonParts = set of TGLPolygonPart;
 
   (* A basic polygon object.
-    The curve is described by the Nodes and SplineMode properties, should be
+    The contour is described by the Nodes and SplineMode properties, it should be
     planar and is automatically tessellated.
     Texture coordinates are deduced from X and Y coordinates only.
-    This object allows only for polygons described by a single curve, if you
+    This object allows only for polygons described by a single contour, if you
     need "complex polygons" with holes, patches and cutouts, see GLS.MultiPolygon. *)
   TGLPolygon = class(TGLPolygonBase)
   private
@@ -498,15 +499,16 @@ implementation
 procedure TGLTetrahedron.BuildList(var rci: TGLRenderContextInfo);
 const
   Vertices: packed array [0 .. 3] of TAffineVector =
-       ((X: 1.0;  Y: 1.0;  Z: 1.0),
-        (X: 1.0;  Y: -1.0; Z: -1.0),
-        (X: -1.0; Y: 1.0;  Z: -1.0),
-        (X: -1.0; Y: -1.0; Z: 1.0));
+       ((X: 0.5;  Y: 0.5;  Z: 0.5),   // 0
+        (X: 0.5;  Y: -0.5; Z: -0.5),  // 1
+        (X: -0.5; Y: 0.5;  Z: -0.5),  // 2
+        (X: -0.5; Y: -0.5; Z: 0.5));  // 3
   Triangles: packed array [0 .. 3] of packed array [0 .. 2] of Byte =
-    ((0, 1, 3),
-     (2, 1, 0),
-     (3, 2, 0),
-     (1, 2, 3));
+    ((0, 1, 3),  // 0
+     (2, 1, 0),  // 1
+     (3, 2, 0),  // 2
+     (1, 2, 3)); // 3
+
 var
   i, j: Integer;
   n: TAffineVector;
@@ -532,21 +534,21 @@ end;
 procedure TGLOctahedron.BuildList(var rci: TGLRenderContextInfo);
 const
   Vertices: packed array [0 .. 5] of TAffineVector =
-      ((X: 1.0; Y: 0.0; Z: 0.0),
-       (X:-1.0; Y: 0.0; Z: 0.0),
-       (X: 0.0; Y: 1.0; Z: 0.0),
-       (X: 0.0; Y: -1.0; Z: 0.0),
-       (X: 0.0; Y: 0.0; Z: 1.0),
-       (X: 0.0; Y: 0.0; Z: -1.0));
+      ((X: 1.0; Y: 0.0; Z: 0.0),   // 0
+       (X:-1.0; Y: 0.0; Z: 0.0),   // 1
+       (X: 0.0; Y: 1.0; Z: 0.0),   // 2
+       (X: 0.0; Y: -1.0; Z: 0.0),  // 3
+       (X: 0.0; Y: 0.0; Z: 1.0),   // 4
+       (X: 0.0; Y: 0.0; Z: -1.0)); // 5
   Triangles: packed array [0 .. 7] of packed array [0 .. 2] of Byte =
-    ((0, 4, 2),
-     (1, 2, 4),
-     (0, 3, 4),
-     (1, 4, 3),
-     (0, 2, 5),
-     (1, 5, 2),
-     (0, 5, 3),
-     (1, 3, 5));
+    ((0, 4, 2),  // 0
+     (1, 2, 4),  // 1
+     (0, 3, 4),  // 2
+     (1, 4, 3),  // 3
+     (0, 2, 5),  // 4
+     (1, 5, 2),  // 5
+     (0, 5, 3),  // 6
+     (1, 3, 5)); // 7
 var
   i, j: Integer;
   n: TAffineVector;
@@ -595,7 +597,8 @@ begin
   for i := 0 to 4 do
   begin
     faceIndices := @Quadrangles[i, 0];
-    n := CalcPlaneNormal(vertices[faceIndices^[0]], vertices[faceIndices^[1]], vertices[faceIndices^[2]]);
+    n := CalcPlaneNormal(vertices[faceIndices^[0]],
+      vertices[faceIndices^[1]], vertices[faceIndices^[2]]);
     gl.Normal3fv(@n);
     gl.Begin_(GL_QUADS);
       for j := 0 to 7 do
@@ -603,6 +606,70 @@ begin
     gl.End_;
   end;
 end;
+
+
+// ------------------
+// ------------------ TGLIcosahedron ------------------
+// ------------------
+
+procedure TGLIcosahedron.BuildList(var rci: TGLRenderContextInfo);
+const
+  B = 0.309017; // 1/(1+Sqrt(5))
+const
+  Vertices: packed array [0 .. 11] of TAffineVector =
+   ((X: 0; Y: - B; Z: - 0.5),    // 0
+    (X: 0; Y: - B; Z: 0.5),      // 1
+    (X: 0; Y: B; Z: - 0.5),      // 2
+    (X: 0; Y: B; Z: 0.5),        // 3
+    (X: - 0.5; Y: 0; Z: - B),    // 4
+    (X: - 0.5; Y: 0; Z: B),      // 5
+    (X: 0.5; Y: 0; Z: - B),      // 6
+    (X: 0.5; Y: 0; Z: B),        // 7
+    (X: - B; Y: - 0.5; Z: 0),    // 8
+    (X: - B; Y: 0.5; Z: 0),      // 9
+    (X: B; Y: - 0.5; Z: 0),      // 10
+    (X: B; Y: 0.5; Z: 0));       // 11
+  Triangles: packed array [0 .. 19] of packed array [0 .. 2] of Byte =
+   ((2, 9, 11),   // 0
+    (3, 11, 9),   // 1
+    (3, 5, 1),    // 2
+    (3, 1, 7),    // 3
+    (2, 6, 0),    // 4
+    (2, 0, 4),    // 5
+    (1, 8, 10),   // 6
+    (0, 10, 8),   // 7
+    (9, 4, 5),    // 8
+    (8, 5, 4),    // 9
+    (11, 7, 6),   // 10
+    (10, 6, 7),   // 11
+    (3, 9, 5),    // 12
+    (3, 7, 11),   // 13
+    (2, 4, 9),    // 14
+    (2, 11, 6),   // 15
+    (0, 8, 4),    // 16
+    (0, 6, 10),   // 17
+    (1, 5, 8),    // 18
+    (1, 10, 7));  //     19
+
+var
+  i, j: Integer;
+  n: TAffineVector;
+  faceIndices: PByteArray;
+begin
+  for i := 0 to 19 do
+  begin
+    faceIndices := @triangles[i, 0];
+
+    n := CalcPlaneNormal(vertices[faceIndices^[0]], vertices[faceIndices^[1]],
+      vertices[faceIndices^[2]]);
+    gl.Normal3fv(@n);
+    gl.Begin_(GL_TRIANGLES);
+    for j := 0 to 2 do
+      gl.Vertex3fv(@vertices[faceIndices^[j]]);
+    gl.End_;
+  end;
+end;
+
 
 // ------------------
 // ------------------ TGLDodecahedron ------------------
@@ -653,44 +720,6 @@ begin
   end;
 end;
 
-// ------------------
-// ------------------ TGLIcosahedron ------------------
-// ------------------
-
-procedure TGLIcosahedron.BuildList(var rci: TGLRenderContextInfo);
-const
-  A = 0.5;
-  B = 0.30901699437; // 1/(1+Sqrt(5))
-const
-  Vertices: packed array [0 .. 11] of TAffineVector =
-   ((X: 0; Y: - B; Z: - A), (X: 0; Y: - B; Z: A), (X: 0; Y: B; Z: - A),
-    (X: 0; Y: B; Z: A), (X: - A; Y: 0; Z: - B), (X: - A; Y: 0; Z: B),
-    (X: A; Y: 0; Z: - B), (X: A; Y: 0; Z: B), (X: - B; Y: - A; Z: 0),
-    (X: - B; Y: A; Z: 0), (X: B; Y: - A; Z: 0), (X: B; Y: A; Z: 0));
-  Triangles: packed array [0 .. 19] of packed array [0 .. 2] of Byte =
-   ((2, 9, 11), (3, 11, 9), (3, 5, 1), (3, 1, 7), (2, 6, 0),
-    (2, 0, 4), (1, 8, 10), (0, 10, 8), (9, 4, 5), (8, 5, 4), (11, 7, 6),
-    (10, 6, 7), (3, 9, 5), (3, 7, 11), (2, 4, 9), (2, 11, 6), (0, 8, 4),
-    (0, 6, 10), (1, 5, 8), (1, 10, 7));
-
-var
-  i, j: Integer;
-  n: TAffineVector;
-  faceIndices: PByteArray;
-begin
-  for i := 0 to 19 do
-  begin
-    faceIndices := @triangles[i, 0];
-
-    n := CalcPlaneNormal(vertices[faceIndices^[0]], vertices[faceIndices^[1]],
-      vertices[faceIndices^[2]]);
-    gl.Normal3fv(@n);
-    gl.Begin_(GL_TRIANGLES);
-    for j := 0 to 2 do
-      gl.Vertex3fv(@vertices[faceIndices^[j]]);
-    gl.End_;
-  end;
-end;
 
 // ------------------
 // ------------------ TGLDisk ------------------
@@ -3522,7 +3551,7 @@ begin
     FGrid := 2;
   GRD := FGrid;
 
-  rci.GLStates.InvertGLFrontFace;
+  rci.GLStates.InvertFrontFace;
   gl.Enable(GL_AUTO_NORMAL);
   gl.Enable(GL_MAP2_VERTEX_3);
   gl.Enable(GL_MAP2_TEXTURE_COORD_2);
@@ -3567,7 +3596,7 @@ begin
   gl.Disable(GL_AUTO_NORMAL);
   gl.Disable(GL_MAP2_VERTEX_3);
   gl.Disable(GL_MAP2_TEXTURE_COORD_2);
-  rci.GLStates.InvertGLFrontFace;
+  rci.GLStates.InvertFrontFace;
 end;
 
 procedure TGLTeapot.DoRender(var ARci: TGLRenderContextInfo;
@@ -3609,10 +3638,9 @@ end;
 initialization
 // -------------------------------------------------------------
 
-RegisterClasses([TGLDodecahedron, TGLIcosahedron, TGLHexahedron,
-    TGLOctahedron, TGLTetrahedron]);
-
-RegisterClasses([TGLCylinder, TGLCone, TGLTorus, TGLDisk, TGLArrowLine,
-  TGLAnnulus, TGLFrustrum, TGLPolygon, TGLCapsule, TGLArrowArc, TGLTeapot]);
+RegisterClasses(
+ [TGLDodecahedron, TGLIcosahedron, TGLHexahedron, TGLOctahedron, TGLTetrahedron,
+  TGLCylinder, TGLCone, TGLTorus, TGLDisk, TGLArrowLine, TGLAnnulus,
+  TGLFrustrum, TGLPolygon, TGLCapsule, TGLArrowArc, TGLTeapot]);
 
 end.

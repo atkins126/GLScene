@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.File3DPDF;
 
 (* 3D PDF converter of GLScene's models *)
@@ -15,13 +14,13 @@ uses
   System.SysUtils,
   System.StrUtils,
 
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.PersistentClasses,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   GLS.VectorFileObjects,
   GLS.ApplicationFileIO,
-  GLS.Utils;
+  Stage.Utils;
 
 type
   (* The IDTF vector file (Intermediate Data Text File).
@@ -192,7 +191,9 @@ begin
 end;
 
 
-{ TGLIDTFVectorFile }
+//=============================
+//    TGLIDTFVectorFile
+//=============================
 
 class function TGLIDTFVectorFile.Capabilities: TGLDataFileCapabilities;
 begin
@@ -268,8 +269,7 @@ var
 begin
   // ++ todo: save more than one mesh
   Mesh:= Owner.MeshObjects[0];
-//  BuildNormals(Mesh);
-
+  // BuildNormals(Mesh);
 
   // count
   NormalList:= '';
@@ -308,7 +308,7 @@ begin
   // points
 
   // normals
-//  FMeshObject.BuildNormals(FMeshObject.Vertices., momFaceGroups);  ++
+  //  FMeshObject.BuildNormals(FMeshObject.Vertices., momFaceGroups);  ++
   NormalCount:= Mesh.Normals.Count;
   NormalList:= '';
   for I:= 0 to Pred(Mesh.Normals.Count) do
@@ -330,7 +330,9 @@ begin
 end;
 
 
-{ TGLU3DVectorFile }
+//==================================
+//      TGLU3DVectorFile
+//==================================
 
 class function TGLU3DVectorFile.Capabilities: TGLDataFileCapabilities;
 begin

@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLSL.PostEffects;
@@ -8,26 +8,26 @@ unit GLSL.PostEffects;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Scene,
   GLS.State,
   GLS.Context,
   GLS.PersistentClasses,
   GLS.Texture,
   GLS.Graphics,
-  GLS.Strings,
+  Stage.Strings,
   GLSL.CustomShader,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.RenderContextInfo,
   GLS.Material,
-  GLS.TextureFormat;
+  Stage.TextureFormat;
 
 type
   EGLPostShaderHolderException = class(Exception);

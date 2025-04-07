@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 
 unit GLS.MaterialScript;
@@ -8,18 +8,18 @@ unit GLS.MaterialScript;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.SysUtils,
   System.Classes,
   VCL.StdCtrls,
 
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.Texture,
-  GLS.TextureFormat,
+  Stage.TextureFormat,
   GLS.Graphics,
-  GLS.Utils,
+  Stage.Utils,
   GLS.Color,
   GLS.Coordinates,
   GLS.Material,

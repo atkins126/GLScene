@@ -1,29 +1,28 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.LinePFX;
 
 (* A PFX whose particles are lines *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.PersistentClasses,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.ParticleFX,
   GLS.Texture,
   GLS.Color,
   GLS.RenderContextInfo,
   GLS.Context,
-  GLS.VectorTypes;
+  Stage.VectorTypes;
 
 type
 

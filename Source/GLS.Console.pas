@@ -1,9 +1,7 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.Console;
-
 (*
    The console is a popdown window that appears on a game for text output/input.
 
@@ -39,7 +37,7 @@ unit GLS.Console;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.Windows,
@@ -48,19 +46,21 @@ uses
   System.TypInfo,
   Vcl.Graphics,
 
-  GLS.Scene,
+  Stage.VectorTypes,
+  GLS.PersistentClasses,
   GLS.Coordinates,
+  Stage.Strings,
+
+  GLS.Scene,
   GLS.Objects,
   GLS.HudObjects,
   GLS.SceneViewer,
   GLS.BitmapFont,
-  GLS.PersistentClasses,
   GLS.Context,
+  GLS.ImageUtils,
   GLS.Texture,
-  GLS.Utils,
-  GLS.Strings,
-  GLS.Material,
-  GLS.VectorTypes;
+  Stage.Utils,
+  GLS.Material;
 
 const
   CONSOLE_MAX_COMMANDS = 120;
@@ -160,10 +160,10 @@ type
     procedure SortCommands(const Ascending: Boolean = True);
     function CommandExists(const Command: string): Boolean;
     function GetCommandIndex(const Command: string): Integer;
-    // General list stuff.
+    // General list stuff
     function LastConsoleCommand: TGLConsoleCommand;
     function Add: TGLConsoleCommand; overload;
-    // Standard stuff.
+    // Standard stuff
     constructor Create(const AOwner: TGLCustomConsole);
     destructor Destroy; override;
     property Items[const Index: Integer]: TGLConsoleCommand read GetItems;

@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.ShadowVolume;
 
@@ -12,29 +12,29 @@ unit GLS.ShadowVolume;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Scene,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Context,
   GLS.Silhouette,
   GLS.PersistentClasses,
   GLS.Coordinates,
-  GLS.PipelineTransformation,
+  Stage.PipelineTransform,
   GLS.GeometryBB,
   GLS.Color,
   GLS.Selection,
   GLS.RenderContextInfo,
   GLS.VectorLists,
   GLS.State,
-  GLS.VectorTypes,
-  GLS.Logger;
+  Stage.VectorTypes,
+  Stage.Logger;
 
 
 type
@@ -379,7 +379,7 @@ var
   mvp: TGLMatrix;
   ls: TGLLightSource;
   aabb: TAABB;
-  clipRect: TGLClipRect;
+  clipRect: TGClipRect;
 begin
   ls := LightSource;
   if (EffectiveRadius <= 0) or (not ls.Attenuated) then
@@ -789,7 +789,7 @@ begin
         end
         else
         begin
-          SetGLColorWriting(False);
+          SetColorWriting(False);
           Disable(stBlend);
         end;
         Enable(stCullFace);
@@ -886,7 +886,7 @@ begin
         LightDiffuse[LightID] := lightSource.Diffuse.Color;
         LightSpecular[LightID] := lightSource.Specular.Color;
 
-        SetGLColorWriting(True);
+        SetColorWriting(True);
         SetStencilOp(soKeep, soKeep, soKeep);
 
         Enable(stBlend);

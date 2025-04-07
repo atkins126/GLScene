@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.FireFX;
 
 (*  Fire special effect *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -16,22 +15,22 @@ uses
   System.SysUtils,
   System.Types,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Scene,
-  GLS.PipelineTransformation,
+  Stage.PipelineTransform,
   GLS.XCollection,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Context,
   GLS.VectorLists,
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.Cadencer,
   GLS.Color,
   GLS.BaseClasses,
   GLS.Coordinates,
-  GLS.Manager,
+  Stage.Manager,
   GLS.RenderContextInfo,
   GLS.State,
-  GLS.TextureFormat;
+  Stage.TextureFormat;
 
 type
   PGLFireParticle = ^TGLFireParticle;
@@ -72,8 +71,8 @@ type
     procedure SetInitialDir(const val: TGLCoordinates);
     procedure SetCadencer(const val: TGLCadencer);
     function StoreParticleSize: Boolean;
-    procedure SetInnerColor(const val: TGLcolor);
-    procedure SetOuterColor(const val: TGLcolor);
+    procedure SetInnerColor(const val: TGLColor);
+    procedure SetOuterColor(const val: TGLColor);
     procedure SetReference(const val: TGLBaseSceneObject);
     procedure SetMaxParticles(const val: Integer);
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
@@ -95,8 +94,7 @@ type
        by ringVectorX/Y, which should be of unit length (but you may not
        make them of unit length if you want "elliptic" rings). *)
     procedure RingExplosion(minInitialSpeed, maxInitialSpeed, lifeBoostFactor: Single;
-      const ringVectorX, ringVectorY: TAffineVector;
-      nbParticles: Integer = -1);
+      const ringVectorX, ringVectorY: TAffineVector; nbParticles: Integer = -1);
     // Current Nb of particles.
     property ParticleCount: Integer read NP;
     procedure DoProgress(const progressTime: TGLProgressTimes); override;
@@ -112,9 +110,9 @@ type
     // Size of the particle, in absolute units.
     property ParticleSize: Single read FParticleSize write FParticleSize stored StoreParticleSize;
     // Inner color of a particle.
-    property InnerColor: TGLcolor read FInnerColor write SetInnerColor;
+    property InnerColor: TGLColor read FInnerColor write SetInnerColor;
     // Outer color of a particle.
-    property OuterColor: TGLcolor read FOuterColor write SetOuterColor; // default clrWhite;
+    property OuterColor: TGLColor read FOuterColor write SetOuterColor; // default clrWhite;
     property FireDensity: Single read FFireDensity write FFireDensity;
     property FireEvaporation: Single read FFireEvaporation write FFireEvaporation;
     (* Adjust a crown (circular) radius on which particles are spawned.
@@ -313,7 +311,7 @@ begin
 end;
 
 
-procedure TGLFireFXManager.SetInnerColor(const val: TGLcolor);
+procedure TGLFireFXManager.SetInnerColor(const val: TGLColor);
 begin
   if FInnerColor <> val then
   begin
@@ -323,7 +321,7 @@ begin
 end;
 
 
-procedure TGLFireFXManager.SetOuterColor(const val: TGLcolor);
+procedure TGLFireFXManager.SetOuterColor(const val: TGLColor);
 begin
   if FOuterColor <> val then
   begin
@@ -426,8 +424,7 @@ end;
 
 
 procedure TGLFireFXManager.RingExplosion(minInitialSpeed, maxInitialSpeed, lifeBoostFactor: Single;
-  const ringVectorX, ringVectorY: TAffineVector;
-  nbParticles: Integer = -1);
+  const ringVectorX, ringVectorY: TAffineVector; nbParticles: Integer = -1);
 var
   n: Integer;
   tmp, refPos: TGLVector;

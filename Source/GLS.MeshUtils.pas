@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.MeshUtils;
 
@@ -7,7 +7,7 @@ unit GLS.MeshUtils;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
@@ -16,8 +16,8 @@ uses
 
   GLS.PersistentClasses,
   GLS.VectorLists,
-  GLS.VectorGeometry,
-  GLS.VectorTypes;
+  Stage.VectorGeometry,
+  Stage.VectorTypes;
 
 (* 
   Converts a triangle strips into a triangle list.

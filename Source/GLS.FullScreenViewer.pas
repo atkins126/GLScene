@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.FullScreenViewer;
 
 (* A Platform specific full-screen viewer *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.Windows,
@@ -19,9 +18,10 @@ uses
   VCL.Controls,
   VCL.Menus,
 
-  GLS.OpenGLTokens,
-  GLS.Utils,
+  Stage.OpenGLTokens,
+  Stage.Utils,
   GLS.Context,
+  GLS.ImageUtils,
   GLS.Scene,
   GLS.SceneViewer;
 

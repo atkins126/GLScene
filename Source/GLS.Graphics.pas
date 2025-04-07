@@ -1,8 +1,7 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Graphics;
-
 (*
    Utility class and functions to manipulate a bitmap in OpenGL's default
    byte order (GL_RGBA vs TBitmap's GL_BGRA)
@@ -11,10 +10,9 @@ unit GLS.Graphics;
    (http://www.g32.org), just make sure the USE_GRAPHICS32 conditionnal
    is active in GLScene.inc and recompile.
 *)
-
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -30,18 +28,20 @@ uses
 
   {$IFDEF USE_GRAPHICS32} GR32, {$ENDIF}
 
-  GLS.VectorTypes,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.TextureFormat,
+  Stage.VectorGeometry,
+  Stage.Strings,
+
   GLS.State,
   GLS.ApplicationFileIO,
   GLS.PersistentClasses,
   GLS.Context,
   GLS.ImageUtils,
   GLS.Color,
-  GLS.TextureFormat,
-  GLS.VectorGeometry,
-  GLS.Utils,
-  GLS.Strings,
-  GLS.Logger;
+  Stage.Utils,
+  Stage.Logger;
 
 {$DEFINE PRF_HACK_PASSES}
 
@@ -372,9 +372,7 @@ procedure HackTPictureRegisteredFormats(destList: TStrings);
 var
   vVerticalFlipDDS: Boolean = True;
 
-// ------------------------------------------------------------------
-implementation
-// ------------------------------------------------------------------
+implementation // ------------------------------------------------------------
 
 var
   vRasterFileFormats: TGLRasterFileFormatsList;

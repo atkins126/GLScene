@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.RandomHDS;
 
@@ -56,10 +56,10 @@ uses
   Vcl.Imaging.jpeg,
   Vcl.Forms,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Scene,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.HeightData,
   GLS.TerrainRenderer,
   GLS.Texture,
@@ -1402,7 +1402,7 @@ end;
 
 procedure TGLCustomRandomHDS.DoErosionByFraction;
 begin
-
+  // not implemented
 end;
 
 procedure TGLCustomRandomHDS.DoErosionByLife;
@@ -1418,7 +1418,7 @@ begin
     FTaskProgress := Round(y / (FSize) * 100);
     for x := 0 to FSize do
     begin
-      Application.ProcessMessages;
+     (* Application.ProcessMessages; *)
       z := FHeight[x, y] * FErosionByLife.Robustness;
       z1 := FErosionByLife.Robustness;
       for i := 0 to 7 do
@@ -1459,7 +1459,7 @@ begin
     FTaskProgress := Round(y0 / (FSize) * 100);
     for x0 := 0 to FSize do
     begin
-      Application.ProcessMessages;
+     (* Application.ProcessMessages; *)
       x := x0;
       y := y0;
       z := StandardisedHeight(x, y);
@@ -1733,7 +1733,7 @@ begin
   begin
     for j := 0 to FSize do
     begin
-      Application.ProcessMessages;
+     (* Application.ProcessMessages; *)
       if abs(FHeight[i, j] - FSeaLevel) < FErosionBySea.BeachHeight * VSF then
       begin
         FHeight[i, j] := FSeaLevel + (FHeight[i, j] - FSeaLevel) * 0.3;
@@ -2615,7 +2615,7 @@ end;
 procedure TGLFractalArchipelago.fOnCreateDefaultTile(heightData: TGLHeightData);
 var
   x, y: integer;
-  rasterLine: GLS.VectorGeometry.PSingleArray;
+  rasterLine: Stage.VectorGeometry.PSingleArray;
   oldType: TGLHeightDataType;
 begin
   with heightData do
@@ -2724,7 +2724,7 @@ begin
   t := ((GetTickCount - rhdsStartTime) / 10000);
   FTerrainRenderer.MaterialLibrary.ApplyMaterial(FSeaMaterialName, rci);
   repeat
-    // if not WasAboveWater then InverTGLFrontFace;
+    // if not WasAboveWater then InvertFrontFace;
     gl.PushAttrib(GL_ENABLE_BIT);
 
     gl.Disable(GL_LIGHTING);
@@ -2760,7 +2760,7 @@ begin
     end;
     gl.StencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
     gl.PopAttrib;
-    // if not WasAboveWater then InverTGLFrontFace;
+    // if not WasAboveWater then InvertFrontFace;
     // WaterPolyCount:=heightDatas.Count*8;
   until not FTerrainRenderer.MaterialLibrary.UnApplyMaterial(rci);
 end;
@@ -2802,7 +2802,7 @@ begin
 
   FTerrainRenderer.MaterialLibrary.ApplyMaterial(FSeaMaterialName, rci);
   repeat
-    // if not WasAboveWater then InverTGLFrontFace;
+    // if not WasAboveWater then InvertFrontFace;
     gl.PushAttrib(GL_ENABLE_BIT);
 
     gl.Disable(GL_LIGHTING);
@@ -2838,7 +2838,7 @@ begin
     end;
     gl.StencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
     gl.PopAttrib;
-    // if not WasAboveWater then InverTGLFrontFace;
+    // if not WasAboveWater then InvertFrontFace;
     // WaterPolyCount := heightDatas.Count*8;
   until not FTerrainRenderer.MaterialLibrary.UnApplyMaterial(rci);
 end;

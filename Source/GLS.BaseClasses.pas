@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.BaseClasses;
 
@@ -11,11 +11,10 @@ uses
   System.Classes,
   System.SysUtils,
 
-  GLS.Strings,
+  Stage.Strings,
   GLS.PersistentClasses;
 
 type
-
   TGLProgressTimes = packed record
     DeltaTime, NewTime: Double;
     SqrDeltaTime, InvSqrDeltaTime: Single;
@@ -67,7 +66,7 @@ type
     procedure NotifyChange(Sender: TObject); virtual;
   end;
 
-  TGLNotifyCollection = class(TOwnedCollection)
+  TGNotifyCollection = class(TOwnedCollection)
   strict private
     FOnNotifyChange: TNotifyEvent;
   strict protected
@@ -77,11 +76,7 @@ type
     property OnNotifyChange: TNotifyEvent read FOnNotifyChange write FOnNotifyChange;
   end;
 
-//-------------------------------------------------------------------------
-implementation
-//-------------------------------------------------------------------------
-
-//---------------------- TGLUpdateAbleObject -----------------------------------
+implementation //---------------------------------------------------------------
 
 constructor TGLUpdateAbleObject.Create(AOwner: TPersistent);
 begin
@@ -150,22 +145,24 @@ begin
 end;
 
 // ------------------
-// ------------------ TGLNotifyCollection ------------------
+// ------------------ TGNotifyCollection ------------------
 // ------------------
 
-constructor TGLNotifyCollection.Create(AOwner: TPersistent; AItemClass: TCollectionItemClass);
+constructor TGNotifyCollection.Create(AOwner: TPersistent; AItemClass: TCollectionItemClass);
 begin
   inherited Create(AOwner, AItemClass);
   if Assigned(AOwner) and (AOwner is TGLUpdateAbleComponent) then
     FOnNotifyChange := TGLUpdateAbleComponent(AOwner).NotifyChange;
 end;
 
-procedure TGLNotifyCollection.Update(Item: TCollectionItem);
+procedure TGNotifyCollection.Update(Item: TCollectionItem);
 begin
   inherited;
   if Assigned(FOnNotifyChange) then
     FOnNotifyChange(Self);
 end;
+
+//----------------------------------------------------------------------------
 
 end.
 

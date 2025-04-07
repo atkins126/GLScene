@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Selection;
 
@@ -7,17 +7,17 @@ unit GLS.Selection;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.SysUtils,
   System.Classes,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Context,
   GLS.VectorLists,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.BaseClasses,
   GLS.PersistentClasses;
 

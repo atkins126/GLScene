@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.ObjectManager;
 
 (*
@@ -16,7 +15,7 @@ unit GLS.ObjectManager;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
@@ -26,7 +25,8 @@ uses
   VCL.Menus,
 
   GLS.Scene,
-  GLS.Utils;
+  GLS.ImageUtils,
+  Stage.Utils;
 
 type
   PSceneObjectEntry = ^TGLSceneObjectEntry;

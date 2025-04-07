@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.XCollection;
 
 (* A polymorphism-enabled TCollection-like set of classes *)
@@ -10,14 +9,15 @@ unit GLS.XCollection;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
   System.Types,
-  GLS.Strings,
-  GLS.PersistentClasses
+  GLS.PersistentClasses,
+  Stage.Strings
+
 {$IFDEF DEBUG_XCOLLECTION}, System.TypInfo {$ENDIF};
 
 type
@@ -163,9 +163,7 @@ function GetXCollectionItemClassesList(baseClass: TXCollectionItemClass = nil): 
 procedure GetXCollectionClassesList(var ClassesList: TList;
   baseClass: TXCollectionItemClass = nil);
 
-// ------------------------------------------------------------------
-implementation
-// ------------------------------------------------------------------
+implementation // -------------------------------------------------------------
 
 const
   (* Magic is a workaround that will allow us to know
@@ -742,9 +740,7 @@ begin
     end;
 end;
 
-// ------------------------------------------------------------------
-initialization
-// ------------------------------------------------------------------
+initialization // ------------------------------------------------------------
 
 finalization
 

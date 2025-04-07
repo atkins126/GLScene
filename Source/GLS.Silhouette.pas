@@ -1,36 +1,33 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.Silhouette;
-
 (*
   Enhanced silhouette classes.
   Introduces more evolved/specific silhouette generation and management
   classes.
   CAUTION : both connectivity classes leak memory.
 *)
-
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.VectorLists;
 
 type
-  TGLSilhouetteStyle = (ssOmni, ssParallel);
+  TGSilhouetteStyle = (ssOmni, ssParallel);
 
   (* Silouhette generation parameters.
     SeenFrom and LightDirection are expected in local coordinates. *)
   TGLSilhouetteParameters = packed record
     SeenFrom, LightDirection: TAffineVector;
-    Style: TGLSilhouetteStyle;
+    Style: TGSilhouetteStyle;
     CappingRequired: Boolean;
   end;
 
@@ -120,9 +117,7 @@ type
     destructor Destroy; override;
   end;
 
-// -------------------------------------------------------------
-implementation
-// -------------------------------------------------------------
+implementation // -------------------------------------------------------------
 
 // ------------------
 // ------------------ TGLSilhouette ------------------
@@ -482,5 +477,7 @@ begin
   // Second face
   AddIndexedFace(vi2, Vi3, Vi0);
 end;
+
+//----------------------------------------------------------------------------
 
 end.

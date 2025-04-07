@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.EParticleMasksManager;
 
 (*
@@ -25,7 +24,7 @@ unit GLS.EParticleMasksManager;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Types,
@@ -33,12 +32,13 @@ uses
   System.Classes,
   System.Math,
   VCL.Graphics,
-  
+
+  Stage.VectorGeometry,
+  Stage.VectorTypes,
+
   GLS.Texture,
   GLS.Material,
   GLS.Scene,
-  GLS.VectorGeometry,
-  GLS.VectorTypes,
   GLS.ParticleFX,
   GLS.Coordinates;
 

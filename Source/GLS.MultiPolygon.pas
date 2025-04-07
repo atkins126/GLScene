@@ -1,10 +1,12 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.MultiPolygon;
 
-(* Object with support for complex polygons. 
+(* Object with support for complex polygons.
+   The registered class is:
+      [TGLMultiPolygon]
+
    When the tesselator finds an intersection of edges it wants us to give him some storage
    for this new vertex, and he wants a pointer (see tessCombine). The pointers taken from
    TGLAffineVectorList become invalid after enlarging the capacity (makes a ReAllocMem), which
@@ -17,7 +19,7 @@ unit GLS.MultiPolygon;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -25,13 +27,13 @@ uses
   System.Classes,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.OpenGLAdapter,
-  GLS.Spline,
+  Stage.Spline,
   GLS.XOpenGL,
   GLS.Context,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
   GLS.VectorLists,
   GLS.PersistentClasses,
   GLS.Scene,
@@ -80,7 +82,7 @@ type
 
   TGLContourClass = class of TGLContour;
 
-  TGLContours = class(TGLNotifyCollection)
+  TGLContours = class(TGNotifyCollection)
   private
     function GetItems(index: Integer): TGLContour;
     procedure SetItems(index: Integer; const Value: TGLContour);
@@ -177,7 +179,7 @@ type
     FPageSize: Integer; // number of entries per page
     FArrSize: Integer; // size of one page
     FUsedEntries: Integer; // used entries in actual page
-    FAktArray: GLS.VectorGeometry.PByteArray; // pointer to actual page
+    FAktArray: Stage.VectorGeometry.PByteArray; // pointer to actual page
     procedure CreatePage; // creates new page
   public
     constructor Create(APageSize, AEntrySize: Integer);

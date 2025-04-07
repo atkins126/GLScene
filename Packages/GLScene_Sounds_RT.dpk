@@ -35,15 +35,18 @@ requires
   GLScene_RT;
 
 contains
-  Sounds.FMODImport in '..\Source\Sounds.FMODImport.pas',
-  Sounds.FMODpresets in '..\Source\Sounds.FMODpresets.pas',
-  Sounds.FMODtypes in '..\Source\Sounds.FMODtypes.pas',
-  Sounds.FMODerrors in '..\Source\Sounds.FMODerrors.pas',
-  Sounds.OpenALImport in '..\Source\Sounds.OpenALImport.pas',
-  Sounds.BASS in '..\Source\Sounds.BASS.pas',
-  Sounds.FMOD in '..\Source\Sounds.FMOD.pas',
-  Sounds.OpenAL in '..\Source\Sounds.OpenAL.pas',
-  Sounds.WaveOut in '..\Source\Sounds.WaveOut.pas',
-  Sounds.BASSImport in '..\Source\Sounds.BASSImport.pas';
+  BASS.Import in '..\Src\BASS.Import.pas',
+  GLS.Sounds.FMOD in '..\Source\GLS.Sounds.FMOD.pas',
+  GLS.Sounds.BASS in '..\Source\GLS.Sounds.BASS.pas',
+  GLS.Sounds.OpenAL in '..\Source\GLS.Sounds.OpenAL.pas',
+  GLS.Sounds.WaveOut in '..\Source\GLS.Sounds.WaveOut.pas',
+  FMOD.errors in '..\Src\FMOD.errors.pas',
+  FMOD.Import in '..\Src\FMOD.Import.pas',
+  FMOD.presets in '..\Src\FMOD.presets.pas',
+  FMOD.types in '..\Src\FMOD.types.pas',
+  OpenAL.Import in '..\Src\OpenAL.Import.pas';
 
 end.
+
+
+

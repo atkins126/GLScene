@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit Formats.m3DSTypes;
 
@@ -16,7 +16,7 @@ unit Formats.m3DSTypes;
 
 interface
 
-{.$I GLScene.inc}
+{.$I Stage.Defines.inc}
 
 uses
    System.Classes, // for TStringList

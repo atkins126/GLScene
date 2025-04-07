@@ -1,21 +1,19 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit Formats.GL2;
-
 (*
   Ghoul2 (GLM/GLA) file format loading structures
   Note: Also referred to as MDX (MDXM/MDXA) format in C source.
 *)
-
 interface
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorTypes,
-  GLS.VectorGeometry;
+  Stage.VectorGeometry,
+  Stage.VectorTypes;
 
 type
   TGLMHeader = record
@@ -122,9 +120,8 @@ function G2_GetVertBoneWeight(const vert: TGLMVertex; iWeightNum: Cardinal;
 
 procedure MC_UnCompressQuat(var mat: TGLMatrix; const comp: TGLACompQuatBone);
 
-// ------------------------------------------------------------------
-implementation
-// ------------------------------------------------------------------
+
+implementation // -----------------------------------------------------------
 
 // ------------------
 // ------------------ Misc routines ------------------

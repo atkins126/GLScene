@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Feedback;
 
@@ -17,17 +17,19 @@ unit GLS.Feedback;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
-  GLS.VectorGeometry,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.PipelineTransform,
+
   GLS.PersistentClasses,
-  GLS.PipelineTransformation,
   GLS.VectorLists,
   GLS.Scene,
   GLS.VectorFileObjects,
@@ -35,8 +37,7 @@ uses
   GLS.RenderContextInfo,
   GLS.Context,
   GLS.State,
-  GLS.MeshUtils,
-  GLS.VectorTypes;
+  GLS.MeshUtils;
 
 type
   TGLFeedbackMode = (fm2D, fm3D, fm3DColor, fm3DColorTexture, fm4DColorTexture);

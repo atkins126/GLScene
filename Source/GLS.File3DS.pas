@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.File3DS;
 
@@ -7,25 +7,26 @@ unit GLS.File3DS;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
   System.Math,
+  
+  Stage.Strings,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
 
-  GLS.OpenGLTokens,
-  GLS.Strings,
   GLS.Scene,
   GLS.Objects,
   GLS.VectorFileObjects,
   GLS.Texture,
   GLS.ApplicationFileIO,
-  GLS.VectorGeometry,
   GLS.Context,
   GLS.PersistentClasses,
   GLS.File3DSSceneObjects,
-  GLS.VectorTypes,
   GLS.VectorLists,
   GLS.RenderContextInfo,
   GLS.Material,
@@ -288,7 +289,6 @@ implementation
 const
   cGLFILE3DS_FIXDEFAULTUPAXISY_ROTATIONVALUE = PI / 2;
   CGLFILE3DS_DEFAULT_FRAME = 0;
-
 function AnimKeysClassTypeToClass(const AAnimKeysClassType: TGLFile3DSAnimKeysClassType): TClass;
 begin
   case AAnimKeysClassType of

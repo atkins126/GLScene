@@ -1,25 +1,24 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.PerlinPFX;
 
 (* PFX particle effects revolving around the use of Perlin noise *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
   System.Classes,
   System.Math,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.ParticleFX,
   GLS.Graphics,
-  GLS.VectorTypes,
-  GLS.VectorGeometry;
+  Stage.VectorTypes,
+  Stage.VectorGeometry;
 
 
 const

@@ -1,14 +1,13 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.Navigator;
 
 (* Unit for navigating GLBaseObjects and GLSceneViewer. *)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.Windows,
@@ -20,6 +19,11 @@ uses
   Vcl.Graphics,
   Vcl.Forms,
 
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+  Stage.Keyboard,
+  Stage.TextureFormat,
+
   GLS.Scene,
   GLS.SceneViewer,
   GLS.Objects,
@@ -27,15 +31,11 @@ uses
   GLS.Context,
   GLS.BaseClasses,
   GLS.PersistentClasses,
-  GLS.VectorTypes,
-  GLS.VectorGeometry,
-  GLS.Keyboard,
   GLS.HudObjects,
   GLS.Coordinates,
   GLS.Screen,
   GLS.Material,
   GLS.Texture,
-  GLS.TextureFormat,
   GLS.RenderContextInfo;
 
 type
@@ -944,7 +944,6 @@ end;
 
 // ------------------------------------------------
 initialization
-
 // ------------------------------------------------
 
 sW2 := Screen.Width div 2;

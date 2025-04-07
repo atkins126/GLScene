@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.ShadowHDS;
 
@@ -30,13 +30,13 @@ uses
   System.SysUtils,
   System.Math,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.VectorLists,
   GLS.HeightData,
   GLS.Graphics,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
   GLS.Texture,
-  GLS.VectorTypes,
+  Stage.VectorTypes,
   GLS.Coordinates,
   GLS.Material;
 

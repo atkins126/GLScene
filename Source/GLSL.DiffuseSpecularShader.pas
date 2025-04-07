@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLSL.DiffuseSpecularShader;
 
@@ -22,18 +22,18 @@ unit GLSL.DiffuseSpecularShader;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
   System.SysUtils,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
   GLS.Texture,
   GLS.Scene,
   GLS.PersistentClasses,
-  GLS.VectorGeometry,
-  GLS.Strings,
+  Stage.VectorGeometry,
+  Stage.Strings,
   GLSL.Shader,
   GLSL.CustomShader,
   GLS.Color,

@@ -1,14 +1,16 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.LensFlare;
 
-(* Lens flare object. *)
+(*
+  Lens flare object.
+  Registered components: [TGLLensFlare]
+*)
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -17,20 +19,21 @@ uses
   System.SysUtils,
   System.Math,
 
-  GLS.OpenGLTokens,
-  GLS.Scene,
+  Stage.OpenGLTokens,
   GLS.PersistentClasses,
-  GLS.PipelineTransformation,
-  GLS.VectorGeometry,
+  Stage.VectorGeometry,
+  GLS.BaseClasses,
+  Stage.VectorTypes,
+
+  GLS.Scene,
+  Stage.PipelineTransform,
   GLS.Objects,
   GLS.Context,
   GLS.Color,
-  GLS.BaseClasses,
   GLS.RenderContextInfo,
   GLS.State,
-  GLS.VectorTypes,
-  GLS.Utils,
-  GLS.TextureFormat;
+  Stage.Utils,
+  Stage.TextureFormat;
 
 type
 

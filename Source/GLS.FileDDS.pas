@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.FileDDS;
 
@@ -7,7 +7,7 @@ unit GLS.FileDDS;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -19,14 +19,14 @@ uses
   GLS.Context,
   GLS.Graphics,
   GLS.Texture,
-  GLS.TextureFormat,
+  Stage.VectorGeometry,
+  Stage.TextureFormat,
   GLS.CompositeImage,
   GLS.MultiSampleImage,
-  GLS.RGBE,
+  Stage.RGBE,
   GLS.ApplicationFileIO,
-  GLS.VectorGeometry,
   GLS.Material,
-  GLS.Strings;
+  Stage.Strings;
 
 type
 
@@ -47,7 +47,6 @@ type
       const CurrentFormat: Boolean;
       const IntFormat: TGLInternalFormat); reintroduce;
   end;
-
 
 // get or create material in material library
 function GetOrCreateLibMaterial(aMaterialLibrary: TGLMaterialLibrary;
@@ -77,9 +76,7 @@ var
      low - skipped the first two levels. *)
   vDDSDetailLevel: TGLDDSDetailLevels = ddsHighDet;
 
-//----------------------------------------------------------------------
-implementation
-//----------------------------------------------------------------------
+implementation //------------------------------------------------------------
 
 uses
   Formats.DXTC;

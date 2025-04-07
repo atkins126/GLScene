@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.FileMDC;
 
 (*
@@ -16,7 +15,7 @@ unit GLS.FileMDC;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes, 
@@ -25,7 +24,7 @@ uses
   GLS.VectorFileObjects, 
   GLS.Material, 
   GLS.ApplicationFileIO,
-  GLS.VectorGeometry;
+  Stage.VectorGeometry;
 
 const
   MDCFILE_IDENTITY = 'IDPC';

@@ -1,55 +1,54 @@
-GLScene's
-Developers and contributors
+Contributors and Developers 
+of GLScene & GXScene
 
 ===========================
  
-Aaron Hochwimmer,
-Adirex,
-Airatz,
-Alan Rose,
-Alejandro Leon Escalera,
-Alexandre Hirzel,
-Arvydas Juskevicius,
+Aaron Hochwimmer
+Alan Rose
+Alejandro Leon Escalera
+Alexandre Hirzel
+Alex Vigo
+Arvydas Juskevicius
 Benjamin Rosseaux
-Brian Johns,
-Burkhard Carstens,
-Da Stranger,
-Daniel Bartlett,
-Dave Kerr,
-Degiovani,
-Eric Grange,
-Eric Hardinge,
-Eric Pascual,
-Erick Schuitema,
-Ernst Lehberger, 
+Brian Johns
+Burkhard Carstens
+Da Stranger
+Daniel Bartlett
+Dave Kerr
+Davor Slutej
+Deg Iovani
+Eric Grange
+Eric Hardinge
+Eric Pascual
+Erick Schuitema
+Gregory Bersegeay
+Jerome Delauney
+Joen Joensen
 Ivan Lee Herring,
-Jerome Delauney,
-Joen A. Joensen,
-Joen Joensen,
-Kenneth Poulter,
-Lionel Reynaud,
-Lord Crc,
-Lukasz Sokol,
-Marcus Oblak,
-Matheus Degiovani,
-Mattias Fagerlund,
-Mike Lischke,
-Nakayama Masanori,
-Nelson Chu,
-Pavel Vassiliev,
-Paul van Dinther,
-Peirick,
-Phil Scadden,
-Philipp Pammler,
-Pierre Lemerle,
-Piotr Szturmaj,
-Rene Lindsay,
-Roshal Sasha,
-Rustam Asmandiarov,
-Sandor Domokos,
-Solerman Kaplon,
-Sternas Stefanos,
-Stuart Gooding,
-Uwe Raabe,
-YarUnderoaker,
+Kenneth Poulter
+Leo Koptyaev
+Lionel Reynaud
+Lukasz Sokol
+Marcus Oblak
+Matheus Degiovani
+Mattias Fagerlund
+Mike Lischke
+Nakayama Masanori
+Nelson Chu
+Omar Reis
+Pavel Vassiliev
+Paul van Dinther
+Phil Scadden
+Philipp Pammler
+Pierre Lemerle
+Piotr Szturmaj
+Rene Lindsay
+Roshal Sasha
+Rustam Asmandiarov
+Sandor Domokos
+Sergio Feitosa
+Sternas Stefanos
+Stuart Gooding
+Uwe Raabe
+Yar Underoaker
 Zsolt Laky

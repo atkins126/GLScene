@@ -1,22 +1,24 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Coordinates;
-
-(* Coordinate related classes and functions *)
-
+(*
+  Coordinate related classes and functions.
+  The registered classes are:
+    [TGLCoordinates2, TGLCoordinates3, TGLCoordinates4]
+*)
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Math,
   System.Classes,
   System.SysUtils,
 
-  GLS.VectorGeometry,
-  GLS.VectorTypes,
-  GLS.BaseClasses;
+  Stage.VectorGeometry,
+  GLS.BaseClasses,
+  Stage.VectorTypes;
 
 type
 
@@ -34,7 +36,7 @@ type
     Handles dynamic default values to save resource file space.  *)
   TGLCustomCoordinates = class(TGLUpdateAbleObject)
   private
-   FCoords: TGLVector;
+    FCoords: TGLVector;
     FStyle: TGLCoordinatesStyle; // NOT Persistent
     FPDefaultCoords: PGLVector;
     procedure SetAsPoint2D(const Value: TVector2f);
@@ -225,6 +227,9 @@ procedure Spherical_Cartesian(const r, theta, phi: double; var x, y, z: double;
   Ref: http://mathworld.wolfram.com/SphericalCoordinates.html
   NB: Could be optimised by using jclmath.pas unit *)
 procedure Cartesian_Spherical(const x, y, z: single; var r, theta, phi: single); overload;
+(* Convert Cartesian to Spherical, no checks, single
+  Ref: http://mathworld.wolfram.com/SphericalCoordinates.html
+  NB: Could be optimised by using fastmath.pas unit *)
 procedure Cartesian_Spherical(const v: TAffineVector; var r, theta, phi: single); overload;
 (* convert Cartesian to Spherical, no checks, double
   Ref: http://mathworld.wolfram.com/SphericalCoordinates.html
@@ -246,8 +251,7 @@ procedure ProlateSpheroidal_Cartesian(const xi, eta, phi, a: single;
   the x-axis, which is relabeled the z-axis. The third set of coordinates
   consists of planes passing through this axis.
   The coordinate system is parameterised by parameter a. A default value of a=1 is
-  suggesed:
-  Ref: http://mathworld.wolfram.com/ProlateSpheroidalCoordinates.html *)
+  suggesed: Ref: http://mathworld.wolfram.com/ProlateSpheroidalCoordinates.html *)
 procedure ProlateSpheroidal_Cartesian(const xi, eta, phi, a: double;
   var x, y, z: double); overload;
 (* Convert Prolate-Spheroidal to Cartesian [single](with error check). eta,phi in rad
@@ -307,14 +311,12 @@ var
     their default values (ie. design-time) or not (run-time) *)
   VUseDefaultCoordinateSets: Boolean = False;
 
-//==================================================================
-implementation
-//==================================================================
+implementation //-------------------------------------------------------------
 
 const
-  csVectorHelp = 'If you are getting assertions here, consider using the SetPoint procedure';
-  csPointHelp = 'If you are getting assertions here, consider using the SetVector procedure';
-  csPoint2DHelp = 'If you are getting assertions here, consider using one of the SetVector or SetPoint procedures';
+  csVectorHelp = 'When getting assertions here use the SetPoint procedure';
+  csPointHelp = 'When getting assertions here use the SetVector procedure';
+  csPoint2DHelp = 'When getting assertions here use one of the SetVector or SetPoint procedures';
 
   // ------------------
   // ------------------ TGLCustomCoordinates ------------------
@@ -485,12 +487,12 @@ end;
 
 function TGLCustomCoordinates.VectorLength: Single;
 begin
-  Result := GLS.VectorGeometry.VectorLength(FCoords);
+  Result := Stage.VectorGeometry.VectorLength(FCoords);
 end;
 
 function TGLCustomCoordinates.VectorNorm: Single;
 begin
-  Result := GLS.VectorGeometry.VectorNorm(FCoords);
+  Result := Stage.VectorGeometry.VectorNorm(FCoords);
 end;
 
 function TGLCustomCoordinates.MaxXYZ: Single;
@@ -506,28 +508,28 @@ end;
 procedure TGLCustomCoordinates.SetVector(const X, Y: Single; Z: Single = 0);
 begin
   Assert(FStyle = csVector, csVectorHelp);
-  GLS.VectorGeometry.SetVector(FCoords, X, Y, Z);
+  Stage.VectorGeometry.SetVector(FCoords, X, Y, Z);
   NotifyChange(Self);
 end;
 
 procedure TGLCustomCoordinates.SetVector(const V: TAffineVector);
 begin
   Assert(FStyle = csVector, csVectorHelp);
-  GLS.VectorGeometry.SetVector(FCoords, V);
+  Stage.VectorGeometry.SetVector(FCoords, V);
   NotifyChange(Self);
 end;
 
 procedure TGLCustomCoordinates.SetVector(const V: TGLVector);
 begin
   Assert(FStyle = csVector, csVectorHelp);
-  GLS.VectorGeometry.SetVector(FCoords, V);
+  Stage.VectorGeometry.SetVector(FCoords, V);
   NotifyChange(Self);
 end;
 
 procedure TGLCustomCoordinates.SetVector(const X, Y, Z, W: Single);
 begin
   Assert(FStyle = csVector, csVectorHelp);
-  GLS.VectorGeometry.SetVector(FCoords, X, Y, Z, W);
+  Stage.VectorGeometry.SetVector(FCoords, X, Y, Z, W);
   NotifyChange(Self);
 end;
 
@@ -581,7 +583,7 @@ end;
 procedure TGLCustomCoordinates.SetPoint2D(const X, Y: Single);
 begin
   Assert(FStyle = CsPoint2D, CsPoint2DHelp);
-  GLS.VectorGeometry.MakeVector(FCoords, X, Y, 0);
+  Stage.VectorGeometry.MakeVector(FCoords, X, Y, 0);
   NotifyChange(Self);
 end;
 
@@ -663,7 +665,7 @@ end;
 
 function TGLCustomCoordinates.GetAsAffineVector: TAffineVector;
 begin
-  GLS.VectorGeometry.SetVector(Result, FCoords);
+  Stage.VectorGeometry.SetVector(Result, FCoords);
 end;
 
 function TGLCustomCoordinates.GetAsPoint2D: TVector2f;
@@ -1175,11 +1177,12 @@ begin
   result := (u >= 0) and (V >= 0) and (u + V <= 1);
 end;
 
-
-//=====================================================================
-initialization
-//=====================================================================
+initialization //------------------------------------------------------------
 
 RegisterClasses([TGLCoordinates2, TGLCoordinates3, TGLCoordinates4]);
+
+finalization //--------------------------------------------------------------
+
+// UnRegisterClasses([TGLCoordinates2, TGLCoordinates3, TGLCoordinates4]);
 
 end.

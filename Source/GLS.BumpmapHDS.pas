@@ -1,7 +1,6 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
-
 unit GLS.BumpmapHDS;
 
 (*
@@ -12,7 +11,7 @@ unit GLS.BumpmapHDS;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   System.Classes,
@@ -21,17 +20,18 @@ uses
   System.UITypes,
   Vcl.Graphics,
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
+  Stage.VectorTypes,
+  Stage.VectorGeometry,
+
   GLS.Coordinates,
   GLS.HeightData,
   GLS.Graphics,
   GLS.Color,
-  GLS.VectorTypes,
   GLS.VectorLists,
-  GLS.VectorGeometry,
   GLS.Texture,
   GLS.Material,
-  GLS.Utils;
+  Stage.Utils;
 
 type
 

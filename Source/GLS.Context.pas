@@ -1,5 +1,5 @@
 //
-// The graphics rendering engine GLScene http://glscene.org
+// The graphics engine GLXEngine. The unit of GLScene for Delphi
 //
 unit GLS.Context;
 
@@ -7,7 +7,7 @@ unit GLS.Context;
 
 interface
 
-{$I GLScene.inc}
+{$I Stage.Defines.inc}
 
 uses
   Winapi.OpenGL,
@@ -25,16 +25,17 @@ uses
   GLS.Generics,
 {$ENDIF}
 
-  GLS.OpenGLTokens,
+  Stage.OpenGLTokens,
+  Stage.VectorGeometry,
+  Stage.Strings,
+  Stage.VectorTypes,
+
+  Stage.TextureFormat,
   GLS.OpenGLAdapter,
-  GLS.XOpenGL,
-  GLS.VectorGeometry,
-  GLS.Strings,
-  GLS.VectorTypes,
+  Stage.PipelineTransform,
   GLS.State,
-  GLS.PipelineTransformation,
-  GLS.TextureFormat,
-  GLS.Logger;
+  GLS.XOpenGL,
+  Stage.Logger;
 
 // Buffer ID's for Multiple-Render-Targets (using GL_ATI_draw_buffers)
 const
@@ -112,7 +113,7 @@ type
     Fgl: TGLExtensionsAndEntryPoints;
     Fxgl: TGLMultitextureCoordinator;
     FGLStates: TGLStateCache;
-    FTransformation: TGLTransformation;
+    FTransformation: TGTransformation;
     FAcceleration: TGLContextAcceleration;
     FLayer: TGLContextLayer;
 {$IFNDEF USE_MULTITHREAD}
@@ -135,7 +136,7 @@ type
     destructor Destroy; override;
     // An application-side cache of global per-context OpenGL states and parameters
     property GLStates: TGLStateCache read FGLStates;
-    property PipelineTransformation: TGLTransformation read FTransformation;
+    property PipelineTransformation: TGTransformation read FTransformation;
     // Context manager reference
     property Manager: TGLContextManager read FManager;
     // Color bits for the rendering context
@@ -969,9 +970,7 @@ var
   vMainThread: Boolean;
   GLwithoutContext: TGLExtensionsAndEntryPoints;
 
-// ------------------------------------------------------------------
-implementation
-// ------------------------------------------------------------------
+implementation // ------------------------------------------------------------
 
 {$IFDEF USE_SERVICE_CONTEXT}
 
@@ -1062,7 +1061,7 @@ begin
   FAcceleration := chaUnknown;
   FGLStates := TGLStateCache.Create;
   FGL := TGLExtensionsAndEntryPoints.Create;
-  FTransformation := TGLTransformation.Create;
+  FTransformation := TGTransformation.Create;
   FTransformation.LoadMatricesEnabled := True;
   GLContextManager.RegisterContext(Self);
   FIsPraparationNeed := True;
